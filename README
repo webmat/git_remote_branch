@@ -1,0 +1,10 @@
+This script was originally create by Carl Mercier and made public on his blog here:
+
+No nonsense GIT, part 1: git-remote-branch
+http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/
+
+For now I just want to document the changes I make to it. I'm not sure if I'll keep this alive, it depends on if he wants to keep evolving it in a public git repo :-)
+
+
+Mathieu Martin
+webmat@gmail.com

@@ -1,0 +1,100 @@
+#!/usr/bin/env ruby
+#
+# git-remote-branch 0.1 - 2008-01-25
+# by Carl Mercier (carl@carlmercier.com)
+#
+# This script allows you to easilly create and destroy local and remote 
+# branches at the same time.
+#
+# git-remote-branch create: creates a remote branch from the current branch, 
+#      creates a local tracking branch with the same name and switch to it 
+#      (ie: checkout).
+#
+# git-remote-branch delete: deletes the remote branch then deletes the local
+#      tracking branch.  It won't force a delete if there's pending changes
+#      in your local branch.
+#
+@version = 0.1
+
+def print_welcome
+  puts "git-remote-branch #{@version} - by Carl Mercier (carl@carlmercier.com)"
+  puts "----------------------------------------------------------------------"
+  puts ""
+end
+
+def print_usage
+  puts "Usage:"
+  puts ""
+  puts "git-remote-branch create branch_name origin_server"
+  puts "-or-"
+  puts "git-remote-branch delete branch_name origin_server"
+  puts ""
+  puts "If origin_server is not specified, 'origin' is implied"
+end
+
+def execute_cmd(cmd)
+  cmd.each do |c|
+    puts "Executing: #{c}"
+    `#{c}`
+    puts ""
+  end
+end
+
+def create_branch(branch_name, origin, current_branch)
+  cmd = []
+  cmd << "git push origin #{current_branch}:refs/heads/#{branch_name}"
+  cmd << "git fetch #{origin}"
+  cmd << "git branch --track #{branch_name} #{origin}/#{branch_name}"
+  cmd << "git checkout #{branch_name}"
+  execute_cmd(cmd)
+end
+
+def delete_branch(branch_name, origin, current_branch)
+  cmd = []
+  cmd << "git push #{origin} :refs/heads/#{branch_name}"
+  cmd << "git checkout master" if current_branch == branch_name
+  cmd << "git branch -d #{branch_name}"
+  execute_cmd(cmd)
+end
+
+def get_current_branch
+  x = `git branch -l`
+  x.each_line do |l|
+    return l.sub("*","").strip if l[0] == 42
+  end
+
+  puts "Couldn't identify the current local branch."
+  return nil
+end
+
+def get_action
+  a = ARGV[0].downcase
+  return :create if a == "create" or a == "new"
+  return :delete if a == "delete" or a == "destroy" or a == "kill"
+  return nil
+end
+
+def get_branch
+  ARGV[1].downcase
+end
+
+def get_origin
+  return ARGV[2] if ARGV.size > 2 
+  return "origin"
+end
+
+action = get_action
+branch = get_branch
+origin = get_origin
+current_branch = get_current_branch
+exit if current_branch.nil?
+
+print_welcome
+
+if action == :create
+  create_branch(branch, origin, current_branch)
+elsif action == :delete
+  delete_branch(branch, origin, current_branch)
+else
+  print_usage
+end
