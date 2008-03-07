@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 #
-# git-remote-branch 0.1 - 2008-01-25
+# git-remote-branch 0.2 - 2008-03-07
 # by Carl Mercier (carl@carlmercier.com)
+# updated by Mathieu Martin (webmat@gmail.com)
 #
-# This script allows you to easilly create and destroy local and remote 
+# This script allows you to easily create and destroy local and remote 
 # branches at the same time.
 #
 # git-remote-branch create: creates a remote branch from the current branch, 
@@ -14,7 +15,7 @@
 #      tracking branch.  It won't force a delete if there's pending changes
 #      in your local branch.
 #
-@version = 0.1
+@version = 0.2
 
 def print_welcome
   puts "git-remote-branch #{@version} - by Carl Mercier (carl@carlmercier.com)"
@@ -25,11 +26,11 @@ end
 def print_usage
   puts "Usage:"
   puts ""
-  puts "git-remote-branch create branch_name origin_server"
+  puts "git-remote-branch create branch_name [origin_server]"
   puts "-or-"
-  puts "git-remote-branch delete branch_name origin_server"
+  puts "git-remote-branch delete branch_name [origin_server]"
   puts ""
-  puts "If origin_server is not specified, 'origin' is implied"
+  puts "If origin_server is not specified, 'origin' is assumed"
 end
 
 def execute_cmd(cmd)
@@ -83,18 +84,34 @@ def get_origin
   return "origin"
 end
 
-action = get_action
-branch = get_branch
-origin = get_origin
-current_branch = get_current_branch
-exit if current_branch.nil?
+def read_params
+  p={}
+  begin
+    p[:action] = get_action
+    p[:branch] = get_branch
+    p[:origin] = get_origin
+    p[:current_branch] = get_current_branch
+    p
+  rescue
+    {:action=>:help}
+  end
+end
 
 print_welcome
 
-if action == :create
-  create_branch(branch, origin, current_branch)
-elsif action == :delete
-  delete_branch(branch, origin, current_branch)
+p = read_params
+
+if p[:action] == :help
+  print_usage
+  exit
+end
+
+exit if p[:current_branch].nil?
+
+if p[:action] == :create
+  create_branch(p[:branch], p[:origin], p[:current_branch])
+elsif p[:action] == :delete
+  delete_branch(p[:branch], p[:origin], p[:current_branch])
 else
   print_usage
 end
