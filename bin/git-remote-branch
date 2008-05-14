@@ -62,6 +62,11 @@ def delete_branch(branch_name, origin, current_branch)
   execute_cmd(cmd)
 end
 
+def track_branch(branch_name, origin)
+  cmd = ["git branch --track #{branch_name} #{origin}/#{branch_name}"]
+  execute_cmd(cmd)
+end
+
 def get_current_branch
   x = `git branch -l`
   x.each_line do |l|
@@ -74,8 +79,9 @@ end
 
 def get_action
   a = ARGV[0].downcase
-  return :create if a == "create" or a == "new"
-  return :delete if a == "delete" or a == "destroy" or a == "kill"
+  return :create if %w{create new}.include?(a)
+  return :delete if %w{delete destroy kill}.include?(a)
+  return :track  if %w{track follow}.include?(a)
   return nil
 end
 
@@ -110,12 +116,16 @@ if p[:action] == :help
   exit
 end
 
+#TODO error message here, exit 1
 exit if p[:current_branch].nil?
 
-if p[:action] == :create
-  create_branch(p[:branch], p[:origin], p[:current_branch])
-elsif p[:action] == :delete
-  delete_branch(p[:branch], p[:origin], p[:current_branch])
-else
-  print_usage
+case p[:action]
+  when :create
+    create_branch(p[:branch], p[:origin], p[:current_branch])
+  when :delete
+    delete_branch(p[:branch], p[:origin], p[:current_branch])
+  when :track
+    track_branch(p[:branch], p[:origin])
+  else
+    print_usage
 end
