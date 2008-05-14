@@ -15,22 +15,26 @@
 #      tracking branch.  It won't force a delete if there's pending changes
 #      in your local branch.
 #
-@version = 0.2
+GRB_VERSION = 0.2
 
 def print_welcome
-  puts "git-remote-branch #{@version} - by Carl Mercier (carl@carlmercier.com)"
+  puts "git-remote-branch #{GRB_VERSION} - by Carl Mercier (carl@carlmercier.com)"
   puts "----------------------------------------------------------------------"
   puts ""
 end
 
 def print_usage
-  puts "Usage:"
-  puts ""
-  puts "git-remote-branch create branch_name [origin_server]"
-  puts "-or-"
-  puts "git-remote-branch delete branch_name [origin_server]"
-  puts ""
-  puts "If origin_server is not specified, 'origin' is assumed"
+  puts <<-HELP
+Usage:
+
+git-remote-branch create branch_name [origin_server]
+-or-
+git-remote-branch delete branch_name [origin_server]
+-or-
+git-remote-branch track branch_name [origin_server]
+
+If origin_server is not specified, the name 'origin' is assumed
+HELP
 end
 
 def execute_cmd(cmd)
