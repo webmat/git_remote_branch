@@ -1,3 +1,4 @@
+- Put in evidence the tutorial part of each grb action
 - tests :-)
 - Add verification if remote delete didn't work
 - Remotizing an existing local branch
@@ -7,4 +8,3 @@
   git checkout master
   git branch --track -f branch_name origin/branch_name
   (yay! we don't have to delete the local one...)
-- Totorialize each grb command: list (and explain?) each git command that was run on the behalf of the user.
