@@ -1,20 +1,3 @@
-#!/usr/bin/env ruby
-#
-# git-remote-branch 0.2 - 2008-03-07
-# by Carl Mercier (carl@carlmercier.com)
-# updated by Mathieu Martin (webmat@gmail.com)
-#
-# This script allows you to easily create and destroy local and remote 
-# branches at the same time.
-#
-# git-remote-branch create: creates a remote branch from the current branch, 
-#      creates a local tracking branch with the same name and switch to it 
-#      (ie: checkout).
-#
-# git-remote-branch delete: deletes the remote branch then deletes the local
-#      tracking branch.  It won't force a delete if there's pending changes
-#      in your local branch.
-#
 GRB_VERSION = 0.2
 
 def print_welcome
@@ -38,7 +21,14 @@ HELP
 end
 
 def execute_cmd(cmd)
-  cmd.each do |c|
+  res, out, err = steal_pipes do
+                                `#{cmd}`
+                              end
+  return res, out, err
+end
+
+def execute_cmds(*cmds)
+  cmds.flatten.each do |c|
     puts "Executing: #{c}"
     `#{c}`
     puts ""
@@ -51,7 +41,7 @@ def create_branch(branch_name, origin, current_branch)
   cmd << "git fetch #{origin}"
   cmd << "git branch --track #{branch_name} #{origin}/#{branch_name}"
   cmd << "git checkout #{branch_name}"
-  execute_cmd(cmd)
+  execute_cmds(cmd)
 end
 
 def delete_branch(branch_name, origin, current_branch)
@@ -59,12 +49,12 @@ def delete_branch(branch_name, origin, current_branch)
   cmd << "git push #{origin} :refs/heads/#{branch_name}"
   cmd << "git checkout master" if current_branch == branch_name
   cmd << "git branch -d #{branch_name}"
-  execute_cmd(cmd)
+  execute_cmds(cmd)
 end
 
 def track_branch(branch_name, origin)
   cmd = ["git branch --track #{branch_name} #{origin}/#{branch_name}"]
-  execute_cmd(cmd)
+  execute_cmds(cmd)
 end
 
 def get_current_branch
@@ -105,27 +95,4 @@ def read_params
   rescue
     {:action=>:help}
   end
-end
-
-print_welcome
-
-p = read_params
-
-if p[:action] == :help
-  print_usage
-  exit
-end
-
-#TODO error message here, exit 1
-exit if p[:current_branch].nil?
-
-case p[:action]
-  when :create
-    create_branch(p[:branch], p[:origin], p[:current_branch])
-  when :delete
-    delete_branch(p[:branch], p[:origin], p[:current_branch])
-  when :track
-    track_branch(p[:branch], p[:origin])
-  else
-    print_usage
 end
