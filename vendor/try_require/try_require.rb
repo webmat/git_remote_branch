@@ -1,3 +1,5 @@
+# This is a very early version of try_require. 
+# See github.com/webmat/try_require for more info.
 def try_require(what, &block)
   loaded, require_result = false, nil 
 

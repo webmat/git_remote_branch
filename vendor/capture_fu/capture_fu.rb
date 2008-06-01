@@ -1,3 +1,5 @@
+# This is a very early version of capture_fu. 
+# See github.com/webmat/capture_fu for more info.
 module CaptureFu
   VERSION = '0.0.1'
 
