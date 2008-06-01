@@ -1,8 +1,9 @@
-require File.join(File.dirname(__FILE__), 'test_helper')
+require File.join( File.dirname(__FILE__), '..', 'test_helper')
 
 class GitHelperTest < Test::Unit::TestCase
   
   def setup
+    super
     @g = GitHelper.new
     @directories = [@g.remote, @g.local1, @g.local2]
   end
