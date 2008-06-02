@@ -1,10 +1,69 @@
-This script was originally created by Carl Mercier and made public on his blog here:
+Why git_remote_branch?
+
+The basic idea for git_remote_branch is to trivialize the interaction with 
+remote branches in simple situations.
+Things we mean by 'simple situations':
+- The local and remote name are the same
+
+Another goal of git_remote_branch is to help teach the real underlying git 
+commands. Each operation done on your behalf is displayed at the console.
+
+
+
+Installation
+
+(Not yet published as a gem)
+(gem install webmat-git_remote_branch --source=http://gems.github.com)
+
+
+
+Usage
+
+Notes: 
+- parts between brackets are optional
+- When 'origin_server' is not specified, the name 'origin' is assumed.
+
+$ grb [-h]    #=> Displays help
+
+Available commands (with aliases):
+
+create (alias: new)
+Create a new local branch as well as a corresponding remote branch.
+Automatically track the new remote branch (useful for pulling and merging).
+Switch to the new branch.
+
+$ grb create branch_name [origin_server]
+
+
+delete (aliases: destroy, kill)
+Delete the remote branch then delete the local branch.
+The local branch is not deleted if there are pending changes.
+
+$ grb delete branch_name [origin_server]
+
+
+track (aliases: follow grab)
+Track an existing remote branch locally.
+
+
+$ grb track branch_name [origin_server]
+
+
+
+History
+
+This script was originally created by Carl Mercier and made public on his blog 
+here:
 
 No nonsense GIT, part 1: git-remote-branch
 http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/
 
-For now I just want to document the changes I make to it. I'm not sure if I'll keep this alive, it depends on if he wants to keep evolving it in a public git repo :-)
+For now I just want to document the changes I make to it. I'm not sure if I'll 
+keep this alive, it depends on if he wants to keep evolving it himself in a 
+public repo.
 
 
-Mathieu Martin
-webmat@gmail.com
+
+Contributors
+- Mathieu Martin  webmat@gmail.com
+- Carl Mercier    (Carl: want your email here?)
