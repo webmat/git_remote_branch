@@ -13,7 +13,7 @@ try_require 'redgreen'
 try_require 'ruby-debug'
 
 require File.join(test_dir, 'git_helper')
-require File.join( [test_dir] + %w{ .. lib git-remote-branch} )
+require File.join( [test_dir] + %w{ .. lib git_remote_branch} )
 
 class Test::Unit::TestCase
 

@@ -2,6 +2,7 @@ require 'fileutils'
 require 'tmpdir'
 
 class GitHelper
+  include FileUtils
   @@WORK_DIR = 'repo_test'
   
   attr_reader :remote, :local1, :local2
@@ -15,13 +16,13 @@ class GitHelper
   end
   
   def cleanup
-    FileUtils.rm_rf @wd
+    rm_rf @wd
   end
   
   protected
   def get_temp_dir
     #Note: it's NOT a good idea to do this stuff un a subdirectory of the 
-    #git-remote-branch repo. Trust me :-)
+    #git_remote_branch repo. Trust me :-)
     wd = File.expand_path( File.join( Dir::tmpdir, @@WORK_DIR) )
     Dir.mkdir wd unless File.exists? wd
     

@@ -1,26 +1,10 @@
 #!/usr/bin/env ruby
-#
-# git-remote-branch 0.2 - 2008-03-07
-# by Carl Mercier (carl@carlmercier.com)
-# updated by Mathieu Martin (webmat@gmail.com)
-#
-# This script allows you to easily create and destroy local and remote 
-# branches at the same time.
-#
-# git-remote-branch create: creates a remote branch from the current branch, 
-#      creates a local tracking branch with the same name and switch to it 
-#      (ie: checkout).
-#
-# git-remote-branch delete: deletes the remote branch then deletes the local
-#      tracking branch.  It won't force a delete if there's pending changes
-#      in your local branch.
-#
 
-require File.expand_path( "#{File.dirname(__FILE__)}/../lib/git-remote-branch" )
+# Check out the README (or try grb -h) before you screw up your repos ;-)
+
+require File.expand_path( File.join( [File.dirname(__FILE__)] + %w{ .. lib git_remote_branch } ) )
 
 print_welcome
-
-p = read_params
 
 if p[:action] == :help
   print_usage

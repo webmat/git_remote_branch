@@ -1,20 +1,25 @@
-GRB_VERSION = 0.2
+GRB_VERSION = '0.2.0'
+
+CMD_ALIASES = {
+  :create => %w{create new},
+  :delete => %w{delete destroy kill},
+  :track  => %w{track follow grab},
+}
+
 
 def print_welcome
-  puts "git-remote-branch #{GRB_VERSION} - by Carl Mercier (carl@carlmercier.com)"
-  puts "----------------------------------------------------------------------"
-  puts ""
+  puts "git_remote_branch version #{GRB_VERSION}", '-' * 70, ''
 end
 
 def print_usage
   puts <<-HELP
 Usage:
 
-git-remote-branch create branch_name [origin_server]
+git_remote_branch create branch_name [origin_server]
 -or-
-git-remote-branch delete branch_name [origin_server]
+git_remote_branch delete branch_name [origin_server]
 -or-
-git-remote-branch track branch_name [origin_server]
+git_remote_branch track branch_name [origin_server]
 
 If origin_server is not specified, the name 'origin' is assumed
 HELP
@@ -69,9 +74,9 @@ end
 
 def get_action
   a = ARGV[0].downcase
-  return :create if %w{create new}.include?(a)
-  return :delete if %w{delete destroy kill}.include?(a)
-  return :track  if %w{track follow}.include?(a)
+  return :create if CMD_ALIASES[:create].include?(a)
+  return :delete if CMD_ALIASES[:delete].include?(a)
+  return :track  if CMD_ALIASES[:track].include?(a)
   return nil
 end
 
