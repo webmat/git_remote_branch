@@ -3,16 +3,22 @@
 # Check out the README (or try grb -h) before you screw up your repos ;-)
 
 require File.expand_path( File.join( [File.dirname(__FILE__)] + %w{ .. lib git_remote_branch } ) )
+include GitRemoteBranch
 
 print_welcome
 
+p = read_params
+
 if p[:action] == :help
   print_usage
-  exit
+  exit 0
 end
 
-#TODO error message here, exit 1
-exit if p[:current_branch].nil?
+if p[:current_branch].nil?
+  puts 'You must specify a branch'
+  print_usage
+  exit 1
+end
 
 case p[:action]
   when :create
@@ -23,4 +29,5 @@ case p[:action]
     track_branch(p[:branch], p[:origin])
   else
     print_usage
+    exit 1
 end

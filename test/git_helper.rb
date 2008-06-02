@@ -3,6 +3,8 @@ require 'tmpdir'
 
 class GitHelper
   include FileUtils
+  include GitRemoteBranch
+
   @@WORK_DIR = 'repo_test'
   
   attr_reader :remote, :local1, :local2
