@@ -3,8 +3,8 @@ module GitRemoteBranch
 
   CMD_ALIASES = {
     :create => %w{create new},
-    :delete => %w{delete destroy kill},
-    :track  => %w{track follow grab},
+    :delete => %w{delete destroy kill remove},
+    :track  => %w{track follow grab fetch},
   }
 
   def print_welcome
@@ -22,6 +22,10 @@ module GitRemoteBranch
   git_remote_branch track branch_name [origin_server]
   
   If origin_server is not specified, the name 'origin' is assumed
+  
+  All commands also have aliases:
+  #{ CMD_ALIASES.keys.map{|k| k.to_s}.sort.map {|k| 
+    "#{k}: #{CMD_ALIASES[k.to_sym].join(', ')}" }.join("\n  ") }
   HELP
   end
 

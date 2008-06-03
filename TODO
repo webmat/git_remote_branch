@@ -1,4 +1,5 @@
 - Put in evidence the tutorial part of each grb action
+  - colorize the git commands
   - Add 'explain' / 'show' command
 - tests :-)
 - re-architect the code a bit?
