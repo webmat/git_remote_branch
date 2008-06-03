@@ -1,5 +1,5 @@
 module GitRemoteBranch
-  GRB_VERSION = '0.2.0'
+  VERSION = '0.2.1'
 
   CMD_ALIASES = {
     :create => %w{create new},
@@ -8,7 +8,7 @@ module GitRemoteBranch
   }
 
   def print_welcome
-    puts "git_remote_branch version #{GRB_VERSION}", '-' * 70, ''
+    puts "git_remote_branch version #{VERSION}", '-' * 70, ''
   end
 
   def print_usage
