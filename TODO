@@ -1,6 +1,7 @@
 - Put in evidence the tutorial part of each grb action
   - colorize the git commands
   - Add 'explain' / 'show' command
+- --reveal-secrets command. Instead of using grb, one can just see what the list of commands are for accomplishing a given task.
 - tests :-)
 - re-architect the code a bit?
 - better exit status behavior
