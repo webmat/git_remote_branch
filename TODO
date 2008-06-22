@@ -14,31 +14,4 @@
     git checkout master
     git branch --track -f branch_name origin/branch_name
     (yay! we don't have to delete the local one...)
-- make into a gem?
-  - that installs a grb command in the path?
 
-Fix that problem:
-  mathieu@ml code (master)$ grbd follow aaron
-  git_remote_branch version 0.2.1
-  ----------------------------------------------------------------------
-
-  Executing: git branch --track aaron origin/aaron
-  fatal: Not a valid object name: 'origin/aaron'.
-
-
-  mathieu@ml code (master)$ git fetch
-  remote: Counting objects: 87, done.
-  remote: Compressing objects: 100% (45/45), done.
-  remote: Total 51 (delta 13), reused 40 (delta 5)
-  Unpacking objects: 100% (51/51), done.
-  From git@github.com:webmat/priv_repo
-   * [new branch]      aaron      -> origin/aaron
-
-  mathieu@ml code (master)$ grbd follow aaron
-  git_remote_branch version 0.2.1
-  ----------------------------------------------------------------------
-
-  Executing: git branch --track aaron origin/aaron
-
-
-  

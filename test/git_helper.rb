@@ -4,7 +4,7 @@ require 'tmpdir'
 # Instantiating a GitHelper object creates a temp directory containing 3 repos.
 # 1 that's considered the remote repo and 2 peer local repos (local1 and local2).
 # All 3 are synchronized with the same data (they contain a few dummy files).
-# Once instantiated you can access the 3 full repo locations with attribute readers
+# Once instantiated you can access the 3 full repo locations through attribute readers
 # remote, local1 and local2.
 class GitHelper
   include FileUtils

@@ -62,7 +62,9 @@ module GitRemoteBranch
   end
 
   def track_branch(branch_name, origin)
-    cmd = ["git branch --track #{branch_name} #{origin}/#{branch_name}"]
+    cmd = [
+      "git fetch #{origin}",
+      "git branch --track #{branch_name} #{origin}/#{branch_name}"]
     execute_cmds(cmd)
   end
 
