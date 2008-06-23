@@ -3,9 +3,15 @@ module GitRemoteBranch
     p={}
     p[:explain] = explain_mode!(argv)
     p[:action] = get_action(argv[0])
-    p[:branch] = get_branch(argv[1], p[:explain])
+    p[:branch] = get_branch(argv[1])
     p[:origin] = get_origin(argv[2])
     p[:current_branch] = get_current_branch
+
+    #If in explain mode, the user doesn't have to specify a branch to get the explanation
+    p[:branch] ||= "branch_to_#{p[:action]}" if [:explain]
+
+    #TODO Some validation on the params
+
     p
   end
 
@@ -26,15 +32,10 @@ module GitRemoteBranch
     return nil
   end
 
-  def get_branch(branch, explain_mode=false)
-    #If in explain mode, the user doesn't have to specify a branch to get the explanation
-    if explain_mode
-      branch || 'your_new_branch'
-    else
-      branch
-    end
+  def get_branch(branch)
+    branch
   end
-
+  
   def get_origin(origin)
     return origin || 'origin'
   end

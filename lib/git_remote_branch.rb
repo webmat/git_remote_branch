@@ -67,7 +67,7 @@ module GitRemoteBranch
   def explain_action(action, branch_name, origin, current_branch)
     cmds = COMMANDS[action][:commands].map{ |c| eval(c) }.compact
     
-    puts "Here's the list of operations you need to do to #{COMMANDS[action][:description]}:", ''
+    puts "List of operations to do to #{COMMANDS[action][:description]}:", ''
     puts_cmd cmds
     puts ''
   end
