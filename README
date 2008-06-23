@@ -1,12 +1,12 @@
 ==== Why git_remote_branch? ====
 
-The basic idea for git_remote_branch is to trivialize the interaction with 
+The basic idea for git_remote_branch is to trivialize the interaction with
 remote branches in simple situations. 
 
-For now git_remote_branch assumes that the local and remote branches have the 
+For now git_remote_branch assumes that the local and remote branches have the
 same name. Multiple origins are supported.
 
-Another goal of git_remote_branch is to help teach the real underlying git 
+Another goal of git_remote_branch is to help teach the real underlying git
 commands. Each operation done on your behalf is displayed at the console.
 
 
@@ -57,10 +57,38 @@ Track an existing remote branch locally.
 $ grb track branch_name [origin_server]
 
 
+== explain ==
+
+All commands can be prepended by the word 'explain'.  Instead of executing the
+command, git_remote_branch will simply output the list of commands you need to
+run to accomplish that goal.
+Examples: 
+
+$ grb explain create
+git_remote_branch version 0.2.2
+
+List of operations to do to create a new remote branch and track it locally:
+
+git push origin master:refs/heads/branch_to_create
+git fetch origin
+git branch --track branch_to_create origin/branch_to_create
+git checkout branch_to_create
+
+
+$ grb explain create my_branch github
+git_remote_branch version 0.2.2
+
+List of operations to do to create a new remote branch and track it locally:
+
+git push github master:refs/heads/my_branch
+git fetch github
+git branch --track my_branch github/my_branch
+git checkout my_branch
+
 
 ==== History ====
 
-This script was originally created by Carl Mercier and made public on his blog 
+This script was originally created by Carl Mercier and made public on his blog
 here:
 
 No nonsense GIT, part 1: git-remote-branch

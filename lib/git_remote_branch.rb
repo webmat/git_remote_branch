@@ -58,6 +58,11 @@ module GitRemoteBranch
 
   If origin_server is not specified, the name 'origin' is assumed (git's default)
   
+  The explain meta-command: you can also prepend any command with the keyword 'explain'. Instead of executing the command, git_remote_branch will simply output the list of commands you need to run to accomplish that goal.
+  Example: 
+    grb explain create
+    grb explain create my_branch github
+  
   All commands also have aliases:
   #{ COMMANDS.keys.map{|k| k.to_s}.sort.map {|cmd| 
     "#{cmd}: #{COMMANDS[cmd.to_sym][:aliases].join(', ')}" }.join("\n  ") }
