@@ -3,7 +3,7 @@
 # Check out the README (or try 'grb help') before you screw up your repos ;-)
 
 require "#{File.dirname(__FILE__)}/../lib/git_remote_branch"
-require 'ruby-debug'
+
 include GitRemoteBranch
 
 print_welcome

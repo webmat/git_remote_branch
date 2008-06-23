@@ -8,7 +8,7 @@ module GitRemoteBranch
     p[:current_branch] = get_current_branch
 
     #If in explain mode, the user doesn't have to specify a branch to get the explanation
-    p[:branch] ||= "branch_to_#{p[:action]}" if [:explain]
+    p[:branch] ||= "branch_to_#{p[:action]}" if p[:explain]
 
     #TODO Some validation on the params
 
