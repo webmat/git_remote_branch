@@ -1,14 +1,15 @@
-require 'rubygems'
-require 'ruby-debug'
+$LOAD_PATH.unshift( File.dirname(__FILE__) )
+require 'param_reader'
 
 module GitRemoteBranch
   VERSION = '0.2.1'
 
   COMMANDS = {
     :create     => {
+      :description => 'create a new remote branch and track it locally',
       :aliases  => %w{create new},
       :commands => [
-        '"git push origin #{current_branch}:refs/heads/#{branch_name}"',
+        '"git push #{origin} #{current_branch}:refs/heads/#{branch_name}"',
         '"git fetch #{origin}"',
         '"git branch --track #{branch_name} #{origin}/#{branch_name}"',
         '"git checkout #{branch_name}"'
@@ -16,6 +17,7 @@ module GitRemoteBranch
     },
 
     :delete     => {
+      :description => 'delete a local and a remote branch',
       :aliases  => %w{delete destroy kill remove},
       :commands => [
         '"git push #{origin} :refs/heads/#{branch_name}"',
@@ -25,9 +27,11 @@ module GitRemoteBranch
     },
 
     :track      => {
+      :description => 'track an existing remote branch',
       :aliases  => %w{track follow grab fetch},
       :commands => [
         '"git fetch #{origin}"',
+        '"git checkout master" if current_branch == branch_name',
         '"git branch --track #{branch_name} #{origin}/#{branch_name}"'
       ]
     }
@@ -55,65 +59,30 @@ module GitRemoteBranch
   HELP
   end
 
+  def execute_action(action, branch_name, origin, current_branch)
+    cmds = COMMANDS[action][:commands].map{ |c| eval(c) }.compact
+    execute_cmds(cmds)
+  end
+
+  def explain_action(action, branch_name, origin, current_branch)
+    cmds = COMMANDS[action][:commands].map{ |c| eval(c) }.compact
+    
+    puts "Here's the list of operations you need to do to #{COMMANDS[action][:description]}:", ''
+    puts_cmd cmds
+    puts ''
+  end
+
   def execute_cmds(*cmds)
     cmds.flatten.each do |c|
-      puts "Executing: #{c}"
+      puts_cmd c
       `#{c}`
-      puts ""
+      puts ''
     end
   end
 
-  def create(branch_name, origin, current_branch)
-    cmds = COMMANDS[:create][:commands].map{|c| eval(c) }
-    execute_cmds(cmds)
-  end
-
-  def delete(branch_name, origin, current_branch)
-    cmds = COMMANDS[:delete][:commands].map{|c| eval(c) }
-    execute_cmds(cmds)
-  end
-
-  def track(branch_name, origin)
-    cmds = COMMANDS[:track][:commands].map{|c| eval(c) }
-    execute_cmds(cmds)
-  end
-
-  def get_current_branch
-    x = `git branch -l`
-    x.each_line do |l|
-      return l.sub("*","").strip if l =~ /\A\*/
+  def puts_cmd(*cmds)
+    cmds.flatten.each do |c|
+      puts "#{c}"
     end
-
-    puts "Couldn't identify the current local branch."
-    return nil
-  end
-
-  def get_action
-    a = ARGV[0].downcase
-    return :create if COMMANDS[:create][:aliases].include?(a)
-    return :delete if COMMANDS[:delete][:aliases].include?(a)
-    return :track  if COMMANDS[:track][:aliases].include?(a)
-    return nil
-  end
-
-  def get_branch
-    ARGV[1].downcase
-  end
-
-  def get_origin
-    return ARGV[2] if ARGV.size > 2 
-    return "origin"
-  end
-
-  def read_params
-    p={}
-    p[:action] = get_action
-    p[:branch] = get_branch
-    p[:origin] = get_origin
-    p[:current_branch] = get_current_branch
-    p
-    rescue
-      puts "Invalid parameters"
-      {:action=>:help}
   end
 end

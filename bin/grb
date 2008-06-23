@@ -2,32 +2,24 @@
 
 # Check out the README (or try grb -h) before you screw up your repos ;-)
 
-require File.expand_path( File.join( [File.dirname(__FILE__)] + %w{ .. lib git_remote_branch } ) )
+require 'rubygems'
+require 'ruby-debug'
+
+require "#{File.dirname(__FILE__)}/../lib/git_remote_branch"
+
 include GitRemoteBranch
 
 print_welcome
 
-p = read_params
+p = read_params(ARGV)
 
 if p[:action] == :help
   print_usage
   exit 0
 end
 
-if p[:current_branch].nil?
-  puts 'Unable to determine current branch'
-  print_usage
-  exit 1
-end
-
-case p[:action]
-  when :create
-    create(p[:branch], p[:origin], p[:current_branch])
-  when :delete
-    delete(p[:branch], p[:origin], p[:current_branch])
-  when :track
-    track(p[:branch], p[:origin])
-  else
-    print_usage
-    exit 1
+if p[:explain]
+  explain_action(p[:action], p[:branch], p[:origin], p[:current_branch])
+else
+  execute_action(p[:action], p[:branch], p[:origin], p[:current_branch])
 end
