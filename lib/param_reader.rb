@@ -1,10 +1,10 @@
 module GitRemoteBranch
   def read_params(argv)
     p={}
-    p[:explain] = explain_mode!(argv)
-    p[:action] = get_action(argv[0])
-    p[:branch] = get_branch(argv[1])
-    p[:origin] = get_origin(argv[2])
+    p[:explain]        = explain_mode!(argv)
+    p[:action]         = get_action(argv[0]) || :help
+    p[:branch]         = get_branch(argv[1])
+    p[:origin]         = get_origin(argv[2])
     p[:current_branch] = get_current_branch
 
     #If in explain mode, the user doesn't have to specify a branch to get the explanation
@@ -16,7 +16,7 @@ module GitRemoteBranch
   end
 
   def explain_mode!(argv)
-    if argv[0].downcase == 'explain'
+    if argv[0].to_s.downcase == 'explain'
       argv.shift
       true
     else
@@ -25,7 +25,7 @@ module GitRemoteBranch
   end
 
   def get_action(action)
-    a = action.downcase
+    a = action.to_s.downcase
     return :create if COMMANDS[:create][:aliases].include?(a)
     return :delete if COMMANDS[:delete][:aliases].include?(a)
     return :track  if COMMANDS[:track][:aliases].include?(a)

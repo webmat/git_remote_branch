@@ -43,7 +43,7 @@ module GitRemoteBranch
   }
 
   def print_welcome
-    puts "git_remote_branch version #{VERSION}", '-' * 70, ''
+    puts "git_remote_branch version #{VERSION}", ''
   end
 
   def print_usage
