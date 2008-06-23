@@ -13,7 +13,7 @@ commands. Each operation done on your behalf is displayed at the console.
 
 ==== Installation ====
 
-gem install webmat-git_remote_branch --source=http://gems.github.com
+sudo gem install webmat-git_remote_branch --source=http://gems.github.com
 
 Note: don't add gems.github.com as a permanent source for your gems. Check out
 http://gems.github.com for more information on the matter. If you've included 
