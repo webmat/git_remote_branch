@@ -13,8 +13,7 @@ Gem::Specification.new do |s|
 
   s.test_files  = %w{test/git_helper.rb test/test_helper.rb test/unit/git_helper_test.rb}
   s.files       = %w{Rakefile README TODO bin/grb 
-                  lib/git_remote_branch.rb lib/param_reader.rb
-                  vendor/capture_fu/capture_fu.rb} + 
+                  lib/git_remote_branch.rb lib/param_reader.rb} + 
                   s.test_files
   s.bindir      = 'bin'
   s.executables = ['grb']

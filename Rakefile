@@ -43,6 +43,9 @@ namespace :gem do
 
   desc "Uninstall the .gem"
   task :uninstall do
-    `#{SUDO} gem uninstall #{NAME}`
+    cmd = "#{SUDO} gem uninstall #{NAME}"
+    #TODO fix this crap
+    puts cmd, '  (Note: execute manually if more than one version is installed)'
+    `#{cmd}`
   end
 end
