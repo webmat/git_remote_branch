@@ -1,10 +1,36 @@
+require 'rubygems'
+require 'ruby-debug'
+
 module GitRemoteBranch
   VERSION = '0.2.1'
 
-  CMD_ALIASES = {
-    :create   => %w{create new},
-    :delete   => %w{delete destroy kill remove},
-    :track    => %w{track follow grab fetch},
+  COMMANDS = {
+    :create     => {
+      :aliases  => %w{create new},
+      :commands => [
+        '"git push origin #{current_branch}:refs/heads/#{branch_name}"',
+        '"git fetch #{origin}"',
+        '"git branch --track #{branch_name} #{origin}/#{branch_name}"',
+        '"git checkout #{branch_name}"'
+      ]
+    },
+
+    :delete     => {
+      :aliases  => %w{delete destroy kill remove},
+      :commands => [
+        '"git push #{origin} :refs/heads/#{branch_name}"',
+        '"git checkout master" if current_branch == branch_name',
+        '"git branch -d #{branch_name}"'
+      ]
+    },
+
+    :track      => {
+      :aliases  => %w{track follow grab fetch},
+      :commands => [
+        '"git fetch #{origin}"',
+        '"git branch --track #{branch_name} #{origin}/#{branch_name}"'
+      ]
+    }
   }
 
   def print_welcome
@@ -24,8 +50,8 @@ module GitRemoteBranch
   If origin_server is not specified, the name 'origin' is assumed (git's default)
   
   All commands also have aliases:
-  #{ CMD_ALIASES.keys.map{|k| k.to_s}.sort.map {|k| 
-    "#{k}: #{CMD_ALIASES[k.to_sym].join(', ')}" }.join("\n  ") }
+  #{ COMMANDS.keys.map{|k| k.to_s}.sort.map {|cmd| 
+    "#{cmd}: #{COMMANDS[cmd.to_sym][:aliases].join(', ')}" }.join("\n  ") }
   HELP
   end
 
@@ -38,33 +64,24 @@ module GitRemoteBranch
   end
 
   def create(branch_name, origin, current_branch)
-    cmd = []
-    cmd << "git push origin #{current_branch}:refs/heads/#{branch_name}"
-    cmd << "git fetch #{origin}"
-    cmd << "git branch --track #{branch_name} #{origin}/#{branch_name}"
-    cmd << "git checkout #{branch_name}"
-    execute_cmds(cmd)
+    cmds = COMMANDS[:create][:commands].map{|c| eval(c) }
+    execute_cmds(cmds)
   end
 
   def delete(branch_name, origin, current_branch)
-    cmd = []
-    cmd << "git push #{origin} :refs/heads/#{branch_name}"
-    cmd << "git checkout master" if current_branch == branch_name
-    cmd << "git branch -d #{branch_name}"
-    execute_cmds(cmd)
+    cmds = COMMANDS[:delete][:commands].map{|c| eval(c) }
+    execute_cmds(cmds)
   end
 
   def track(branch_name, origin)
-    cmd = [
-      "git fetch #{origin}",
-      "git branch --track #{branch_name} #{origin}/#{branch_name}"]
-    execute_cmds(cmd)
+    cmds = COMMANDS[:track][:commands].map{|c| eval(c) }
+    execute_cmds(cmds)
   end
 
   def get_current_branch
     x = `git branch -l`
     x.each_line do |l|
-      return l.sub("*","").strip if l[0] == 42
+      return l.sub("*","").strip if l =~ /\A\*/
     end
 
     puts "Couldn't identify the current local branch."
@@ -73,9 +90,9 @@ module GitRemoteBranch
 
   def get_action
     a = ARGV[0].downcase
-    return :create if CMD_ALIASES[:create].include?(a)
-    return :delete if CMD_ALIASES[:delete].include?(a)
-    return :track  if CMD_ALIASES[:track].include?(a)
+    return :create if COMMANDS[:create][:aliases].include?(a)
+    return :delete if COMMANDS[:delete][:aliases].include?(a)
+    return :track  if COMMANDS[:track][:aliases].include?(a)
     return nil
   end
 
@@ -90,14 +107,13 @@ module GitRemoteBranch
 
   def read_params
     p={}
-    begin
-      p[:action] = get_action
-      p[:branch] = get_branch
-      p[:origin] = get_origin
-      p[:current_branch] = get_current_branch
-      p
+    p[:action] = get_action
+    p[:branch] = get_branch
+    p[:origin] = get_origin
+    p[:current_branch] = get_current_branch
+    p
     rescue
+      puts "Invalid parameters"
       {:action=>:help}
-    end
   end
 end

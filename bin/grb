@@ -15,7 +15,7 @@ if p[:action] == :help
 end
 
 if p[:current_branch].nil?
-  puts 'You must specify a branch'
+  puts 'Unable to determine current branch'
   print_usage
   exit 1
 end
