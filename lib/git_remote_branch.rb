@@ -1,8 +1,13 @@
-$LOAD_PATH.unshift( File.dirname(__FILE__) )
+grb_app_root = File.expand_path( File.dirname(__FILE__) + '/..' )
+
+require 'rubygems'
+require 'colored'
+
+$LOAD_PATH.unshift( grb_app_root + '/lib' )
 require 'param_reader'
 
 module GitRemoteBranch
-  VERSION = '0.2.1'
+  VERSION = '0.2.2'
 
   COMMANDS = {
     :create     => {
@@ -66,7 +71,7 @@ module GitRemoteBranch
 
   def explain_action(action, branch_name, origin, current_branch)
     cmds = COMMANDS[action][:commands].map{ |c| eval(c) }.compact
-    
+
     puts "List of operations to do to #{COMMANDS[action][:description]}:", ''
     puts_cmd cmds
     puts ''
@@ -82,7 +87,7 @@ module GitRemoteBranch
 
   def puts_cmd(*cmds)
     cmds.flatten.each do |c|
-      puts "#{c}"
+      puts "#{c}".red
     end
   end
 end

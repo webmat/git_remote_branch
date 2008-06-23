@@ -2,9 +2,6 @@
 
 # Check out the README (or try grb -h) before you screw up your repos ;-)
 
-require 'rubygems'
-require 'ruby-debug'
-
 require "#{File.dirname(__FILE__)}/../lib/git_remote_branch"
 
 include GitRemoteBranch

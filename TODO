@@ -1,5 +1,3 @@
-- Put in evidence the tutorial part of each grb action
-  - colorize the git commands
 - tests :-)
 - better exit status behavior
 - Add verification if remote delete didn't work
