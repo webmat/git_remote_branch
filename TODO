@@ -14,4 +14,5 @@
     git checkout master
     git branch --track -f branch_name origin/branch_name
     (yay! we don't have to delete the local one...)
-
+- add support for different remote name (--remote-name)
+- avoid deleting local branches when tracking with the help of git-config ?

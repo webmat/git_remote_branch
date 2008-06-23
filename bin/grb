@@ -22,11 +22,11 @@ end
 
 case p[:action]
   when :create
-    create_branch(p[:branch], p[:origin], p[:current_branch])
+    create(p[:branch], p[:origin], p[:current_branch])
   when :delete
-    delete_branch(p[:branch], p[:origin], p[:current_branch])
+    delete(p[:branch], p[:origin], p[:current_branch])
   when :track
-    track_branch(p[:branch], p[:origin])
+    track(p[:branch], p[:origin])
   else
     print_usage
     exit 1

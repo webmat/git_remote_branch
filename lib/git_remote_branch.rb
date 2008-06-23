@@ -2,9 +2,9 @@ module GitRemoteBranch
   VERSION = '0.2.1'
 
   CMD_ALIASES = {
-    :create => %w{create new},
-    :delete => %w{delete destroy kill remove},
-    :track  => %w{track follow grab fetch},
+    :create   => %w{create new},
+    :delete   => %w{delete destroy kill remove},
+    :track    => %w{track follow grab fetch},
   }
 
   def print_welcome
@@ -15,25 +15,18 @@ module GitRemoteBranch
     puts <<-HELP
   Usage:
 
-  git_remote_branch create branch_name [origin_server]
-  -or-
-  git_remote_branch delete branch_name [origin_server]
-  -or-
-  git_remote_branch track branch_name [origin_server]
-  
-  If origin_server is not specified, the name 'origin' is assumed
+  grb create branch_name [origin_server]
+
+  grb delete branch_name [origin_server]
+
+  grb track branch_name [origin_server]
+
+  If origin_server is not specified, the name 'origin' is assumed (git's default)
   
   All commands also have aliases:
   #{ CMD_ALIASES.keys.map{|k| k.to_s}.sort.map {|k| 
     "#{k}: #{CMD_ALIASES[k.to_sym].join(', ')}" }.join("\n  ") }
   HELP
-  end
-
-  def execute_cmd(cmd)
-    res, out, err = steal_pipes do
-                                  `#{cmd}`
-                                end
-    return res, out, err
   end
 
   def execute_cmds(*cmds)
@@ -44,7 +37,7 @@ module GitRemoteBranch
     end
   end
 
-  def create_branch(branch_name, origin, current_branch)
+  def create(branch_name, origin, current_branch)
     cmd = []
     cmd << "git push origin #{current_branch}:refs/heads/#{branch_name}"
     cmd << "git fetch #{origin}"
@@ -53,7 +46,7 @@ module GitRemoteBranch
     execute_cmds(cmd)
   end
 
-  def delete_branch(branch_name, origin, current_branch)
+  def delete(branch_name, origin, current_branch)
     cmd = []
     cmd << "git push #{origin} :refs/heads/#{branch_name}"
     cmd << "git checkout master" if current_branch == branch_name
@@ -61,7 +54,7 @@ module GitRemoteBranch
     execute_cmds(cmd)
   end
 
-  def track_branch(branch_name, origin)
+  def track(branch_name, origin)
     cmd = [
       "git fetch #{origin}",
       "git branch --track #{branch_name} #{origin}/#{branch_name}"]
