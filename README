@@ -43,14 +43,14 @@ Switch to the new branch.
 $ grb create branch_name [origin_server]
 
 
-== delete (aliases: destroy, kill) ==
+== delete (aliases: destroy, kill, remove) ==
 Delete the remote branch then delete the local branch.
 The local branch is not deleted if there are pending changes.
 
 $ grb delete branch_name [origin_server]
 
 
-== track (aliases: follow grab) ==
+== track (aliases: follow grab fetch) ==
 Track an existing remote branch locally.
 
 
