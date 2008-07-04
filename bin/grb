@@ -20,3 +20,4 @@ if p[:explain]
 else
   execute_action(p[:action], p[:branch], p[:origin], p[:current_branch])
 end
+
