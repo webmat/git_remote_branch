@@ -30,7 +30,7 @@ module GitRemoteBranch
         '"git branch --track #{branch_name} #{origin}/#{branch_name}"',
         '"git checkout #{branch_name}"',
         '"git push #{origin} :refs/heads/#{current_branch}"',
-        '"git branch -D #{current_branch}"',
+        '"git branch -d #{current_branch}"',
       ]
     },
 
