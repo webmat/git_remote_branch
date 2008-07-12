@@ -53,8 +53,16 @@ $ grb delete branch_name [origin_server]
 == track (aliases: follow grab fetch) ==
 Track an existing remote branch locally.
 
-
 $ grb track branch_name [origin_server]
+
+
+== rename (aliases: rn, mv, move) ==
+Rename the remote branch by copying and deleting the old name.
+Checkout a new local tracking branch with the new name and delete the branch
+with the old name.
+branch_name is the new name, the old name is always the current branch's
+
+$ grb rename branch_name [origin_server]
 
 
 == explain ==
