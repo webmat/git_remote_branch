@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'git_remote_branch'
-  s.version     = '0.2.2'
+  s.version     = '0.2.3'
   s.summary     = "git_remote_branch eases the interaction with remote branches"
 
   s.add_dependency( 'colored', '>= 1.1' )
