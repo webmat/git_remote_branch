@@ -21,6 +21,19 @@ module GitRemoteBranch
       ]
     },
 
+    :rename     => {
+      :description => 'rename a remote branch and its local tracking branch',
+      :aliases  => %w{ rn mv move },
+      :commands => [
+        '"git push #{origin} #{current_branch}:refs/heads/#{branch_name}"',
+        '"git fetch #{origin}"',
+        '"git branch --track #{branch_name} #{origin}/#{branch_name}"',
+        '"git checkout #{branch_name}"',
+        '"git push #{origin} :refs/heads/#{current_branch}"',
+        '"git branch -D #{current_branch}"',
+      ]
+    },
+
     :delete     => {
       :description => 'delete a local and a remote branch',
       :aliases  => %w{delete destroy kill remove},
@@ -53,6 +66,8 @@ module GitRemoteBranch
   grb create branch_name [origin_server]
 
   grb delete branch_name [origin_server]
+
+  grb rename branch_name [origin_server]
 
   grb track branch_name [origin_server]
 
