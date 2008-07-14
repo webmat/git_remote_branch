@@ -29,6 +29,7 @@ module GitRemoteBranch
     return :create if COMMANDS[:create][:aliases].include?(a)
     return :delete if COMMANDS[:delete][:aliases].include?(a)
     return :track  if COMMANDS[:track][:aliases].include?(a)
+    return :rename if COMMANDS[:rename][:aliases].include?(a)
     return nil
   end
 
