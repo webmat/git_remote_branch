@@ -36,7 +36,7 @@ module GitRemoteBranch
 
     :delete     => {
       :description => 'delete a local and a remote branch',
-      :aliases  => %w{delete destroy kill remove},
+      :aliases  => %w{delete destroy kill remove rm},
       :commands => [
         '"git push #{origin} :refs/heads/#{branch_name}"',
         '"git checkout master" if current_branch == branch_name',
