@@ -7,7 +7,7 @@ $LOAD_PATH.unshift( grb_app_root + '/lib' )
 require 'param_reader'
 
 module GitRemoteBranch
-  VERSION = '0.2.3'
+  VERSION = '0.2.4'
 
   COMMANDS = {
     :create     => {
