@@ -55,12 +55,12 @@ module GitRemoteBranch
     }
   }
 
-  def print_welcome
-    puts "git_remote_branch version #{VERSION}", ''
+  def get_welcome
+    "git_remote_branch version #{VERSION}\n\n"
   end
 
-  def print_usage
-    puts <<-HELP
+  def get_usage
+    return <<-HELP
   Usage:
 
   grb create branch_name [origin_server]

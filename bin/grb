@@ -7,12 +7,12 @@ require "#{File.dirname(THIS_FILE)}/../lib/git_remote_branch"
 
 include GitRemoteBranch
 
-print_welcome
+puts get_welcome
 
 p = read_params(ARGV)
 
 if p[:action] == :help
-  print_usage
+  puts get_usage
   exit 0
 end
 
