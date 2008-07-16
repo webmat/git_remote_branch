@@ -3,7 +3,14 @@ require 'test/unit'
 
 test_dir = File.dirname(__FILE__)
 
-require 'redgreen'
+# Install the non-Rails shoulda gem with 'gem install Shoulda'
+# Notice the capitalization in the name.
+require 'shoulda'
+
+# Just load redgreen if not running tests from TextMate
+IN_TM = !ENV['TM_DIRECTORY'].nil?
+require 'redgreen' unless IN_TM
+
 require 'ruby-debug'
 
 require File.join(test_dir, 'git_helper')
