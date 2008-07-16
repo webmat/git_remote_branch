@@ -1,4 +1,5 @@
 - tests :-)
+- displaying help shouldn't need grb to execute in a git working dir...
 - better exit status behavior
 - Add verification if remote delete didn't work
 - New functionality:
