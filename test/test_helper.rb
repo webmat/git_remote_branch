@@ -6,6 +6,7 @@ test_dir = File.dirname(__FILE__)
 # Install the non-Rails shoulda gem with 'gem install Shoulda'
 # Notice the capitalization in the name.
 require 'shoulda'
+require 'mocha'
 
 # Just load redgreen if not running tests from TextMate
 IN_TM = !ENV['TM_DIRECTORY'].nil?
