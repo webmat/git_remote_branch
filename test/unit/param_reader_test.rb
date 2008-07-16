@@ -30,7 +30,7 @@ class GitRemoteBranchUnitTest < Test::Unit::TestCase
             assert @p[:branch]
           end
           
-          should "set get the real current branch name" do
+          should "set the real current branch name" do
             assert_equal 'stubbed_current_branch', @p[:current_branch]
           end
         end
