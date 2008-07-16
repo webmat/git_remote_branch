@@ -1,6 +1,6 @@
 require File.join( File.dirname(__FILE__), '..', 'test_helper')
 
-class GitRemoteBranchTest < Test::Unit::TestCase
+class GitRemoteBranchUnitTest < Test::Unit::TestCase
   include GitRemoteBranch
   
   context 'help' do
