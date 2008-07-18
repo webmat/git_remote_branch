@@ -1,15 +1,14 @@
 - tests :-)
-- displaying help shouldn't need grb to execute in a git working dir...
+- offer help when branch -d fails
 - better exit status behavior
 - Add verification if remote delete didn't work
 - New functionality:
   - Remotize an existing local branch (aliases: publish share make_remote makeremote)
     git push origin branch_name:refs/heads/branch_name
     git fetch origin
-    (find a local branch other than the branch to remotize)
-    git checkout master
-    git branch --track -f branch_name origin/branch_name
-    (yay! we don't have to delete the local one...)
+    git config branch.branch_name.remote origin
+    git config branch.branch_name.merge refs/heads/branch_name
+    
 - add support for different remote name (--remote-name)
 - avoid deleting local branches when tracking with the help of git-config ?
 
