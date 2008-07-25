@@ -50,6 +50,46 @@ class ParamReaderTest < Test::Unit::TestCase
     end
   end
   
+  def self.should_explain_with_current_branch(current_branch_value, current_branch_explanation)
+    context "on an 'explain' command" do
+      context "with no information provided other than the action" do
+        setup do
+          @p = grb.read_params %w{explain create}
+        end
+        
+        should_set_explain_to         true
+        should_set_action_to          :create
+        should_set_origin_to          'origin'
+        
+        context current_branch_explanation do
+          should_set_current_branch_to  current_branch_value
+        end
+        
+        should "set a dummy new branch name" do
+          assert @p[:branch]
+        end
+      end
+      
+      context "with all information provided" do
+        setup do
+          @p = grb.read_params %w{explain create specific_branch specific_origin}
+        end
+        
+        should_set_explain_to         true
+        should_set_action_to          :create
+        should_set_current_branch_to  current_branch_value
+        
+        should "set the origin to 'specific_origin'" do
+          assert_equal 'specific_origin', @p[:origin]
+        end
+        
+        should "set the specified branch name" do
+          assert_equal 'specific_branch', @p[:branch]
+        end
+      end
+    end
+  end
+  
   context 'read_params' do
     context "when on a valid branch" do
       setup do
@@ -80,43 +120,7 @@ class ParamReaderTest < Test::Unit::TestCase
         should_set_explain_to false
       end
 
-      context "on an 'explain' command" do
-        context "with no information provided other than the action" do
-          setup do
-            @p = grb.read_params %w{explain create}
-          end
-          
-          should_set_explain_to         true
-          should_set_action_to          :create
-          should_set_current_branch_to  'stubbed_current_branch'
-          
-          should "default to origin 'origin'" do
-            assert_equal 'origin', @p[:origin]
-          end
-          
-          should "set a dummy new branch name" do
-            assert @p[:branch]
-          end
-        end
-        
-        context "with all information provided" do
-          setup do
-            @p = grb.read_params %w{explain create specific_branch specific_origin}
-          end
-          
-          should_set_explain_to         true
-          should_set_action_to          :create
-          should_set_current_branch_to  'stubbed_current_branch'
-          
-          should "set the origin to 'specific_origin'" do
-            assert_equal 'specific_origin', @p[:origin]
-          end
-          
-          should "set the specified branch name" do
-            assert_equal 'specific_branch', @p[:branch]
-          end
-        end
-      end
+      should_explain_with_current_branch 'stubbed_current_branch', "use real current branch"
       
       should_return_help_for_parameters %w(help), "on a 'help' command"
       should_return_help_for_parameters %w(create), "on an incomplete command"
