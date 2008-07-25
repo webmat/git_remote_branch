@@ -43,12 +43,7 @@ module GitRemoteBranch
   end
 
   def get_action(action)
-    a = action.to_s.downcase
-    return :create if COMMANDS[:create][:aliases].include?(a)
-    return :delete if COMMANDS[:delete][:aliases].include?(a)
-    return :track  if COMMANDS[:track][:aliases].include?(a)
-    return :rename if COMMANDS[:rename][:aliases].include?(a)
-    return nil
+    ALIAS_REVERSE_MAP[action.to_s.downcase]
   end
 
   def get_branch(branch)

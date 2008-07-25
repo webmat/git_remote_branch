@@ -54,7 +54,25 @@ module GitRemoteBranch
       ]
     }
   }
-
+  
+  private
+  def self.get_reverse_mapping(commands)
+    h={}
+    commands.each_pair do |cmd, params|
+      params[:aliases].each do |alias_|
+        unless h[alias_]
+          h[alias_] = cmd
+        else
+          raise "Duplicate aliases: #{alias_.inspect} already defined for command #{h[alias_].inspect}"
+        end
+      end
+    end
+    h
+  end
+  
+  ALIAS_REVERSE_MAP = get_reverse_mapping(COMMANDS)
+  
+  public
   def get_welcome
     "git_remote_branch version #{VERSION}\n\n"
   end
