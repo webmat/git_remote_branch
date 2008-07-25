@@ -21,6 +21,18 @@ module GitRemoteBranch
       ]
     },
 
+    :publish     => {
+      :description => 'publish an exiting local branch',
+      :aliases  => %w{publish remotize},
+      :commands => [
+        '"git push #{origin} #{branch_name}:refs/heads/#{branch_name}"',
+        '"git fetch #{origin}"',
+        '"git config branch.#{branch_name}.remote #{origin}"',
+        '"git config branch.#{branch_name}.merge refs/heads/#{branch_name}"',
+        '"git checkout #{branch_name}"'
+      ]
+    },
+
     :rename     => {
       :description => 'rename a remote branch and its local tracking branch',
       :aliases  => %w{rename rn mv move},
