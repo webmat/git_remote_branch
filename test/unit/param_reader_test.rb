@@ -18,7 +18,7 @@ class ParamReaderTest < Test::Unit::TestCase
   %w(explain action branch origin current_branch).each do |action|
     self.instance_eval(%Q!
       def self.should_set_#{action}_to(#{action}_value)
-        should "set explain to #{action}" do
+        should "set #{action} to #{ '#{' }#{ action }_value}" do
           assert_equal #{action}_value, @p[:#{action}]
         end
       end
@@ -26,7 +26,7 @@ class ParamReaderTest < Test::Unit::TestCase
   end
   # In other words, create a bunch of helpers like:
   # def self.should_set_explain_to(explain_value)
-  #   should "set explain to #{explain}" do
+  #   should "set explain to #{explain_value}" do
   #     assert_equal explain_value, @p[:explain]
   #   end
   # end
