@@ -19,6 +19,26 @@ class ParamReaderTest < Test::Unit::TestCase
     end
   end
   
+  def self.should_return_help_for_parameters(params, context_explanation)
+    context context_explanation do
+      setup do
+        @p = grb.read_params params
+      end
+      
+      should "not even get to checking the current_branch" do
+        grb.expects(:get_current_branch).never
+        grb.read_params ['help']
+      end
+      
+      should "not set other options in the returned hash" do
+        assert_array_content [:action, :explain], @p.keys
+      end
+      
+      should_set_action_to :help
+      should_set_explain_to false
+    end
+  end
+  
   context 'read_params' do
     context "when on a valid branch" do
       setup do
@@ -62,23 +82,11 @@ class ParamReaderTest < Test::Unit::TestCase
           end
         end
       end
-      context "on a 'help' command" do
-        setup do
-          @p = grb.read_params ['help']
-        end
-
-        should "not even get to checking the current_branch" do
-          grb.expects(:get_current_branch).never
-          grb.read_params ['help']
-        end
-        
-        should_set_action_to :help
-      end
+      
+      should_return_help_for_parameters %w(help), "on a 'help' command"
+      should_return_help_for_parameters %w(decombobulate something), "on an invalid command"
       
       context "on normal valid command" do
-      end
-      
-      context "on an invalid command" do
       end
     end
   end
