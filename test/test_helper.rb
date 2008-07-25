@@ -14,18 +14,16 @@ require 'redgreen' unless IN_TM
 
 require 'ruby-debug'
 
-require File.join(test_dir, 'git_helper')
+Dir[test_dir+'/helpers/**/*.rb'].each{|f| require f} 
+
 require File.join( [test_dir] + %w{ .. lib git_remote_branch} )
 
 class Test::Unit::TestCase
+  include MoreAssertions
+
   attr_reader :grb
   def setup
     @grb = Object.new
     @grb.send :extend, GitRemoteBranch
-  end
-  
-  def assert_false(condition, message = nil)
-    message = "assert_false failed" unless message
-    assert condition == false, message
   end
 end
