@@ -1,14 +1,12 @@
-grb_app_root = File.expand_path( File.dirname(__FILE__) + '/..' )
-
 require 'rubygems'
 require 'colored'
 
+grb_app_root = File.expand_path( File.dirname(__FILE__) + '/..' )
 $LOAD_PATH.unshift( grb_app_root + '/lib' )
 require 'param_reader'
+require 'version'
 
 module GitRemoteBranch
-  VERSION = '0.2.4'
-
   COMMANDS = {
     :create     => {
       :description => 'create a new remote branch and track it locally',
