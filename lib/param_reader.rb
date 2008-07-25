@@ -1,7 +1,7 @@
 module GitRemoteBranch
   def read_params(argv)
     #TODO Some validation on the params
-
+    
     p={}
     p[:explain]        = explain_mode!(argv)
     p[:action]         = get_action(argv[0]) || :help

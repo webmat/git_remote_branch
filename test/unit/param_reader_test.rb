@@ -1,8 +1,6 @@
 require File.join( File.dirname(__FILE__), '..', 'test_helper')
 
 class ParamReaderTest < Test::Unit::TestCase
-  include GitRemoteBranch
-  
   def self.should_set_explain_to(truth)
     should "set explain to #{truth}" do
       assert_equal truth, @p[:explain]
@@ -24,13 +22,13 @@ class ParamReaderTest < Test::Unit::TestCase
   context 'read_params' do
     context "when on a valid branch" do
       setup do
-        stubs(:get_current_branch).returns('stubbed_current_branch')
+        grb.stubs(:get_current_branch).returns('stubbed_current_branch')
       end
       
       context "on an 'explain' command" do
         context "with no information provided other than the action" do
           setup do
-            @p = read_params %w{explain create}
+            @p = grb.read_params %w{explain create}
           end
           
           should_set_explain_to         true
@@ -48,7 +46,7 @@ class ParamReaderTest < Test::Unit::TestCase
         
         context "with all information provided" do
           setup do
-            @p = read_params %w{explain create specific_branch specific_origin}
+            @p = grb.read_params %w{explain create specific_branch specific_origin}
           end
           
           should_set_explain_to         true
@@ -64,8 +62,17 @@ class ParamReaderTest < Test::Unit::TestCase
           end
         end
       end
-      
       context "on a 'help' command" do
+        setup do
+          @p = grb.read_params ['help']
+        end
+
+        should "not even get to checking the current_branch" do
+          grb.expects(:get_current_branch).never
+          grb.read_params ['help']
+        end
+        
+        should_set_action_to :help
       end
       
       context "on normal valid command" do
@@ -83,15 +90,15 @@ class ParamReaderTest < Test::Unit::TestCase
       end
 
       should "return true" do
-        assert explain_mode!(@array)
+        assert grb.explain_mode!(@array)
       end
 
       should 'accept symbol arrays as well' do
-        assert explain_mode!( @array.map{|e| e.to_sym} )
+        assert grb.explain_mode!( @array.map{|e| e.to_sym} )
       end
 
       should "remove 'explain' from the argument array" do
-        explain_mode!(@array)
+        grb.explain_mode!(@array)
         assert_equal ['create', 'some_branch'], @array
       end
     end
@@ -102,35 +109,36 @@ class ParamReaderTest < Test::Unit::TestCase
       end
 
       should "return false" do
-        assert_false explain_mode!(@array)
+        assert_false grb.explain_mode!(@array)
       end
 
       should "not modify the argument array" do
-        explain_mode!(@array)
+        grb.explain_mode!(@array)
         assert_equal ['create', 'some_branch'], @array
       end
     end
   end
   
   context 'get_action' do
-    COMMANDS.each_pair do |cmd, params|
+    GitRemoteBranch::COMMANDS.each_pair do |cmd, params|
       should "recognize all #{cmd} aliases" do
         params[:aliases].each do |alias_|
-          assert cmd, get_action(alias_) 
+          assert cmd, grb.get_action(alias_) 
         end
       end
     end
     should 'return nil on unknown aliases' do
-      assert_nil get_action('please_dont_create_an_alias_named_like_this')
+      assert_nil grb.get_action('please_dont_create_an_alias_named_like_this')
     end  
   end
 
   context 'get_origin' do
     should "default to 'origin' when the param is nil" do
-      assert_equal 'origin', get_origin(nil)
+      assert_equal 'origin', grb.get_origin(nil)
     end
     should "return the unchanged param if it's not nil" do
-      assert_equal 'someword', get_origin('someword')
+      assert_equal 'someword', grb.get_origin('someword')
     end
   end
+
 end
