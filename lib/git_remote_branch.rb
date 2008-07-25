@@ -23,7 +23,7 @@ module GitRemoteBranch
 
     :rename     => {
       :description => 'rename a remote branch and its local tracking branch',
-      :aliases  => %w{ rn mv move },
+      :aliases  => %w{rename rn mv move},
       :commands => [
         '"git push #{origin} #{current_branch}:refs/heads/#{branch_name}"',
         '"git fetch #{origin}"',

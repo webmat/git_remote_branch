@@ -132,6 +132,37 @@ class ParamReaderTest < Test::Unit::TestCase
       setup do
         grb.stubs(:`).returns(BRANCH_LISTING_WHEN_NOT_ON_BRANCH)
       end
+      
+      GitRemoteBranch::COMMANDS.each_key do |action|
+        context "running the '#{action}' command" do
+          setup do
+            @command = [action.to_s, 'branch_name']
+          end
+          
+          should "raise an InvalidBranchError" do
+            ex = assert_raise(GitRemoteBranch::InvalidBranchError) do
+              grb.read_params(@command)
+            end
+          end
+
+          context "raising an exception" do
+            setup do
+              begin
+                grb.read_params(@command)
+              rescue => @ex
+              end
+            end
+            
+            should "give a clear error message" do
+              assert_match %r{identify.*branch}, @ex.message
+            end
+            
+            should "display git's branch listing" do
+              assert_match %r{\(no branch\)}, @ex.message
+            end
+          end
+        end
+      end
      
       should_explain_with_current_branch 'current_branch', "use a dummy value for the current branch"
       
