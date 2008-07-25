@@ -1,6 +1,6 @@
 require File.join( File.dirname(__FILE__), '..', 'test_helper')
 
-class GitRemoteBranchUnitTest < Test::Unit::TestCase
+class GitRemoteBranchTest < Test::Unit::TestCase
   context 'help' do
     should 'contain examples for all basic commands' do
       GitRemoteBranch::COMMANDS.keys.each do |k|

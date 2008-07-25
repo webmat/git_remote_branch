@@ -11,18 +11,19 @@ class GitHelper
 
   @@WORK_DIR = 'repo_test'
   
-  attr_reader :remote, :local1, :local2
+  attr_reader :remote, :local1, :local2, :non_git
   
   def initialize
-    @wd = get_temp_dir
+    @common_directory = get_temp_dir
     
-    @remote = init_repo(@wd, 'remote')
-    @local1 = clone_repo(@remote, @wd, 'local1')
-    @local2 = clone_repo(@remote, @wd, 'local2')
+    @remote  = init_repo(@common_directory, 'remote')
+    @local1  = clone_repo(@remote, @common_directory, 'local1')
+    @local2  = clone_repo(@remote, @common_directory, 'local2')
+    @non_git = File.join(@common_directory, 'non_git')
   end
   
   def cleanup
-    rm_rf @wd
+    rm_rf @common_directory
   end
   
   protected
@@ -37,6 +38,7 @@ class GitHelper
     begin
       new_dir = File.join( wd, "#{rand(10000)}" )
       Dir.mkdir new_dir
+      Dir.mkdir File.join( new_dir, 'non_git' )
     rescue
       retry
     end

@@ -26,17 +26,4 @@ class Test::Unit::TestCase
     @grb = Object.new
     @grb.send :extend, GitRemoteBranch
   end
-  
-  def self.on_a_new_repo
-    context "on a new repository" do
-      setup do
-        @g = GitHelper.new
-      end
-      teardown do
-        @g.cleanup
-      end
-      
-      yield
-    end
-  end
 end
