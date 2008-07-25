@@ -1,5 +1,18 @@
 require File.join( File.dirname(__FILE__), '..', 'test_helper')
 
+REGULAR_BRANCH_LISTING = <<-STR
+  other_user/master
+* stubbed_current_branch
+  rubyforge
+STR
+
+BRANCH_LISTING_WHEN_NOT_ON_BRANCH = <<-STR
+* (no branch)
+  other_user/master
+  master
+  rubyforge
+STR
+
 class ParamReaderTest < Test::Unit::TestCase
   # Excuse my french but:
   %w(explain action branch origin current_branch).each do |action|
@@ -17,7 +30,6 @@ class ParamReaderTest < Test::Unit::TestCase
   #     assert_equal explain_value, @p[:explain]
   #   end
   # end
-  
 
   def self.should_return_help_for_parameters(params, context_explanation)
     context context_explanation do
@@ -41,7 +53,7 @@ class ParamReaderTest < Test::Unit::TestCase
   context 'read_params' do
     context "when on a valid branch" do
       setup do
-        grb.stubs(:get_current_branch).returns('stubbed_current_branch')
+        grb.stubs(:`).returns(REGULAR_BRANCH_LISTING)
       end
       
       context "on a normal valid command without an origin" do
