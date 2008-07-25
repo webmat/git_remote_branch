@@ -81,14 +81,10 @@ module GitRemoteBranch
     return <<-HELP
   Usage:
 
-  grb create branch_name [origin_server]
-
-  grb delete branch_name [origin_server]
-
-  grb rename branch_name [origin_server]
-
-  grb track branch_name [origin_server]
-
+  #{[:create, :publish, :rename, :delete, :track].map{|action|
+      "  grb #{action} branch_name [origin_server] \n\n"
+    }  
+  }
   If origin_server is not specified, the name 'origin' is assumed (git's default)
   
   The explain meta-command: you can also prepend any command with the keyword 'explain'. Instead of executing the command, git_remote_branch will simply output the list of commands you need to run to accomplish that goal.
