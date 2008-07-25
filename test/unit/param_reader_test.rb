@@ -1,36 +1,24 @@
 require File.join( File.dirname(__FILE__), '..', 'test_helper')
 
 class ParamReaderTest < Test::Unit::TestCase
-  def self.should_set_explain_to(truth)
-    should "set explain to #{truth}" do
-      assert_equal truth, @p[:explain]
-    end
+  # Excuse my french but:
+  %w(explain action branch origin current_branch).each do |action|
+    self.instance_eval(%Q!
+      def self.should_set_#{action}_to(#{action}_value)
+        should "set explain to #{action}" do
+          assert_equal #{action}_value, @p[:#{action}]
+        end
+      end
+    !)
   end
+  # In other words, create a bunch of helpers like:
+  # def self.should_set_explain_to(explain_value)
+  #   should "set explain to #{explain}" do
+  #     assert_equal explain_value, @p[:explain]
+  #   end
+  # end
   
-  def self.should_set_action_to(action)
-    should "set the action to #{action}" do
-      assert_equal action, @p[:action]
-    end
-  end
-  
-  def self.should_set_branch_to(branch)
-    should "set the branch to #{branch}" do
-      assert_equal branch, @p[:branch]
-    end
-  end
-  
-  def self.should_set_origin_to(origin)
-    should "set the origin to #{origin}" do
-      assert_equal origin, @p[:origin]
-    end
-  end
-  
-  def self.should_set_current_branch_to(branch)
-    should "set the current_branch to #{branch}" do
-      assert_equal branch, @p[:current_branch]
-    end
-  end
-  
+
   def self.should_return_help_for_parameters(params, context_explanation)
     context context_explanation do
       setup do
