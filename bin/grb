@@ -9,7 +9,12 @@ include GitRemoteBranch
 
 puts get_welcome
 
-p = read_params(ARGV)
+begin
+  p = read_params(ARGV)
+rescue InvalidBranchError => ex
+  puts ex.message
+  exit 1
+end
 
 if p[:action] == :help
   puts get_usage

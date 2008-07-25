@@ -25,6 +25,7 @@ class ParamReaderTest < Test::Unit::TestCase
     !)
   end
   # In other words, create a bunch of helpers like:
+  # 
   # def self.should_set_explain_to(explain_value)
   #   should "set explain to #{explain_value}" do
   #     assert_equal explain_value, @p[:explain]

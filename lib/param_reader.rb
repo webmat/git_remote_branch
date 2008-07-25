@@ -59,12 +59,19 @@ module GitRemoteBranch
     return origin || 'origin'
   end
 
+  private
+  BRANCH_LISTING_COMMAND = 'git branch -l'.freeze
+  
+  public
   def get_current_branch
     #This is sensitive to checkouts of branches specified with wrong case
-    x = `git branch -l`
+    
+    x = `#{BRANCH_LISTING_COMMAND}`
     x.each_line do |l|
       return l.sub("*","").strip if l =~ /\A\*/ and not l =~ /\(no branch\)/
     end
-    raise "Couldn't identify the current local branch."
+    raise InvalidBranchError, ["Couldn't identify the current local branch. The branch listing was:",
+      BRANCH_LISTING_COMMAND.red, 
+      x].join("\n")
   end
 end

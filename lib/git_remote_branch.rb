@@ -7,6 +7,8 @@ require 'param_reader'
 require 'version'
 
 module GitRemoteBranch
+  class InvalidBranchError < RuntimeError; end
+
   COMMANDS = {
     :create     => {
       :description => 'create a new remote branch and track it locally',
