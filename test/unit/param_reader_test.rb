@@ -13,6 +13,18 @@ class ParamReaderTest < Test::Unit::TestCase
     end
   end
   
+  def self.should_set_branch_to(branch)
+    should "set the branch to #{branch}" do
+      assert_equal branch, @p[:branch]
+    end
+  end
+  
+  def self.should_set_origin_to(origin)
+    should "set the origin to #{origin}" do
+      assert_equal origin, @p[:origin]
+    end
+  end
+  
   def self.should_set_current_branch_to(branch)
     should "set the current_branch to #{branch}" do
       assert_equal branch, @p[:current_branch]
@@ -44,6 +56,30 @@ class ParamReaderTest < Test::Unit::TestCase
         grb.stubs(:get_current_branch).returns('stubbed_current_branch')
       end
       
+      context "on a normal valid command without an origin" do
+        setup do
+          @p = grb.read_params %w{create the_branch}
+        end
+        
+        should_set_action_to :create
+        should_set_branch_to 'the_branch'
+        should_set_origin_to 'origin'
+        should_set_current_branch_to 'stubbed_current_branch'
+        should_set_explain_to false
+      end
+
+      context "on a normal valid command" do
+        setup do
+          @p = grb.read_params %w{create the_branch the_origin}
+        end
+        
+        should_set_action_to :create
+        should_set_branch_to 'the_branch'
+        should_set_origin_to 'the_origin'
+        should_set_current_branch_to 'stubbed_current_branch'
+        should_set_explain_to false
+      end
+
       context "on an 'explain' command" do
         context "with no information provided other than the action" do
           setup do
@@ -85,9 +121,9 @@ class ParamReaderTest < Test::Unit::TestCase
       should_return_help_for_parameters %w(help), "on a 'help' command"
       should_return_help_for_parameters %w(create), "on an incomplete command"
       should_return_help_for_parameters %w(decombobulate something), "on an invalid command"
-      
-      context "on normal valid command" do
-      end
+    end
+    
+    context "when on an invalid branch" do
     end
   end
   
