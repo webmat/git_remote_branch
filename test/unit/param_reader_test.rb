@@ -128,6 +128,15 @@ class ParamReaderTest < Test::Unit::TestCase
     end
     
     context "when on an invalid branch" do
+      setup do
+        grb.stubs(:`).returns(BRANCH_LISTING_WHEN_NOT_ON_BRANCH)
+      end
+     
+      should_explain_with_current_branch 'current_branch', "use a dummy value for the current branch"
+      
+      should_return_help_for_parameters %w(help), "on a 'help' command"
+      should_return_help_for_parameters %w(create), "on an incomplete command"
+      should_return_help_for_parameters %w(decombobulate something), "on an invalid command"
     end
   end
   
