@@ -1,7 +1,25 @@
 require File.join( File.dirname(__FILE__), '..', 'test_helper')
 
-class GitRemoteBranchUnitTest < Test::Unit::TestCase
+class ParamReaderTest < Test::Unit::TestCase
   include GitRemoteBranch
+  
+  def self.should_set_explain_to(truth)
+    should "set explain to #{truth}" do
+      assert_equal truth, @p[:explain]
+    end
+  end
+  
+  def self.should_set_action_to(action)
+    should "set the action to #{action}" do
+      assert_equal action, @p[:action]
+    end
+  end
+  
+  def self.should_set_current_branch_to(branch)
+    should "set the current_branch to #{branch}" do
+      assert_equal branch, @p[:current_branch]
+    end
+  end
   
   context 'read_params' do
     context "when on a valid branch" do
@@ -15,12 +33,9 @@ class GitRemoteBranchUnitTest < Test::Unit::TestCase
             @p = read_params %w{explain create}
           end
           
-          should "set p[:explain] to true" do
-            assert @p[:explain]
-          end
-          should "set the action to create" do
-            assert_equal :create, @p[:action]
-          end
+          should_set_explain_to         true
+          should_set_action_to          :create
+          should_set_current_branch_to  'stubbed_current_branch'
           
           should "default to origin 'origin'" do
             assert_equal 'origin', @p[:origin]
@@ -29,9 +44,23 @@ class GitRemoteBranchUnitTest < Test::Unit::TestCase
           should "set a dummy new branch name" do
             assert @p[:branch]
           end
+        end
+        
+        context "with all information provided" do
+          setup do
+            @p = read_params %w{explain create specific_branch specific_origin}
+          end
           
-          should "set the real current branch name" do
-            assert_equal 'stubbed_current_branch', @p[:current_branch]
+          should_set_explain_to         true
+          should_set_action_to          :create
+          should_set_current_branch_to  'stubbed_current_branch'
+          
+          should "set the origin to 'specific_origin'" do
+            assert_equal 'specific_origin', @p[:origin]
+          end
+          
+          should "set the specified branch name" do
+            assert_equal 'specific_branch', @p[:branch]
           end
         end
       end
