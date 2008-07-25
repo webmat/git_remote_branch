@@ -18,4 +18,22 @@ class GitRemoteBranchUnitTest < Test::Unit::TestCase
       end
     end
   end
+  
+  context "the reverse mapping for aliases" do
+    GitRemoteBranch::COMMANDS.each_pair do |cmd, params|
+      params[:aliases].each do |alias_|
+        should "contain the alias #{alias_}" do
+          assert GitRemoteBranch::ALIAS_REVERSE_MAP[alias_]
+        end
+      end
+    end
+    
+    context "upon creation" do
+      should "raise an exception when there are duplicates" do
+        assert_raise(RuntimeError) do
+          GitRemoteBranch.get_reverse_map( GitRemoteBranch::COMMANDS.merge(:new_command => {:aliases => ['create']}) )
+        end
+      end
+    end
+  end
 end

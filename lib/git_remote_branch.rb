@@ -67,8 +67,7 @@ module GitRemoteBranch
     }
   }
   
-  private
-  def self.get_reverse_mapping(commands)
+  def self.get_reverse_map(commands)
     h={}
     commands.each_pair do |cmd, params|
       params[:aliases].each do |alias_|
@@ -81,10 +80,8 @@ module GitRemoteBranch
     end
     h
   end
+  ALIAS_REVERSE_MAP = get_reverse_map(COMMANDS)
   
-  ALIAS_REVERSE_MAP = get_reverse_mapping(COMMANDS)
-  
-  public
   def get_welcome
     "git_remote_branch version #{VERSION}\n\n"
   end
