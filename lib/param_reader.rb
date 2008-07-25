@@ -1,12 +1,16 @@
 module GitRemoteBranch
+  private 
+  HELP_PARAMS = {:action => :help}
+
+  public
   def read_params(argv)
     #TODO Some validation on the params
     
     p={}
     p[:explain]        = explain_mode!(argv)
-    p[:action]         = get_action(argv[0]) || :help
+    p[:action]         = get_action(argv[0]) or return HELP_PARAMS
 
-    return p if p[:action] == :help
+    return HELP_PARAMS if p[:action] == :help
 
     p[:branch]         = get_branch(argv[1])
     p[:origin]         = get_origin(argv[2])
@@ -23,6 +27,7 @@ module GitRemoteBranch
       end
 
     else
+      return HELP_PARAMS unless p[:branch]
       p[:current_branch] = get_current_branch
     end
     return p

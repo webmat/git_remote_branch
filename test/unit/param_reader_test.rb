@@ -30,12 +30,11 @@ class ParamReaderTest < Test::Unit::TestCase
         grb.read_params ['help']
       end
       
-      should "not set other options in the returned hash" do
-        assert_array_content [:action, :explain], @p.keys
+      should "only return a hash specifying the action" do
+        assert_array_content [:action], @p.keys
       end
       
       should_set_action_to :help
-      should_set_explain_to false
     end
   end
   
@@ -84,6 +83,7 @@ class ParamReaderTest < Test::Unit::TestCase
       end
       
       should_return_help_for_parameters %w(help), "on a 'help' command"
+      should_return_help_for_parameters %w(create), "on an incomplete command"
       should_return_help_for_parameters %w(decombobulate something), "on an invalid command"
       
       context "on normal valid command" do
