@@ -9,7 +9,7 @@ require 'shoulda'
 require 'mocha'
 
 # Just load redgreen if not running tests from TextMate
-IN_TM = !ENV['TM_DIRECTORY'].nil?
+IN_TM = !ENV['TM_DIRECTORY'].nil? unless defined?(IN_TM)
 require 'redgreen' unless IN_TM
 
 require 'ruby-debug'

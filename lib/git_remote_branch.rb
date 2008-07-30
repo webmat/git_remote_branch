@@ -65,7 +65,7 @@ module GitRemoteBranch
         '"git branch --track #{branch_name} #{origin}/#{branch_name}"'
       ]
     }
-  }
+  } unless defined?(COMMANDS)
   
   def self.get_reverse_map(commands)
     h={}
@@ -80,10 +80,10 @@ module GitRemoteBranch
     end
     h
   end
-  ALIAS_REVERSE_MAP = get_reverse_map(COMMANDS)
+  ALIAS_REVERSE_MAP = get_reverse_map(COMMANDS) unless defined?(ALIAS_REVERSE_MAP)
   
   def get_welcome
-    "git_remote_branch version #{VERSION}\n\n"
+    "git_remote_branch version #{VERSION::STRING}\n\n"
   end
 
   def get_usage
