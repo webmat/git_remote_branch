@@ -65,7 +65,7 @@ class ParamReaderTest < Test::Unit::TestCase
           end
           
           should "raise an InvalidBranchError" do
-            ex = assert_raise(GitRemoteBranch::InvalidBranchError) do
+            assert_raise(GitRemoteBranch::InvalidBranchError) do
               grb.read_params(@command)
             end
           end

@@ -1,6 +1,34 @@
 module ShouldaFunctionalHelpers
   def self.included(base)
-    base.extend( ClassMethods )
+    base.extend  ClassMethods
+    base.class_eval do
+      include ::ShouldaFunctionalHelpers::InstanceMethods
+    end
+  end
+  
+  module InstanceMethods
+    def run_with(params='')
+      execute "grb #{params}"
+    end
+
+    def execute(command)
+      raise "'execute' depends on @dir being set" unless @dir
+      `cd #{@dir} ; #{command}`
+    end
+    
+    
+    def assert_branch(branch_name, branch_location)
+      case branch_location.to_sym
+      when :local
+        args = ''
+      when :remote
+        args = '-r'
+      else
+        raise ArgumentError, "Unknown branch location: #{branch_location.inspect}"
+      end
+      
+      assert_match %r{#{branch_name}}, execute("git branch #{args}")
+    end
   end
 
   module ClassMethods
@@ -19,18 +47,19 @@ module ShouldaFunctionalHelpers
     end
     
     # Switches to one of the directories created by GitHelper:
-    # => :local1
-    # => :local2
-    # => :non_git
-    # => :remote
+    #   :local1, :local2, :non_git or :remote
     # This affects commands run with ``, system and so on.
     def in_directory_for(dir)
       context "in directory for #{dir}" do
         setup do
           # Just a reminder for my dumb head
-          raise "'in_directory_for' must be nested inside a 'on_a_new_repo'" unless @gh
+          raise "'in_directory_for' depends on @gh being set" unless @gh
 
-          Dir.chdir eval("@gh.#{dir}")
+          @dir = eval("@gh.#{dir}")
+        end
+        
+        teardown do
+          @dir = nil
         end
         
         yield
