@@ -1,15 +1,7 @@
 - tests :-)
 - offer help when branch -d fails
-- better exit status behavior
-- Add verification if remote delete didn't work
-- New functionality:
-  - Remotize an existing local branch (aliases: publish share make_remote makeremote)
-    git push origin branch_name:refs/heads/branch_name
-    git fetch origin
-    git config branch.branch_name.remote origin
-    git config branch.branch_name.merge refs/heads/branch_name
-    
-- add support for different remote name (--remote-name)
+- connect (new remote repo)
+- Make remotize work when not specifying the local branch (and use this one by default)
 - avoid deleting local branches when tracking with the help of git-config ?
 
 - drop assumption that master can be treated differently than other branches (e.g. considered as a safe checkout)
@@ -17,3 +9,8 @@
   - is it even necessary to be on a branch per se? I think not...
   - survive checkouts with wrong case 
     e.g.: branch "Bob" checked out branch 'bob'. git branch -l won't correctly flag branch Bob as current.
+
+- better exit status behavior
+- Add verification if remote delete didn't work
+- add support for different remote name (--remote-name)
+
