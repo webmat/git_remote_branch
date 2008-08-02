@@ -13,7 +13,7 @@ module ShouldaFunctionalHelpers
 
     def execute(command)
       raise "'execute' depends on @dir being set" unless @dir
-      `cd #{@dir} ; #{command}`
+      `#{command}`
     end
     
     
@@ -55,11 +55,11 @@ module ShouldaFunctionalHelpers
           # Just a reminder for my dumb head
           raise "'in_directory_for' depends on @gh being set" unless @gh
 
-          @dir = eval("@gh.#{dir}")
+          Dir.pushd eval("@gh.#{dir}")
         end
         
         teardown do
-          @dir = nil
+          Dir.popd
         end
         
         yield
