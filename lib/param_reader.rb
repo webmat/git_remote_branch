@@ -7,14 +7,16 @@ module GitRemoteBranch
     #TODO Some validation on the params
     
     p={}
-    p[:explain]        = explain_mode!(argv)
-    p[:action]         = get_action(argv[0]) or return HELP_PARAMS
+    p[:silent]  = silent!(argv)
+    p[:explain] = explain_mode!(argv)
+    
+    p[:action]  = get_action(argv[0]) or return HELP_PARAMS
 
     return HELP_PARAMS if p[:action] == :help
 
-    p[:branch]         = get_branch(argv[1])
-    p[:origin]         = get_origin(argv[2])
-
+    p[:branch]  = get_branch(argv[1])
+    p[:origin]  = get_origin(argv[2])
+    
     # If in explain mode, the user doesn't have to specify a branch or be on in
     # actual repo to get the explanation. 
     # Of course if he is, the explanation will be made better by using contextual info.
@@ -40,6 +42,10 @@ module GitRemoteBranch
     else
       false
     end
+  end
+  
+  def silent!(argv)
+    argv.delete('--silent') ? true : false
   end
 
   def get_action(action)

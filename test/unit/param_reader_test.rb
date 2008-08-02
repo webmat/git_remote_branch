@@ -32,6 +32,7 @@ class ParamReaderTest < Test::Unit::TestCase
         should_set_origin_to 'origin'
         should_set_current_branch_to 'stubbed_current_branch'
         should_set_explain_to false
+        should_set_silent_to  false
       end
 
       context "on a normal valid command" do
@@ -44,6 +45,7 @@ class ParamReaderTest < Test::Unit::TestCase
         should_set_origin_to 'the_origin'
         should_set_current_branch_to 'stubbed_current_branch'
         should_set_explain_to false
+        should_set_silent_to  false
       end
 
       should_explain_with_current_branch 'stubbed_current_branch', "use real current branch"
@@ -51,6 +53,38 @@ class ParamReaderTest < Test::Unit::TestCase
       should_return_help_for_parameters %w(help), "on a 'help' command"
       should_return_help_for_parameters %w(create), "on an incomplete command"
       should_return_help_for_parameters %w(decombobulate something), "on an invalid command"
+
+      context "understands the --silent parameter" do
+        context "at the beginning" do
+          setup do
+            @p = grb.read_params %w{--silent create some_branch some_origin}
+          end
+          should_set_silent_to true
+          should_set_action_to :create
+          should_set_branch_to 'some_branch'
+          should_set_origin_to 'some_origin'
+        end
+
+        context "at the end" do
+          setup do
+            @p = grb.read_params %w{create some_branch some_origin --silent}
+          end
+          should_set_silent_to true
+          should_set_action_to :create
+          should_set_branch_to 'some_branch'
+          should_set_origin_to 'some_origin'
+        end
+
+        context "in the freakin' middle" do
+          setup do
+            @p = grb.read_params %w{create --silent some_branch some_origin}
+          end
+          should_set_silent_to true
+          should_set_action_to :create
+          should_set_branch_to 'some_branch'
+          should_set_origin_to 'some_origin'
+        end
+      end
     end
     
     context "when on an invalid branch" do

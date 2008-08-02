@@ -1,16 +1,16 @@
 module ShouldaUnitHelpers
   def self.included(base)
     base.extend( ClassMethods )
-    add_few_more_methods(base)
+    add_param_checkers(base)
   end
   
-  def self.add_few_more_methods(base)
+  def self.add_param_checkers(base)
     # Excuse my french but:
-    %w(explain action branch origin current_branch).each do |action|
+    %w(action branch origin current_branch silent explain).each do |param|
       base.instance_eval(%Q!
-        def self.should_set_#{action}_to(#{action}_value)
-          should "set #{action} to #{ '#{' }#{ action }_value}" do
-            assert_equal #{action}_value, @p[:#{action}]
+        def self.should_set_#{param}_to(#{param}_value)
+          should "set #{param} to #{ '#{' }#{ param }_value}" do
+            assert_equal #{param}_value, @p[:#{param}]
           end
         end
       !)

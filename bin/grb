@@ -7,8 +7,6 @@ require "#{File.dirname(THIS_FILE)}/../lib/git_remote_branch"
 
 include GitRemoteBranch
 
-puts get_welcome
-
 begin
   p = read_params(ARGV)
 rescue InvalidBranchError => ex
@@ -16,8 +14,12 @@ rescue InvalidBranchError => ex
   exit 1
 end
 
+$SILENT = p[:silent]
+
+whisper get_welcome
+
 if p[:action] == :help
-  puts get_usage
+  whisper get_usage
   exit 0
 end
 

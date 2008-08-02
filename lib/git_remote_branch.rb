@@ -115,22 +115,27 @@ module GitRemoteBranch
   def explain_action(action, branch_name, origin, current_branch)
     cmds = COMMANDS[action][:commands].map{ |c| eval(c) }.compact
 
-    puts "List of operations to do to #{COMMANDS[action][:description]}:", ''
+    whisper "List of operations to do to #{COMMANDS[action][:description]}:", ''
     puts_cmd cmds
-    puts ''
+    whisper ''
   end
 
   def execute_cmds(*cmds)
+    silencer = $SILENT ? ' 2>&1' : ''
     cmds.flatten.each do |c|
       puts_cmd c
-      `#{c}`
-      puts ''
+      `#{c}#{silencer}`
+      whisper ''
     end
   end
 
   def puts_cmd(*cmds)
     cmds.flatten.each do |c|
-      puts "#{c}".red
+      whisper "#{c}".red
     end
+  end
+  
+  def whisper(msg='')
+    puts msg unless $SILENT
   end
 end
