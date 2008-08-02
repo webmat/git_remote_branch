@@ -10,12 +10,11 @@ class GRBTest < Test::Unit::TestCase
           run_with "create new_branch"
         end
         
-        should "create a branch locally" do
-          assert_branch 'new_branch', :local
-        end
+        should_create_branch 'new_branch', :local
+        should_create_branch 'new_branch', :remote
         
-        should "create a branch remotely" do
-          assert_branch 'new_branch', :remote
+        in_directory_for :remote do
+          should_create_branch 'new_branch', :local
         end
       end
     end

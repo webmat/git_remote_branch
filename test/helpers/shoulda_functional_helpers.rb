@@ -35,6 +35,12 @@ module ShouldaFunctionalHelpers
   end
 
   module ClassMethods
+    def should_create_branch(what_branch, where)
+      should "create branch '#{what_branch}' #{where == :local ? 'locally' : 'remotely'}" do
+        assert_branch what_branch, where
+      end
+    end
+    
     def on_a_new_repo
       context "on a new repository" do
         setup do
