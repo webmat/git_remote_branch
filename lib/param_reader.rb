@@ -17,7 +17,7 @@ module GitRemoteBranch
 
     # If in explain mode, the user doesn't have to specify a branch or be on in
     # actual repo to get the explanation. 
-    # Of course if he is, the explanation can be made better.
+    # Of course if he is, the explanation will be made better by using contextual info.
     if p[:explain]
       p[:branch] ||= "branch_to_#{p[:action]}"
       p[:current_branch] = begin
