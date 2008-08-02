@@ -1,4 +1,6 @@
 module ShouldaFunctionalHelpers
+  GRB_COMMAND = File.expand_path(File.dirname(__FILE__) + '/../../bin/grb') unless defined?(GRB_COMMAND)
+  
   def self.included(base)
     base.extend  ClassMethods
     base.class_eval do
@@ -12,7 +14,8 @@ module ShouldaFunctionalHelpers
     end
     
     def run_with(params='')
-      execute "grb #{params}"
+      silencer = (params =~ /--silent/) ? '' : '--silent'
+      execute "#{GRB_COMMAND} #{params} #{silencer}"
     end
 
     def execute(command)
