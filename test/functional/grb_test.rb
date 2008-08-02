@@ -4,13 +4,20 @@ class GRBTest < Test::Unit::TestCase
   include ShouldaFunctionalHelpers
   
   on_a_new_repo do
-    should "@gh be set" do
-      assert @gh
-      puts @gh.inspect
-    end
-    
     in_directory_for :local1 do
-      puts Dir.pwd
+      context "creating a branch" do
+        setup do
+          run_with "create new_branch"
+        end
+        
+        should "create a branch locally" do
+          assert_branch 'new_branch', :local
+        end
+        
+        should "create a branch remotely" do
+          assert_branch 'new_branch', :remote
+        end
+      end
     end
   end
 end
