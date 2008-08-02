@@ -7,13 +7,16 @@ module ShouldaFunctionalHelpers
   end
   
   module InstanceMethods
+    def dir_stack
+      @dir_stack ||= DirStack.new
+    end
+    
     def run_with(params='')
       execute "grb #{params}"
     end
 
     def execute(command)
-      raise "'execute' depends on @dir being set" unless @dir
-      `#{command}`
+      `cd #{@dir_stack.current_dir} ; #{command}`
     end
     
     
@@ -54,12 +57,12 @@ module ShouldaFunctionalHelpers
         setup do
           # Just a reminder for my dumb head
           raise "'in_directory_for' depends on @gh being set" unless @gh
-
-          Dir.pushd eval("@gh.#{dir}")
+          
+          dir_stack.pushd eval("@gh.#{dir}")
         end
         
         teardown do
-          Dir.popd
+          dir_stack.popd
         end
         
         yield
