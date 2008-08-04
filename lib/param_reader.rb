@@ -45,7 +45,7 @@ module GitRemoteBranch
   end
   
   def silent!(argv)
-    argv.delete('--silent') ? true : false
+    !!argv.delete('--silent')
   end
 
   def get_action(action)
