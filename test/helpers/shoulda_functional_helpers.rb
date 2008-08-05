@@ -30,7 +30,6 @@ module ShouldaFunctionalHelpers
     
     
     def run_grb_with(params='')
-      #silencer = (params =~ /--silent/) ? '' : '--silent'
       execute "#{GRB_COMMAND} #{params}"
     end
 
