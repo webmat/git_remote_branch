@@ -2,6 +2,10 @@ require 'rubygems'
 require 'colored'
 
 grb_app_root = File.expand_path( File.dirname(__FILE__) + '/..' )
+
+$LOAD_PATH.unshift( grb_app_root + '/vendor' )
+require 'capture_fu'
+
 $LOAD_PATH.unshift( grb_app_root + '/lib' )
 require 'param_reader'
 require 'version'

@@ -14,9 +14,9 @@ require 'redgreen' unless IN_TM
 
 require 'ruby-debug'
 
-Dir[test_dir+'/helpers/**/*.rb'].each{|f| require f} 
-
 require File.join( [test_dir] + %w{ .. lib git_remote_branch} )
+
+Dir[test_dir+'/helpers/**/*.rb'].each{|f| require f} 
 
 class Test::Unit::TestCase
   include MoreAssertions

@@ -1,4 +1,6 @@
 module GitRemoteBranch
+  include ::CaptureFu
+  
   private 
   HELP_PARAMS = {:action => :help}
 
@@ -24,7 +26,7 @@ module GitRemoteBranch
       p[:branch] ||= "branch_to_#{p[:action]}"
       p[:current_branch] = begin
         get_current_branch
-      rescue 
+      rescue NotOnGitRepositoryError, InvalidBranchError
         'current_branch'
       end
 
@@ -61,18 +63,22 @@ module GitRemoteBranch
   end
 
   private
-  BRANCH_LISTING_COMMAND = 'git branch -l'.freeze
+    BRANCH_LISTING_COMMAND = 'git branch -l'.freeze
   
   public
-  def get_current_branch
-    #This is sensitive to checkouts of branches specified with wrong case
-    
-    x = `#{BRANCH_LISTING_COMMAND}`
-    x.each_line do |l|
-      return l.sub("*","").strip if l =~ /\A\*/ and not l =~ /\(no branch\)/
+    def get_current_branch
+      #This is sensitive to checkouts of branches specified with wrong case
+      
+      listing = capture_process_output("#{BRANCH_LISTING_COMMAND}")[1]
+      raise(NotOnGitRepositoryError, listing.chomp) if listing =~ /Not a git repository/i
+      
+      current_branch = listing.scan(/^\*\s+(.+)/).flatten.first
+      
+      if current_branch =~ /\(no branch\)/
+        raise InvalidBranchError, ["Couldn't identify the current local branch. The branch listing was:",
+          BRANCH_LISTING_COMMAND.red, 
+          listing].join("\n")
+      end
+      current_branch.strip
     end
-    raise InvalidBranchError, ["Couldn't identify the current local branch. The branch listing was:",
-      BRANCH_LISTING_COMMAND.red, 
-      x].join("\n")
-  end
 end
