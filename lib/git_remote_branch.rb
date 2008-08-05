@@ -95,7 +95,7 @@ module GitRemoteBranch
     return <<-HELP
   Usage:
 
-  #{[:create, :publish, :rename, :delete, :track].map{|action|
+#{[:create, :publish, :rename, :delete, :track].map{|action|
       "  grb #{action} branch_name [origin_server] \n\n"
     }  
   }
