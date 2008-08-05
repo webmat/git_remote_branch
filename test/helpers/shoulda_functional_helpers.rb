@@ -28,6 +28,10 @@ module ShouldaFunctionalHelpers
       @current_dir = eval("@gh.#{dir}")
     end
     
+    def in_branch(branch)
+      execute "git checkout #{branch}"
+    end
+    
     
     def run_grb_with(params='')
       execute "#{GRB_COMMAND} #{params}"
