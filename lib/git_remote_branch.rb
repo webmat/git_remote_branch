@@ -12,6 +12,7 @@ require 'version'
 
 module GitRemoteBranch
   class InvalidBranchError < RuntimeError; end
+  class NotOnGitRepositoryError < RuntimeError; end
 
   COMMANDS = {
     :create     => {
@@ -139,7 +140,9 @@ module GitRemoteBranch
     end
   end
   
-  def whisper(msg='')
-    puts msg unless $SILENT
+  def whisper(*msgs)
+    unless $SILENT
+      msgs.flatten ?  msgs.flatten.each{|m| puts m} : puts
+    end
   end
 end
