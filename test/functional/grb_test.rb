@@ -47,6 +47,41 @@ class GRBTest < Test::Unit::TestCase
           should_not_have_branch 'new_branch', :local
         end
       end
+      
+      context "renaming the branch" do
+        setup do
+          in_directory_for :local1
+          in_branch :new_branch
+          run_grb_with 'rename renamed_branch'
+        end
+
+        should_not_have_branch 'new_branch', :local
+        should_not_have_branch 'new_branch', :remote
+        should_have_branch 'renamed_branch', :local
+        should_have_branch 'renamed_branch', :remote
+
+        context "the remote repository" do
+          setup do
+            in_directory_for :remote
+          end
+
+          should_not_have_branch 'new_branch', :local
+          should_have_branch 'renamed_branch', :local
+        end
+      end
+    end
+    
+    context "running grb with a detailed explain" do
+      setup do
+        in_directory_for :local1
+        @text = run_grb_with 'explain create teh_branch somewhere'
+      end
+      
+      should "display the commands to run with the user-specified values, including current_branch" do
+        %w{master somewhere refs/heads/teh_branch}.each do |word|
+          assert_match(/#{word}/, @text)
+        end
+      end
     end
   end
 
@@ -64,7 +99,7 @@ class GRBTest < Test::Unit::TestCase
       end
       
       should "not complain" do
-        assert_no_match(/fatal: Not a git repository/, @text)
+        assert_no_match(/not a git repository/i, @text)
       end
     end
     
@@ -84,10 +119,16 @@ class GRBTest < Test::Unit::TestCase
       end
     end
     
-    #context "running grb with a detailed explain" do
-    #  setup do
-    #    @text = run_grb_with 'explain create'
-    #  end
-    #end
+    context "running grb with a detailed explain" do
+      setup do
+        @text = run_grb_with 'explain create teh_branch somewhere'
+      end
+      
+      should "display the commands to run with the user-specified values (except for current_branch)" do
+        %w{somewhere current_branch refs/heads/teh_branch}.each do |word|
+          assert_match(/#{word}/, @text)
+        end
+      end
+    end
   end
 end
