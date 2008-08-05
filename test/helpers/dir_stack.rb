@@ -15,6 +15,10 @@ class DirStack
     dir_stack
   end
   
+  def to_s
+    dir_stack.inspect
+  end
+  
   def initialize
     @dir_stack = []
   end
