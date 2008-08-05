@@ -71,6 +71,31 @@ class GRBTest < Test::Unit::TestCase
       end
     end
     
+    context "having a local only branch" do
+      setup do
+        in_directory_for :local1
+        execute "git branch my_branch"
+      end
+      
+      should_have_branch 'my_branch', :local #Sanity check
+      
+      context "remotizing the branch" do
+        setup do
+          run_grb_with 'publish my_branch'
+        end
+        
+        should_have_branch 'my_branch', :remote
+        
+        context "the remote repository" do
+          setup do
+            in_directory_for :remote
+          end
+
+          should_have_branch 'my_branch', :local
+        end
+      end
+    end
+    
     context "running grb with a detailed explain" do
       setup do
         in_directory_for :local1
