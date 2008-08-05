@@ -99,7 +99,10 @@ module GitRemoteBranch
       "  grb #{action} branch_name [origin_server] \n\n"
     }  
   }
-  If origin_server is not specified, the name 'origin' is assumed (git's default)
+  
+  Notes:
+  - If origin_server is not specified, the name 'origin' is assumed (git's default)
+  - The rename functionality renames the current branch
   
   The explain meta-command: you can also prepend any command with the keyword 'explain'. Instead of executing the command, git_remote_branch will simply output the list of commands you need to run to accomplish that goal.
   Example: 
