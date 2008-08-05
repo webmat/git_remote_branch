@@ -56,17 +56,21 @@ module ShouldaFunctionalHelpers
   end
 
   module ClassMethods
-    def should_have_branch(what_branch, where)
-      should "have the branch '#{what_branch}' #{where == :local ? 'locally' : 'remotely'}" do
-        args = get_branch_location(where)
-        assert_match(/#{what_branch}/, execute("git branch #{args}"))
+    def should_have_branch(what_branch, *wheres)
+      wheres.flatten.each do |where|
+        should "have the branch '#{what_branch}' #{where == :local ? 'locally' : 'remotely'}" do
+          args = get_branch_location(where)
+          assert_match(/#{what_branch}/, execute("git branch #{args}"))
+        end
       end
     end
     
-    def should_not_have_branch(what_branch, where)
-      should "not have the branch '#{what_branch}' #{where == :local ? 'locally' : 'remotely'}" do
-        args = get_branch_location(where)
-        assert_no_match(/#{what_branch}/, execute("git branch #{args}"))
+    def should_not_have_branch(what_branch, *wheres)
+      wheres.flatten.each do |where|
+        should "not have the branch '#{what_branch}' #{where == :local ? 'locally' : 'remotely'}" do
+          args = get_branch_location(where)
+          assert_no_match(/#{what_branch}/, execute("git branch #{args}"))
+        end
       end
     end
     

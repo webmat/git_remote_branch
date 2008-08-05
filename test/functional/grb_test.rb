@@ -10,8 +10,7 @@ class GRBTest < Test::Unit::TestCase
         run_grb_with 'create new_branch'
       end
       
-      should_have_branch 'new_branch', :local
-      should_have_branch 'new_branch', :remote
+      should_have_branch 'new_branch', :local, :remote
       
       context "the remote repository" do
         setup do
@@ -27,8 +26,7 @@ class GRBTest < Test::Unit::TestCase
           run_grb_with 'track new_branch'
         end
         
-        should_have_branch 'new_branch', :local
-        should_have_branch 'new_branch', :remote
+        should_have_branch 'new_branch', :local, :remote
       end
       
       context "then deleting the branch" do
@@ -36,8 +34,7 @@ class GRBTest < Test::Unit::TestCase
           run_grb_with 'delete new_branch'
         end
         
-        should_not_have_branch 'new_branch', :local
-        should_not_have_branch 'new_branch', :remote
+        should_not_have_branch 'new_branch', :local, :remote
         
         context "the remote repository" do
           setup do
@@ -55,10 +52,8 @@ class GRBTest < Test::Unit::TestCase
           run_grb_with 'rename renamed_branch'
         end
 
-        should_not_have_branch 'new_branch', :local
-        should_not_have_branch 'new_branch', :remote
-        should_have_branch 'renamed_branch', :local
-        should_have_branch 'renamed_branch', :remote
+        should_not_have_branch 'new_branch', :local, :remote
+        should_have_branch 'renamed_branch', :local, :remote
 
         context "the remote repository" do
           setup do
