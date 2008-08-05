@@ -24,8 +24,6 @@ class GRBTest < Test::Unit::TestCase
       context "the other local clone, tracking the new branch" do
         setup do
           in_directory_for :local2
-          assert_match(/local2\Z/, execute('pwd').chomp) #Sanity check
-          
           run_grb_with 'track new_branch'
         end
         
@@ -63,7 +61,9 @@ class GRBTest < Test::Unit::TestCase
         words_in_help.each do |word|
           assert_match(/#{word}/, @text)
         end
-        
+      end
+      
+      should "not complain" do
         assert_no_match(/fatal: Not a git repository/, @text)
       end
     end
