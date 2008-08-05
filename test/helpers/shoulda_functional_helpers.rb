@@ -29,9 +29,9 @@ module ShouldaFunctionalHelpers
     end
     
     
-    def run_with(params='')
-      silencer = (params =~ /--silent/) ? '' : '--silent'
-      execute "#{GRB_COMMAND} #{params} #{silencer}"
+    def run_grb_with(params='')
+      #silencer = (params =~ /--silent/) ? '' : '--silent'
+      execute "#{GRB_COMMAND} #{params}"
     end
 
     def execute(command)
@@ -81,7 +81,7 @@ module ShouldaFunctionalHelpers
       end
     end
     
-    def in_non_git_directory
+    def in_a_non_git_directory
       context "on a non-git related directory" do
         setup do
           @temp_dir = TempDirHelper.new
@@ -91,7 +91,7 @@ module ShouldaFunctionalHelpers
         teardown do
           @temp_dir.cleanup
         end
-
+        
         yield
       end
     end

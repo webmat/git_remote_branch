@@ -1,6 +1,6 @@
 module ShouldaUnitHelpers
   def self.included(base)
-    base.extend( ClassMethods )
+    base.extend ClassMethods 
     add_param_checkers(base)
   end
   
@@ -25,7 +25,7 @@ module ShouldaUnitHelpers
     
   end
   
-  module ClassMethods   
+  module ClassMethods
     def should_return_help_for_parameters(params, context_explanation)
       context context_explanation do
         setup do
