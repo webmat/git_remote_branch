@@ -84,7 +84,7 @@ module ShouldaFunctionalHelpers
     def in_non_git_directory
       context "on a non-git related directory" do
         setup do
-          @temp_dir = TempDir.new
+          @temp_dir = TempDirHelper.new
           @current_dir = @temp_dir.directory
         end
         
