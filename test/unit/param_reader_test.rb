@@ -13,13 +13,15 @@ BRANCH_LISTING_WHEN_NOT_ON_BRANCH = <<-STR
   rubyforge
 STR
 
+WHEN_NOT_ON_GIT_REPOSITORY = "fatal: Not a git repository\n"
+
 class ParamReaderTest < Test::Unit::TestCase
   include ShouldaUnitHelpers
-
+  
   context 'read_params' do
     context "when on a valid branch" do
       setup do
-        grb.stubs(:`).returns(REGULAR_BRANCH_LISTING)
+        grb.stubs(:capture_process_output).returns([0, REGULAR_BRANCH_LISTING])
       end
       
       context "on a normal valid command without an origin" do
@@ -89,7 +91,7 @@ class ParamReaderTest < Test::Unit::TestCase
     
     context "when on an invalid branch" do
       setup do
-        grb.stubs(:`).returns(BRANCH_LISTING_WHEN_NOT_ON_BRANCH)
+        grb.stubs(:capture_process_output).returns([0, BRANCH_LISTING_WHEN_NOT_ON_BRANCH])
       end
       
       GitRemoteBranch::COMMANDS.each_key do |action|
@@ -128,6 +130,46 @@ class ParamReaderTest < Test::Unit::TestCase
       should_return_help_for_parameters %w(help), "on a 'help' command"
       should_return_help_for_parameters %w(create), "on an incomplete command"
       should_return_help_for_parameters %w(decombobulate something), "on an invalid command"
+    end
+    
+    #context "when not on a git repository" do
+    #  setup do
+    #    grb.stubs(:`).returns(WHEN_NOT_ON_GIT_REPOSITORY)
+    #  end
+    #  
+    #  should_eventually 'explain ok, otherwise crap'
+    #end
+  end
+  
+  context 'get_current_branch' do
+    context "when not on a git repository" do
+      setup do
+        grb.stubs(:capture_process_output).returns([128, WHEN_NOT_ON_GIT_REPOSITORY])
+      end
+      
+      should "raise an exception" do
+        assert_raise(GitRemoteBranch::NotOnGitRepositoryError) { grb.get_current_branch }
+      end
+    end
+
+    context "when on an invalid branch" do
+      setup do
+        grb.stubs(:capture_process_output).returns([0, BRANCH_LISTING_WHEN_NOT_ON_BRANCH])
+      end
+      
+      should "raise an exception" do
+        assert_raise(GitRemoteBranch::InvalidBranchError) { grb.get_current_branch }
+      end
+    end
+
+    context "when on a valid branch" do
+      setup do
+        grb.stubs(:capture_process_output).returns([0, REGULAR_BRANCH_LISTING])
+      end
+      
+      should "return the current branch name" do
+        assert_equal 'stubbed_current_branch', grb.get_current_branch
+      end
     end
   end
   
