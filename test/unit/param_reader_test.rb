@@ -100,12 +100,6 @@ class ParamReaderTest < Test::Unit::TestCase
             @command = [action.to_s, 'branch_name']
           end
           
-          should "raise an InvalidBranchError" do
-            assert_raise(GitRemoteBranch::InvalidBranchError) do
-              grb.read_params(@command)
-            end
-          end
-
           context "raising an exception" do
             setup do
               begin
@@ -114,12 +108,16 @@ class ParamReaderTest < Test::Unit::TestCase
               end
             end
             
+            should "raise an InvalidBranchError" do
+              assert_kind_of GitRemoteBranch::InvalidBranchError, @ex
+            end
+
             should "give a clear error message" do
-              assert_match %r{identify.*branch}, @ex.message
+              assert_match(/identify.*branch/, @ex.message)
             end
             
             should "display git's branch listing" do
-              assert_match %r{\(no branch\)}, @ex.message
+              assert_match(/\(no branch\)/, @ex.message)
             end
           end
         end
@@ -132,13 +130,42 @@ class ParamReaderTest < Test::Unit::TestCase
       should_return_help_for_parameters %w(decombobulate something), "on an invalid command"
     end
     
-    #context "when not on a git repository" do
-    #  setup do
-    #    grb.stubs(:`).returns(WHEN_NOT_ON_GIT_REPOSITORY)
-    #  end
-    #  
-    #  should_eventually 'explain ok, otherwise crap'
-    #end
+    context "when not on a git repository" do
+      setup do
+        grb.stubs(:capture_process_output).returns([128, WHEN_NOT_ON_GIT_REPOSITORY])
+      end
+      
+      should_explain_with_current_branch 'current_branch', "use a dummy value for the current branch"
+
+      should_return_help_for_parameters %w(help), "on a 'help' command"
+      should_return_help_for_parameters %w(create), "on an incomplete command"
+      should_return_help_for_parameters %w(decombobulate something), "on an invalid command"
+
+      GitRemoteBranch::COMMANDS.each_key do |action|
+        context "running the '#{action}' command" do
+          setup do
+            @command = [action.to_s, 'branch_name']
+          end
+          
+          context "raising an exception" do
+            setup do
+              begin
+                grb.read_params(@command)
+              rescue => @ex
+              end
+            end
+            
+            should "raise an NotOnGitRepositoryError" do
+              assert_kind_of GitRemoteBranch::NotOnGitRepositoryError, @ex
+            end
+
+            should "give a clear error message" do
+              assert_match(/fatal/, @ex.message)
+            end
+          end
+        end
+      end
+    end
   end
   
   context 'get_current_branch' do
