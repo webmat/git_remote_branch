@@ -14,6 +14,10 @@ class TempDirHelper
     rm_rf @directory
   end
   
+  def to_s
+    directory
+  end
+  
   private
     def get_temp_dir!(namespace='')
       wd = File.expand_path( File.join( Dir::tmpdir, namespace) )
