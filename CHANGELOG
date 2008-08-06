@@ -1,0 +1,17 @@
+* Release 0.2.6 *
+  Three new actual features
+  - grb rename, contributed by Caio Chassot (caiochassot.com)
+  - grb publish, to make available and track a local branch
+  - the --silent option, if you want to use grb in a script
+  
+  And other stuff
+  - the grb bin file now works when symlinked (also thanks to Caio Chassot)
+  - Lots and lots of unit and functional tests
+  - bug fixes
+  - more flexibility for running grb outside of a git repository (e.g. for 'explain' or 'help')
+  - Now officially under the MIT license
+  - refactored a bunch of rake tasks
+
+
+Versions lost in time:
+0.2.1, 0.2.2, 0.2.3, 0.2.4

@@ -13,12 +13,16 @@ commands. Each operation done on your behalf is displayed at the console.
 
 ==== Installation ====
 
-sudo gem install webmat-git_remote_branch --source=http://gems.github.com
+  sudo gem install grb
 
-Note: don't add gems.github.com as a permanent source for your gems. Check out
-http://gems.github.com for more information on the matter. If you've included 
-it already and find yourself in trouble, check out 
-http://chalain.livejournal.com/71260.html.
+
+Or if you want the bleeding edge from GitHub
+You may try
+  sudo gem install webmat-git_remote_branch --source=http://gems.github.com
+
+But you're probably better off with
+  git clone git://github.com/webmat/git_remote_branch.git
+  rake install
 
 
 
@@ -30,9 +34,10 @@ Notes:
 
 Available commands (with aliases):
 
+
 == Help ==
 
-$ grb [-h]    #=> Displays help
+$ grb [-h|help]    #=> Displays help
 
 == create (alias: new) ==
 Create a new local branch as well as a corresponding remote branch from the
@@ -41,6 +46,14 @@ Automatically track the new remote branch (useful for pulling and merging).
 Switch to the new branch.
 
 $ grb create branch_name [origin_server]
+
+
+== publish (aliases: remotize) ==
+Publish an existing local branch to the remote server.
+Set up the local branch to track the new remote branch.
+Switch to the new branch.
+
+$ grb publish branch_name [origin_server]
 
 
 == delete (aliases: destroy, kill, remove) ==
@@ -57,10 +70,10 @@ $ grb track branch_name [origin_server]
 
 
 == rename (aliases: rn, mv, move) ==
-Rename the remote branch by copying and deleting the old name.
-Checkout a new local tracking branch with the new name and delete the branch
-with the old name.
-branch_name is the new name, the old name is always the current branch's
+To rename the branch you're currently on.
+Rename the remote branch by copying then deleting the old name.
+Checkout a new local tracking branch with the new name and delete the local
+branch with the old name.
 
 $ grb rename branch_name [origin_server]
 
@@ -73,7 +86,7 @@ run to accomplish that goal.
 Examples: 
 
 $ grb explain create
-git_remote_branch version 0.2.2
+git_remote_branch version 0.2.6
 
 List of operations to do to create a new remote branch and track it locally:
 
@@ -84,7 +97,7 @@ git checkout branch_to_create
 
 
 $ grb explain create my_branch github
-git_remote_branch version 0.2.2
+git_remote_branch version 0.2.6
 
 List of operations to do to create a new remote branch and track it locally:
 
@@ -92,6 +105,14 @@ git push github master:refs/heads/my_branch
 git fetch github
 git branch --track my_branch github/my_branch
 git checkout my_branch
+
+
+
+==== More on git_remote_branch ====
+
+Site:         http://github.com/webmat/git_remote_branch
+Mailing list: http://groups.google.com/group/git_remote_branch
+
 
 
 ==== History ====
@@ -107,13 +128,13 @@ I'm using it as a starting point to make it even easier to interact with remote
 repositories.
 
 
-=== Contributors ===
+== Contributors ==
 
 - Mathieu Martin  webmat@gmail.com
 - Carl Mercier    (Carl: want your email here?)
 - Caio Chassot    dev@caiochassot.com
 
 
-=== Legalese ===
+== Legalese ==
 
 git_remote_branch is licensed under the MIT License. See the file COPYING for details.
