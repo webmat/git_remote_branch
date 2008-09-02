@@ -28,7 +28,7 @@ module GitRemoteBranch
 
     :publish     => {
       :description => 'publish an exiting local branch',
-      :aliases  => %w{publish remotize},
+      :aliases  => %w{publish remotize share},
       :commands => [
         '"git push #{origin} #{branch_name}:refs/heads/#{branch_name}"',
         '"git fetch #{origin}"',
