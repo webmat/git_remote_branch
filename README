@@ -24,6 +24,9 @@ But you're probably better off with
   git clone git://github.com/webmat/git_remote_branch.git
   rake install
 
+Also don't forget to install colored with
+  sudo gem install colored
+
 
 
 ==== Usage ====
