@@ -13,7 +13,7 @@ commands. Each operation done on your behalf is displayed at the console.
 
 ==== Installation ====
 
-  sudo gem install grb
+  sudo gem install git_remote_branch
 
 
 Or if you want the bleeding edge from GitHub
@@ -110,9 +110,10 @@ git checkout my_branch
 
 ==== More on git_remote_branch ====
 
-Site:         http://github.com/webmat/git_remote_branch
+News:         http://programblings.com/category/git/git_remote_branch/
+Bug tracker:  http://git-remote-branch.lighthouseapp.com/projects/19198-git_remote_branch/overview
+Code:         http://github.com/webmat/git_remote_branch
 Mailing list: http://groups.google.com/group/git_remote_branch
-
 
 
 ==== History ====
@@ -131,8 +132,8 @@ repositories.
 == Contributors ==
 
 - Mathieu Martin  webmat@gmail.com
-- Carl Mercier    (Carl: want your email here?)
 - Caio Chassot    dev@caiochassot.com
+- Carl Mercier    (Carl: want your email here?)
 
 
 == Legalese ==
