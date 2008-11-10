@@ -19,7 +19,8 @@ class GitHelper < TempDirHelper
   protected
     def init_repo(path, name)
       repo_dir = File.join(path, name)
-      `mkdir #{repo_dir}; cd $_; git init; touch file.txt; git add .; git commit -a -m "dummy file"`
+      mkdir_p repo_dir
+      `cd #{repo_dir}; git init; touch file.txt; git add .; git commit -a -m "dummy file"`
       repo_dir
     end
     
