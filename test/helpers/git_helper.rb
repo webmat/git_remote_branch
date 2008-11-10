@@ -11,7 +11,6 @@ class GitHelper < TempDirHelper
   
   def initialize
     super("#{TEST_DIR}/test_runs")
-    debugger
     @remote  = init_repo(directory, 'remote')
     @local1  = clone_repo(@remote, directory, 'local1')
     @local2  = clone_repo(@remote, directory, 'local2')
