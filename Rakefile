@@ -9,4 +9,5 @@ SUDO = windows ? "" : "sudo"
 require "#{HERE}/lib/git_remote_branch"
 Dir['tasks/**/*.rake'].each { |rake| load rake }
 
+desc 'Default: run all tests.'
 task :default => :test
