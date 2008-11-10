@@ -6,8 +6,8 @@ class TempDirHelper
   
   attr_reader :directory
 
-  def initialize(namespace='temp_dir_helper')
-    @directory = get_temp_dir!(namespace)
+  def initialize(force_temp_dir=nil)
+    @directory = get_temp_dir!(force_temp_dir)
   end
   
   def cleanup
@@ -19,8 +19,8 @@ class TempDirHelper
   end
   
   private
-    def get_temp_dir!(namespace='')
-      wd = File.expand_path( File.join( Dir::tmpdir, namespace) )
+    def get_temp_dir!(parent_dir=nil)
+      wd = File.expand_path( File.join( parent_dir || Dir::tmpdir) )
       mkdir wd unless File.exists? wd
       
       #Create new subdir with a random name

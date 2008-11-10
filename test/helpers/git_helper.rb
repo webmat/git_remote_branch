@@ -1,5 +1,3 @@
-require 'fileutils'
-require 'tmpdir'
 require File.dirname(__FILE__) + '/temp_dir_helper'
 
 # Instantiating a GitHelper object creates a temp directory containing 3 repos.
@@ -12,8 +10,8 @@ class GitHelper < TempDirHelper
   attr_reader :remote, :local1, :local2
   
   def initialize
-    super('grb_test')
-    
+    super("#{TEST_DIR}/test_runs")
+    debugger
     @remote  = init_repo(directory, 'remote')
     @local1  = clone_repo(@remote, directory, 'local1')
     @local2  = clone_repo(@remote, directory, 'local2')
