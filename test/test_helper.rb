@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'test/unit'
 
-test_dir = File.dirname(__FILE__)
+TEST_DIR = File.dirname(__FILE__)
 
 # Install the non-Rails shoulda gem with 'gem install Shoulda'
 # Notice the capitalization in the name.
@@ -17,9 +17,9 @@ rescue LoadError => ex
   puts "Couldn't load optional test dependencies.\n  #{ex.inspect}"
 end
 
-require File.join( [test_dir] + %w{ .. lib git_remote_branch} )
+require File.join( [TEST_DIR] + %w{ .. lib git_remote_branch} )
 
-Dir[test_dir+'/helpers/**/*.rb'].each{|f| require f} 
+Dir[TEST_DIR+'/helpers/**/*.rb'].each{|f| require f} 
 
 class Test::Unit::TestCase
   include MoreAssertions
