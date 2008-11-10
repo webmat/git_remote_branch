@@ -19,7 +19,7 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc              = false
   
   s.test_files            = Dir['test/**/*']
-  s.files                 = Dir['**/*'].reject{|f| f =~ /\Apkg|\Acoverage|\.gemspec\Z/}
+  s.files                 = Dir['**/*'].reject{|f| f =~ /\Apkg|\Acoverage|\Ardoc|\.gemspec\Z/}
   
   s.executable            = 'grb'
   s.bindir                = "bin"
@@ -59,7 +59,7 @@ namespace :gem do
   desc 'Upload gem to rubyforge.org'
   task :rubyforge => :gem do
     sh 'rubyforge login'
-    sh "rubyforge add_release grb grb 'release #{GitRemoteBranch::VERSION::STRING}' pkg/#{spec.full_name}.gem"
+    sh "rubyforge add_release grb grb '#{GitRemoteBranch::VERSION::STRING}' pkg/#{spec.full_name}.gem"
     sh "rubyforge add_file grb grb #{GitRemoteBranch::VERSION::STRING} pkg/#{spec.full_name}.gem"
   end
 end
