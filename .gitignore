@@ -2,3 +2,4 @@
 pkg
 coverage
 test/test_runs
+rdoc
