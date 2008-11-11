@@ -136,6 +136,7 @@ http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/
 
 - Mathieu Martin  webmat@gmail.com
 - Caio Chassot    dev@caiochassot.com
+- Axelson         github.com/axelson
 - Carl Mercier    (Carl: want your email here?)
 
 
