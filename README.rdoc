@@ -1,4 +1,4 @@
-==== Why git_remote_branch? ====
+= Why git_remote_branch?
 
 The basic idea for git_remote_branch is to trivialize the interaction with
 remote branches in simple situations. 
@@ -11,7 +11,7 @@ commands. Each operation done on your behalf is displayed at the console.
 
 
 
-==== Installation ====
+= Installation
 
   sudo gem install git_remote_branch
 
@@ -29,7 +29,7 @@ If you have an older version of Rubygems, you may have to manually install the "
 
 
 
-==== Usage ====
+= Usage
 
 Notes: 
 - parts between brackets are optional
@@ -38,80 +38,84 @@ Notes:
 Available commands (with aliases):
 
 
-== Help ==
+=== Help
 
-$ grb [-h|help]    #=> Displays help
+  $ grb [-h|help]    #=> Displays help
 
-== create (alias: new) ==
+=== create (alias: new)
+
 Create a new local branch as well as a corresponding remote branch from the
 branch you are currently on.
 Automatically track the new remote branch (useful for pulling and merging).
 Switch to the new branch.
 
-$ grb create branch_name [origin_server]
+  $ grb create branch_name [origin_server]
 
 
-== publish (aliases: remotize) ==
+=== publish (aliases: remotize)
+
 Publish an existing local branch to the remote server.
 Set up the local branch to track the new remote branch.
 Switch to the new branch.
 
-$ grb publish branch_name [origin_server]
+  $ grb publish branch_name [origin_server]
 
 
-== delete (aliases: destroy, kill, remove) ==
+=== delete (aliases: destroy, kill, remove)
+
 Delete the remote branch then delete the local branch.
 The local branch is not deleted if there are pending changes.
 
-$ grb delete branch_name [origin_server]
+  $ grb delete branch_name [origin_server]
 
 
-== track (aliases: follow grab fetch) ==
+=== track (aliases: follow grab fetch)
+
 Track an existing remote branch locally.
 
-$ grb track branch_name [origin_server]
+  $ grb track branch_name [origin_server]
 
 
-== rename (aliases: rn, mv, move) ==
+=== rename (aliases: rn, mv, move)
 To rename the branch you're currently on.
 Rename the remote branch by copying then deleting the old name.
 Checkout a new local tracking branch with the new name and delete the local
 branch with the old name.
 
-$ grb rename branch_name [origin_server]
+  $ grb rename branch_name [origin_server]
 
 
-== explain ==
+=== explain
 
 All commands can be prepended by the word 'explain'.  Instead of executing the
 command, git_remote_branch will simply output the list of commands you need to
 run to accomplish that goal.
 Examples: 
 
-$ grb explain create
-git_remote_branch version 0.2.6
-
-List of operations to do to create a new remote branch and track it locally:
-
-git push origin master:refs/heads/branch_to_create
-git fetch origin
-git branch --track branch_to_create origin/branch_to_create
-git checkout branch_to_create
-
-
-$ grb explain create my_branch github
-git_remote_branch version 0.2.6
-
-List of operations to do to create a new remote branch and track it locally:
-
-git push github master:refs/heads/my_branch
-git fetch github
-git branch --track my_branch github/my_branch
-git checkout my_branch
+  $ grb explain create
+  git_remote_branch version 0.2.6
+  
+  List of operations to do to create a new remote branch and track it locally:
+  
+  git push origin master:refs/heads/branch_to_create
+  git fetch origin
+  git branch --track branch_to_create origin/branch_to_create
+  git checkout branch_to_create
 
 
+  $ grb explain create my_branch github
+  git_remote_branch version 0.2.6
+  
+  List of operations to do to create a new remote branch and track it locally:
+  
+  git push github master:refs/heads/my_branch
+  git fetch github
+  git branch --track my_branch github/my_branch
+  git checkout my_branch
 
-==== More on git_remote_branch ====
+
+
+= More on git_remote_branch
 
 News:         http://programblings.com/category/git/git_remote_branch/
 Bug tracker:  http://git-remote-branch.lighthouseapp.com/projects/19198-git_remote_branch/overview
@@ -119,26 +123,22 @@ Code:         http://github.com/webmat/git_remote_branch
 Mailing list: http://groups.google.com/group/git_remote_branch
 
 
-==== History ====
+== History
 
-This script was originally created by Carl Mercier and made public on his blog
+git_remote_branch in its current form was inspired by a script created by Carl Mercier and made public on his blog
 here:
 
 No nonsense GIT, part 1: git-remote-branch
 http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/
 
 
-I'm using it as a starting point to make it even easier to interact with remote
-repositories.
-
-
-== Contributors ==
+== Contributors
 
 - Mathieu Martin  webmat@gmail.com
 - Caio Chassot    dev@caiochassot.com
 - Carl Mercier    (Carl: want your email here?)
 
 
-== Legalese ==
+== Legalese
 
 git_remote_branch is licensed under the MIT License. See the file COPYING for details.
