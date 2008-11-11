@@ -2,6 +2,8 @@ require 'yaml'
 
 require 'rake/gempackagetask'
 
+load "#{GRB_ROOT}/tasks/rdoc.rake"
+
 task :clean => :clobber_package
 
 spec = Gem::Specification.new do |s|
@@ -16,7 +18,9 @@ spec = Gem::Specification.new do |s|
   s.homepage              = "http://github.com/webmat/git_remote_branch"
   s.rubyforge_project     = 'grb'
 
-  s.has_rdoc              = false
+  s.has_rdoc              = true
+  s.extra_rdoc_files     << 'README.rdoc'
+  s.rdoc_options         << '--main' << 'README.rdoc' << '--exclude' << 'lib' << '--title' << RDOC_TITLE
   
   s.test_files            = Dir['test/**/*']
   s.files                 = Dir['**/*'].reject{|f| f =~ /\Apkg|\Acoverage|\Ardoc|\.gemspec\Z/}
@@ -62,12 +66,14 @@ namespace :gem do
     sh "rubyforge add_release grb grb '#{GitRemoteBranch::VERSION::STRING}' pkg/#{spec.full_name}.gem"
     sh "rubyforge add_file grb grb #{GitRemoteBranch::VERSION::STRING} pkg/#{spec.full_name}.gem"
   end
-end
-
-task :install => [:clean, :gem] do
-  sh "#{SUDO} gem install pkg/#{spec.full_name}.gem"
-end
-
-task :uninstall do
-  sh "#{SUDO} gem uninstall -v #{GitRemoteBranch::VERSION::STRING} -x #{GitRemoteBranch::NAME}"
+  
+  desc 'Install the gem built locally'
+  task :install => [:clean, :gem] do
+    sh "#{SUDO} gem install pkg/#{spec.full_name}.gem"
+  end
+  
+  desc "Uninstall version #{GitRemoteBranch::VERSION::STRING} of the gem"
+  task :uninstall do
+    sh "#{SUDO} gem uninstall -v #{GitRemoteBranch::VERSION::STRING} -x #{GitRemoteBranch::NAME}"
+  end
 end
