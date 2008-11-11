@@ -38,7 +38,7 @@ module ShouldaFunctionalHelpers
     end
 
     def execute(command)
-      errno, returned_string = capture_process_output("cd #{current_dir} ; #{command}")
+      errno, returned_string = capture_process_output("cd #{current_dir.path_for_os} & #{command}")
       returned_string
     end
     

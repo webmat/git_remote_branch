@@ -20,12 +20,13 @@ class GitHelper < TempDirHelper
     def init_repo(path, name)
       repo_dir = File.join(path, name)
       mkdir_p repo_dir
-      `cd #{repo_dir}; git init; touch file.txt; git add .; git commit -a -m "dummy file"`
+      `cd #{repo_dir.path_for_os} & git init & echo "foo" > file.txt & git add . & git commit -a -m "dummy file"`
+      raise "Error setting up repository #{name}" unless $?.exitstatus == 0
       repo_dir
     end
     
     def clone_repo(origin_path, clone_path, name)
-      `cd #{clone_path}; git clone #{File.join(origin_path, '.git')} #{name}`
+      `cd #{clone_path.path_for_os} & git clone #{File.join(origin_path, '.git')} #{name}`
       return File.join(clone_path, name)
     end
 end

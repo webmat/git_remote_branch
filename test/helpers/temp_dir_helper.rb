@@ -20,13 +20,13 @@ class TempDirHelper
   
   private
     def get_temp_dir!(parent_dir=nil)
-      wd = File.expand_path( File.join( parent_dir || Dir::tmpdir) )
-      mkdir wd unless File.exists? wd
+      temp_root = File.expand_path( File.join( parent_dir || Dir::tmpdir) )
+      mkdir_p temp_root
       
       #Create new subdir with a random name
       new_dir=''
       begin
-        new_dir = File.join( wd, "#{rand(10000)}" )
+        new_dir = File.join( temp_root, "#{rand(10000)}" )
         mkdir new_dir
         
       rescue
