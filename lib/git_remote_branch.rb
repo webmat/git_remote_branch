@@ -1,6 +1,11 @@
 require 'rubygems'
 require 'colored'
 
+begin
+  WINDOWS = (RUBY_PLATFORM =~ /win32|cygwin/)
+rescue Exception
+end
+
 grb_app_root = File.expand_path( File.dirname(__FILE__) + '/..' )
 
 $LOAD_PATH.unshift( grb_app_root + '/vendor' )
