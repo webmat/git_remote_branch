@@ -1,6 +1,9 @@
 module ShouldaFunctionalHelpers
   include CaptureFu
-  GRB_COMMAND = File.expand_path(File.dirname(__FILE__) + '/../../bin/grb') unless defined?(GRB_COMMAND)
+  
+  # Here we're only prepending with 'ruby'. 
+  # When run as a gem, RubyGems takes care of generating a batch file that does this stuff.
+  GRB_COMMAND = (WINDOWS ? 'ruby ' : '') + File.expand_path(File.dirname(__FILE__) + '/../../bin/grb') unless defined?(GRB_COMMAND)
   
   def self.included(base)
     base.extend  ClassMethods
