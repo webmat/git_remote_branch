@@ -76,4 +76,17 @@ namespace :gem do
   task :uninstall do
     sh "#{SUDO} gem uninstall -v #{GitRemoteBranch::VERSION::STRING} -x #{GitRemoteBranch::NAME}"
   end
+  
+  if WINDOWS
+    win_spec = spec.dup
+    win_spec.platform = Gem::Platform::CURRENT
+    win_spec.add_dependency( 'win32console', '~> 1.1' ) # Missing dependency in the 'colored' gem
+    
+    desc "Generate the Windows version of the gem"
+    namespace :windows do
+      Rake::GemPackageTask.new(win_spec) do |p|
+        p.gem_spec = win_spec
+      end
+    end
+  end
 end
