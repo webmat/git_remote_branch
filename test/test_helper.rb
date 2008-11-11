@@ -3,9 +3,13 @@ require 'test/unit'
 
 TEST_DIR = File.dirname(__FILE__)
 
-# Install the non-Rails shoulda gem with 'gem install Shoulda'
-# Notice the capitalization in the name.
+# Install version 2 the shoulda gem with 
+#   gem install thoughtbot-shoulda --source http://gems.github.com
+# Shoulda depends on ActiveSupport 2.0, so if you don't have Rails 2.x installed, install ActiveSupport before Shoulda:
+#   gem install activesupport
+gem 'thoughtbot-shoulda', '~> 2.0'
 require 'shoulda'
+gem 'mocha', '~> 0.5'
 require 'mocha'
 
 # Just load redgreen if not running tests from TextMate
