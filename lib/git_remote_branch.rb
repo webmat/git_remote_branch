@@ -1,5 +1,13 @@
 require 'rubygems'
-require 'colored'
+
+if RUBY_PLATFORM =~ /1\.8/
+  gem 'colored', '>= 1.1'
+  require 'colored'
+else
+  class String
+    def red; self; end
+  end
+end
 
 begin
   WINDOWS = (RUBY_PLATFORM =~ /win32|cygwin/)
