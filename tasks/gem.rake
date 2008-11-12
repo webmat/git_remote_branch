@@ -2,8 +2,6 @@ require 'yaml'
 
 require 'rake/gempackagetask'
 
-load "#{GRB_ROOT}/tasks/rdoc.rake"
-
 task :clean => :clobber_package
 
 spec = Gem::Specification.new do |s|
@@ -20,7 +18,7 @@ spec = Gem::Specification.new do |s|
 
   s.has_rdoc              = true
   s.extra_rdoc_files     << 'README.rdoc'
-  s.rdoc_options         << '--main' << 'README.rdoc' << '--exclude' << 'lib' << '--title' << RDOC_TITLE
+  s.rdoc_options         << '--main' << 'README.rdoc' << '--exclude' << 'lib'
   
   s.test_files            = Dir['test/**/*']
   s.files                 = Dir['**/*'].reject{|f| f =~ /\Apkg|\Acoverage|\Ardoc|\.gemspec\Z/}

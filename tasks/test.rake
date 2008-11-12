@@ -1,10 +1,7 @@
 require 'rake/testtask'
 
 desc "Run all tests"
-Rake::TestTask.new(:test) do |t|
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
-end
+task :test => ["test:unit", "test:functional"]
 
 namespace :test do
   desc "Run functional tests"
