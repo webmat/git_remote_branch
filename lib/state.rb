@@ -9,6 +9,11 @@ module GitRemoteBranch
       local_branch_information[0]
     end
     
+    def local_branches
+      local_branch_information[1]
+    end
+    
+  private
     # Returns an array of 2 elements: [current_branch, [all local branches]]
     def local_branch_information
       #This is sensitive to checkouts of branches specified with wrong case

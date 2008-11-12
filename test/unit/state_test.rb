@@ -39,4 +39,18 @@ class ParamReaderTest < Test::Unit::TestCase
       end
     end
   end
+  
+  context 'local_branches' do
+    craps_out_in_invalid_situations
+    
+    context "when on a valid branch" do
+      setup do
+        grb.stubs(:capture_process_output).returns([0, REGULAR_BRANCH_LISTING])
+      end
+      
+      should "return all the local branch names" do
+        assert_array_content %w{stubbed_current_branch other_user/master rubyforge}, grb.local_branches
+      end
+    end
+  end
 end
