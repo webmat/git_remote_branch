@@ -15,19 +15,14 @@ commands. Each operation done on your behalf is displayed at the console.
 
   sudo gem install git_remote_branch
 
-
-Or if you want the bleeding edge from GitHub
-You may try
-  sudo gem install webmat-git_remote_branch --source=http://gems.github.com
-
-But you're probably better off with
-  git clone git://github.com/webmat/git_remote_branch.git
-  rake install
-
-If you have an older version of Rubygems, you may have to manually install the "colored" gem.
+If you have an older version of Rubygems (older than 1.2), you will have to manually install the "colored" gem.
   sudo gem install colored
 
+If you're on Windows, you must install "colored" and "win32console" manually (before or after installing git_remote_branch doesn't matter).
+  gem install win32console colored
 
+
+See the "Bleeding edge and development" section the end of this document for more details about fiddling with the source of git_remote_branch.
 
 = Usage
 
@@ -143,3 +138,21 @@ http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/
 == Legalese
 
 git_remote_branch is licensed under the MIT License. See the file COPYING for details.
+
+== Bleeding edge and development
+
+(Notice the keyword "bleeding")
+
+Installing from GitHub
+  sudo gem install webmat-git_remote_branch --source=http://gems.github.com
+
+Cloning the repo and installing from your copy
+  git clone git://github.com/webmat/git_remote_branch.git
+  rake install
+
+Note that git_remote_branch uses a few more gems for tests. Running any rake task will try to load them due to the way Rake::TestTask works.
+
+  sudo gem install thoughtbot-shoulda --source http://gems.github.com
+  sudo gem install mocha
+
+An attempt is made to require 2 more optional gems: redgreen and ruby-debug
