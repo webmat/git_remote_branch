@@ -6,7 +6,8 @@ require File.dirname(__FILE__) + '/temp_dir_helper'
 # Once instantiated you can access the 3 full repo locations through attribute readers
 # remote, local1 and local2.
 class GitHelper < TempDirHelper
-
+  include InDir
+  
   attr_reader :remote, :local1, :local2
   
   def initialize
@@ -20,13 +21,18 @@ class GitHelper < TempDirHelper
     def init_repo(path, name)
       repo_dir = File.join(path, name)
       mkdir_p repo_dir
-      `cd #{repo_dir.path_for_os} && git init && echo "foo" > file.txt && git add . && git commit -a -m "dummy file"`
+      
+      in_dir repo_dir do
+        `git init && echo "foo" > file.txt && git add . && git commit -a -m "dummy file"`
+      end
       raise "Error setting up repository #{name}" unless $?.exitstatus == 0
       repo_dir
     end
     
     def clone_repo(origin_path, clone_path, name)
-      `cd #{clone_path.path_for_os} && git clone #{File.join(origin_path, '.git').path_for_os} #{name}`
+      in_dir clone_path do
+        `git clone #{File.join(origin_path, '.git').path_for_os} #{name}`
+      end
       return File.join(clone_path, name)
     end
 end

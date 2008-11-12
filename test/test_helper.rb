@@ -23,6 +23,7 @@ end
 
 require File.join( [TEST_DIR] + %w{ .. lib git_remote_branch} )
 
+require "#{TEST_DIR}/helpers/in_dir"
 Dir[TEST_DIR+'/helpers/**/*.rb'].each{|f| require f} 
 
 class Test::Unit::TestCase

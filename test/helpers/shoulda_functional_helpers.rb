@@ -1,5 +1,6 @@
 module ShouldaFunctionalHelpers
   include CaptureFu
+  include InDir
   
   # Here we're only prepending with 'ruby'. 
   # When run as a gem, RubyGems takes care of generating a batch file that does this stuff.
@@ -37,15 +38,14 @@ module ShouldaFunctionalHelpers
     
     
     def run_grb_with(params='')
-      origin = `git config remote.origin.url`
-      raise "Still in main repo" if origin =~ /github.com/i
-      
       execute "#{GRB_COMMAND} #{params}"
     end
 
     def execute(command)
-      errno, returned_string = capture_process_output("cd #{current_dir.path_for_os} && #{command}")
-      returned_string
+      in_dir current_dir do
+        errno, returned_string = capture_process_output(command)
+        returned_string
+      end
     end
     
     private
