@@ -21,6 +21,7 @@ require 'capture_fu'
 
 $LOAD_PATH.unshift( grb_app_root + '/lib' )
 require 'string_ext'
+require 'state'
 require 'param_reader'
 require 'version'
 
