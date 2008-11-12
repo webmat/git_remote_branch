@@ -2,9 +2,20 @@ module ShouldaFunctionalHelpers
   include CaptureFu
   include InDir
   
+  def self.ruby_prefix
+    if ENV['RUBY']
+      warn "  Forcing execution of grb with ruby interpreter #{ENV['RUBY']}"
+      ENV['RUBY'] + ' '
+    elsif WINDOWS
+      'ruby '
+    else
+      ''
+    end
+  end
+  
   # Here we're only prepending with 'ruby'. 
   # When run as a gem, RubyGems takes care of generating a batch file that does this stuff.
-  GRB_COMMAND = (WINDOWS ? 'ruby ' : '') + File.expand_path(File.dirname(__FILE__) + '/../../bin/grb') unless defined?(GRB_COMMAND)
+  GRB_COMMAND = ruby_prefix + File.expand_path(File.dirname(__FILE__) + '/../../bin/grb') unless defined?(GRB_COMMAND)
   
   def self.included(base)
     base.extend  ClassMethods
