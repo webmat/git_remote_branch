@@ -20,13 +20,35 @@ class GRBTest < Test::Unit::TestCase
         should_have_branch 'new_branch', :local
       end
       
-      context "the other local clone, tracking the new branch" do
+      context "the other local clone" do
         setup do
           in_directory_for :local2
-          run_grb_with 'track new_branch'
         end
         
-        should_have_branch 'new_branch', :local, :remote
+        context "not already having a branch of the same name" do
+          setup do
+            @output = run_grb_with 'track new_branch'
+          end
+          
+          should_have_branch 'new_branch', :local, :remote
+          
+          should "use the branch --track command" do
+            assert_match %r{branch --track}, @output
+          end
+        end
+        
+        context "having a branch of the same name" do
+          setup do
+            execute "git branch new_branch"
+            @output = run_grb_with 'track new_branch'
+          end
+          
+          should_have_branch 'new_branch', :local, :remote
+          
+          should "use git config to connect the branches" do
+            assert_match %r{git\sconfig}, @output
+          end
+        end
       end
       
       context "then deleting the branch" do
