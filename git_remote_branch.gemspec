@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: git_remote_branch
 version: !ruby/object:Gem::Version 
-  version: 0.2.6
+  version: 0.2.7
 platform: ruby
 authors: 
 - Mathieu Martin
@@ -10,7 +10,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2008-08-06 00:00:00 -04:00
+date: 2008-11-12 00:00:00 -05:00
 default_executable: 
 dependencies: 
 - !ruby/object:Gem::Dependency 
@@ -29,8 +29,8 @@ executables:
 - grb
 extensions: []
 
-extra_rdoc_files: []
-
+extra_rdoc_files: 
+- README.rdoc
 files: 
 - bin
 - bin/grb
@@ -39,25 +39,41 @@ files:
 - lib
 - lib/git_remote_branch.rb
 - lib/param_reader.rb
+- lib/string_ext.rb
 - lib/version.rb
 - Rakefile
-- README
+- README.rdoc
 - tasks
 - tasks/gem.rake
+- tasks/rdoc.rake
 - tasks/test.rake
 - test
 - test/functional
 - test/functional/grb_test.rb
 - test/helpers
 - test/helpers/array_extensions.rb
-- test/helpers/dir_stack.rb
 - test/helpers/extractable.rb
 - test/helpers/git_helper.rb
+- test/helpers/in_dir.rb
 - test/helpers/more_assertions.rb
 - test/helpers/shoulda_functional_helpers.rb
 - test/helpers/shoulda_unit_helpers.rb
 - test/helpers/temp_dir_helper.rb
 - test/test_helper.rb
+- test/test_runs
+- test/test_runs/2244
+- test/test_runs/2244/remote
+- test/test_runs/303
+- test/test_runs/303/remote
+- test/test_runs/4342
+- test/test_runs/4342/remote
+- test/test_runs/6216
+- test/test_runs/6216/remote
+- test/test_runs/6216/remote/file.txt
+- test/test_runs/7329
+- test/test_runs/7329/remote
+- test/test_runs/8893
+- test/test_runs/8893/remote
 - test/unit
 - test/unit/git_helper_test.rb
 - test/unit/git_remote_branch_test.rb
@@ -65,11 +81,14 @@ files:
 - TODO
 - vendor
 - vendor/capture_fu.rb
-has_rdoc: false
+has_rdoc: true
 homepage: http://github.com/webmat/git_remote_branch
 post_install_message: 
-rdoc_options: []
-
+rdoc_options: 
+- --main
+- README.rdoc
+- --exclude
+- lib
 require_paths: 
 - lib
 required_ruby_version: !ruby/object:Gem::Requirement 
@@ -87,7 +106,7 @@ required_rubygems_version: !ruby/object:Gem::Requirement
 requirements: []
 
 rubyforge_project: grb
-rubygems_version: 1.2.0
+rubygems_version: 1.3.0
 signing_key: 
 specification_version: 2
 summary: git_remote_branch eases the interaction with remote branches
@@ -96,14 +115,28 @@ test_files:
 - test/functional/grb_test.rb
 - test/helpers
 - test/helpers/array_extensions.rb
-- test/helpers/dir_stack.rb
 - test/helpers/extractable.rb
 - test/helpers/git_helper.rb
+- test/helpers/in_dir.rb
 - test/helpers/more_assertions.rb
 - test/helpers/shoulda_functional_helpers.rb
 - test/helpers/shoulda_unit_helpers.rb
 - test/helpers/temp_dir_helper.rb
 - test/test_helper.rb
+- test/test_runs
+- test/test_runs/2244
+- test/test_runs/2244/remote
+- test/test_runs/303
+- test/test_runs/303/remote
+- test/test_runs/4342
+- test/test_runs/4342/remote
+- test/test_runs/6216
+- test/test_runs/6216/remote
+- test/test_runs/6216/remote/file.txt
+- test/test_runs/7329
+- test/test_runs/7329/remote
+- test/test_runs/8893
+- test/test_runs/8893/remote
 - test/unit
 - test/unit/git_helper_test.rb
 - test/unit/git_remote_branch_test.rb
