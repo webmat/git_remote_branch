@@ -1,5 +1,6 @@
 .DS_Store
 pkg
 coverage
-test/test_runs
+test_runs
+test_runs/**/*
 rdoc
