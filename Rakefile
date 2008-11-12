@@ -13,3 +13,5 @@ Dir['tasks/**/*.rake'].each { |rake| load rake }
 
 desc 'Default: run all tests.'
 task :default => :test
+
+task :clean => [:clobber_package, :clobber_rdoc]

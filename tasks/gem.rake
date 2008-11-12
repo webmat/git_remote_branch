@@ -2,8 +2,6 @@ require 'yaml'
 
 require 'rake/gempackagetask'
 
-task :clean => :clobber_package
-
 spec = Gem::Specification.new do |s|
   s.name                  = GitRemoteBranch::NAME
   s.version               = GitRemoteBranch::VERSION::STRING
