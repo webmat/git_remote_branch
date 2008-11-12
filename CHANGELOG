@@ -1,3 +1,16 @@
+* Release 0.3.0 *
+
+  Housekeeping
+  - Support for a bunch of platforms has been added (Windows, Ubuntu, Ruby 1.9)
+  - git_remote_branch now has actual online documentation: grb.rubyforge.org
+  
+  Features
+  - track now works even if you already have a local branch of the same name
+    - it uses git config instead of branch --track in that case
+    - if you're not sure of what I mean, compare your results when running
+      - grb explain track master
+      - grb explain track non_existent_branch
+
 * Release 0.2.6 *
   Three new actual features
   - grb rename, contributed by Caio Chassot (caiochassot.com)
