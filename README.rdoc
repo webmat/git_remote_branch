@@ -148,6 +148,8 @@ git_remote_branch is licensed under the MIT License. See the file COPYING for de
 Installing from GitHub
   sudo gem install webmat-git_remote_branch --source=http://gems.github.com
 
+Note that the only stable version of the gem you should trust is the one from Rubyforge. The GitHub gem is a development gem. The gem WILL be rebuilt with the same version number on GitHub, and other horrible things will happen to it. If you use the github version of the gem, children will die. You've been warned.
+
 Cloning the repo and installing from your copy
   git clone git://github.com/webmat/git_remote_branch.git
   rake install
@@ -161,7 +163,7 @@ An attempt is made to require 2 more optional gems: redgreen and ruby-debug
 
 === Supported platforms
 
-git_remote_branch has been tested with the following configurations. 
+git_remote_branch has been tested with the following configurations.
 
 - OS X Leopard / Ruby 1.8.6 / Git 1.5.4.3
 - OS X Leopard / Ruby 1.9.1 / Git 1.5.4.3
