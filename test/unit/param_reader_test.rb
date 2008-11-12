@@ -1,19 +1,5 @@
 require File.join( File.dirname(__FILE__), '..', 'test_helper')
-
-REGULAR_BRANCH_LISTING = <<-STR
-  other_user/master
-* stubbed_current_branch
-  rubyforge
-STR
-
-BRANCH_LISTING_WHEN_NOT_ON_BRANCH = <<-STR
-* (no branch)
-  other_user/master
-  master
-  rubyforge
-STR
-
-WHEN_NOT_ON_GIT_REPOSITORY = "fatal: Not a git repository\n"
+require "#{TEST_DIR}/helpers/constants"
 
 class ParamReaderTest < Test::Unit::TestCase
   include ShouldaUnitHelpers
@@ -164,38 +150,6 @@ class ParamReaderTest < Test::Unit::TestCase
             end
           end
         end
-      end
-    end
-  end
-  
-  context 'get_current_branch' do
-    context "when not on a git repository" do
-      setup do
-        grb.stubs(:capture_process_output).returns([128, WHEN_NOT_ON_GIT_REPOSITORY])
-      end
-      
-      should "raise an exception" do
-        assert_raise(GitRemoteBranch::NotOnGitRepositoryError) { grb.get_current_branch }
-      end
-    end
-
-    context "when on an invalid branch" do
-      setup do
-        grb.stubs(:capture_process_output).returns([0, BRANCH_LISTING_WHEN_NOT_ON_BRANCH])
-      end
-      
-      should "raise an exception" do
-        assert_raise(GitRemoteBranch::InvalidBranchError) { grb.get_current_branch }
-      end
-    end
-
-    context "when on a valid branch" do
-      setup do
-        grb.stubs(:capture_process_output).returns([0, REGULAR_BRANCH_LISTING])
-      end
-      
-      should "return the current branch name" do
-        assert_equal 'stubbed_current_branch', grb.get_current_branch
       end
     end
   end
