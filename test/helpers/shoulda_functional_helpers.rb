@@ -37,6 +37,9 @@ module ShouldaFunctionalHelpers
     
     
     def run_grb_with(params='')
+      origin = `git config remote.origin.url`
+      raise "Still in main repo" if origin =~ /github.com/i
+      
       execute "#{GRB_COMMAND} #{params}"
     end
 
