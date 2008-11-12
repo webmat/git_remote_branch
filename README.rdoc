@@ -112,7 +112,7 @@ Examples:
 
 = More on git_remote_branch
 
-- Documentation: http://programblings.com/wp-content/uploads/git_remote_branch/rdoc/
+- Documentation: http://grb.rubyforge.org
 - News:          http://programblings.com/category/git/git_remote_branch/
 - Bug tracker:   http://git-remote-branch.lighthouseapp.com/projects/19198-git_remote_branch/overview
 - Code:          http://github.com/webmat/git_remote_branch
