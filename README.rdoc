@@ -88,7 +88,7 @@ run to accomplish that goal.
 Examples: 
 
   $ grb explain create
-  git_remote_branch version 0.2.6
+  git_remote_branch version 0.2.7
   
   List of operations to do to create a new remote branch and track it locally:
   
@@ -99,7 +99,7 @@ Examples:
 
 
   $ grb explain create my_branch github
-  git_remote_branch version 0.2.6
+  git_remote_branch version 0.2.7
   
   List of operations to do to create a new remote branch and track it locally:
   
