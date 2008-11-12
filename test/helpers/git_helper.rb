@@ -1,3 +1,4 @@
+require File.dirname(__FILE__) + '/in_dir'
 require File.dirname(__FILE__) + '/temp_dir_helper'
 
 # Instantiating a GitHelper object creates a temp directory containing 3 repos.
