@@ -112,10 +112,10 @@ Examples:
 
 = More on git_remote_branch
 
-News:         http://programblings.com/category/git/git_remote_branch/
-Bug tracker:  http://git-remote-branch.lighthouseapp.com/projects/19198-git_remote_branch/overview
-Code:         http://github.com/webmat/git_remote_branch
-Mailing list: http://groups.google.com/group/git_remote_branch
+- News:         http://programblings.com/category/git/git_remote_branch/
+- Bug tracker:  http://git-remote-branch.lighthouseapp.com/projects/19198-git_remote_branch/overview
+- Code:         http://github.com/webmat/git_remote_branch
+- Mailing list: http://groups.google.com/group/git_remote_branch
 
 
 == History
@@ -123,8 +123,7 @@ Mailing list: http://groups.google.com/group/git_remote_branch
 git_remote_branch in its current form was inspired by a script created by Carl Mercier and made public on his blog
 here:
 
-No nonsense GIT, part 1: git-remote-branch
-http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/
+{No nonsense GIT, part 1: git-remote-branch}[http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/]
 
 
 == Contributors
@@ -132,7 +131,7 @@ http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/
 - Mathieu Martin  webmat@gmail.com
 - Caio Chassot    dev@caiochassot.com
 - Axelson         github.com/axelson
-- Carl Mercier    (Carl: want your email here?)
+- Carl Mercier    github.com/cmer
 
 
 == Legalese
