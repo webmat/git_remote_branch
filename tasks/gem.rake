@@ -18,8 +18,8 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files     << 'README.rdoc'
   s.rdoc_options         << '--main' << 'README.rdoc' << '--exclude' << 'lib'
   
-  s.test_files            = Dir['test/**/*']
-  s.files                 = Dir['**/*'].reject{|f| f =~ /\Apkg|\Acoverage|\Ardoc|\Atest\/test_runs|\.gemspec\Z/}
+  s.test_files            = Dir['test/**/*'].reject{|f| f =~ /test_runs/}
+  s.files                 = Dir['**/*'].reject{|f| f =~ /\Apkg|\Acoverage|\Ardoc|test_runs|\.gemspec\Z/}
   
   s.executable            = 'grb'
   s.bindir                = "bin"
