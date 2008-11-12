@@ -143,6 +143,8 @@ git_remote_branch is licensed under the MIT License. See the file COPYING for de
 
 (Notice the keyword "bleeding")
 
+=== Getting the bleeding edge
+
 Installing from GitHub
   sudo gem install webmat-git_remote_branch --source=http://gems.github.com
 
@@ -156,3 +158,18 @@ Note that git_remote_branch uses a few more gems for tests. Running any rake tas
   sudo gem install mocha
 
 An attempt is made to require 2 more optional gems: redgreen and ruby-debug
+
+=== Supported platforms
+
+git_remote_branch has been tested with the following configurations. 
+
+- OS X Leopard / Ruby 1.8.6 / Git 1.5.4.3
+- OS X Leopard / Ruby 1.9.1 / Git 1.5.4.3
+- Ubuntu Intrepid Ibex / Ruby 1.8.7 / Git 1.5.6.3
+- Windows XP / Ruby 1.8.6 / Git 1.6.0.2 (the msys version)
+
+Let me know if you have problems running git_remote_branch with your platform.
+
+To run the test suite using Ruby 1.9, simply set the RUBY environment variable to point to your 1.9 interpreter and then run the 1.9 version of Rake. In my case, everything 1.9 is suffixed with 1.9:
+
+  $ RUBY=ruby1.9 rake1.9 test
