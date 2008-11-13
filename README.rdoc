@@ -1,28 +1,32 @@
 = Why git_remote_branch?
 
-The basic idea for git_remote_branch is to trivialize the interaction with
-remote branches in simple situations. 
+git_remote_branch is a simple command-line tool that makes it very easy to manipulate
+branches published in shared repositories.
 
-For now git_remote_branch assumes that the local and remote branches have the
-same name. Multiple origins are supported.
+git_remote_branch achieves this goal by sticking to a few principles:
+- keep grb's commands extremely regular (they all look alike)
+- support aliases for commands
+- print all commands it runs on your behalf in red, so you eventually learn them
 
-Another goal of git_remote_branch is to help teach the real underlying git
-commands. Each operation done on your behalf is displayed at the console.
+Another nice thing about git_remote_branch: it can simply explain a command 
+(print out all the corresponding git commands) instead of running them on your behalf.
 
+Note: git_remote_branch assumes that the local and remote branches have the
+same name. Multiple remote repositories (or origins) are supported.
 
 
 = Installation
 
-  sudo gem install git_remote_branch
+  sudo gem install git_remote_branch --include-dependencies
 
-If you have an older version of Rubygems (older than 1.2), you will have to manually install the "colored" gem.
+If you have an old version of Rubygems, you may have to manually install the "colored" gem.
   sudo gem install colored
 
-If you're on Windows, you must install "colored" and "win32console" manually (before or after installing git_remote_branch doesn't matter).
+If you're on Windows, you must also install "win32console" manually (before or after installing git_remote_branch doesn't matter).
   gem install win32console colored
 
 
-See the "Bleeding edge and development" section the end of this document for more details about fiddling with the source of git_remote_branch.
+See the "Bleeding edge and development" section the end of this document for more details about fiddling with the source of git_remote_branch or running it with Ruby 1.9 (yes, it works).
 
 = Usage
 
@@ -39,24 +43,22 @@ Available commands (with aliases):
 
 === create (alias: new)
 
-Create a new local branch as well as a corresponding remote branch from the
-branch you are currently on.
-Automatically track the new remote branch (useful for pulling and merging).
-Switch to the new branch.
+Create a new local branch as well as a corresponding remote branch based on the
+branch you currently have checked out. 
+Track the new remote branch. Checkout the new branch.
 
   $ grb create branch_name [origin_server]
 
 
-=== publish (aliases: remotize)
+=== publish (aliases: remotize, share)
 
 Publish an existing local branch to the remote server.
 Set up the local branch to track the new remote branch.
-Switch to the new branch.
 
   $ grb publish branch_name [origin_server]
 
 
-=== delete (aliases: destroy, kill, remove)
+=== delete (aliases: destroy, kill, remove, rm)
 
 Delete the remote branch then delete the local branch.
 The local branch is not deleted if there are pending changes.
@@ -66,18 +68,18 @@ The local branch is not deleted if there are pending changes.
 
 === track (aliases: follow grab fetch)
 
-Track an existing remote branch locally.
+Track an existing remote branch locally and checkout the branch.
 
   $ grb track branch_name [origin_server]
 
 
-=== rename (aliases: rn, mv, move)
-To rename the branch you're currently on.
-Rename the remote branch by copying then deleting the old name.
-Checkout a new local tracking branch with the new name and delete the local
-branch with the old name.
+=== rename (aliases: rn mv move)
 
-  $ grb rename branch_name [origin_server]
+Rename a remote branch and its local tracking branch.
+The branch you want to rename must be checked out.
+
+  # On branch to be renamed
+  $ grb rename new_branch_name [origin_server]
 
 
 === explain
@@ -97,6 +99,7 @@ Examples:
   git branch --track branch_to_create origin/branch_to_create
   git checkout branch_to_create
 
+Explain your specific case:
 
   $ grb explain create my_branch github
   git_remote_branch version 0.2.7
@@ -108,7 +111,7 @@ Examples:
   git branch --track my_branch github/my_branch
   git checkout my_branch
 
-
+This, of course, works for each of the grb commands.
 
 = More on git_remote_branch
 
@@ -121,10 +124,7 @@ Examples:
 
 == History
 
-git_remote_branch in its current form was inspired by a script created by Carl Mercier and made public on his blog
-here:
-
-{No nonsense GIT, part 1: git-remote-branch}[http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/]
+git_remote_branch in its current form was inspired by a script created by Carl Mercier and made public on his blog: {No nonsense GIT, part 1: git-remote-branch}[http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/]
 
 
 == Contributors
@@ -137,7 +137,7 @@ here:
 
 == Legalese
 
-git_remote_branch is licensed under the MIT License. See the file COPYING for details.
+git_remote_branch is licensed under the MIT License. See the file LICENSE for details.
 
 == Bleeding edge and development
 
@@ -148,22 +148,24 @@ git_remote_branch is licensed under the MIT License. See the file COPYING for de
 Installing from GitHub
   sudo gem install webmat-git_remote_branch --source=http://gems.github.com
 
-Note that the only stable version of the gem you should trust is the one from Rubyforge. The GitHub gem is a development gem. The gem WILL be rebuilt with the same version number on GitHub, and other horrible things will happen to it. If you use the github version of the gem, children will die. You've been warned.
+Note that the only stable version of the gem you should trust is the one from Rubyforge. The GitHub gem is a development gem. The GitHub gem WILL be rebuilt with the same version number, and other horrible things like that. If you use the github version of the gem, children will die! You've been warned.
 
 Cloning the repo and installing from your copy
   git clone git://github.com/webmat/git_remote_branch.git
   rake install
+
+=== Testing dependencies
 
 Note that git_remote_branch uses a few more gems for tests. Running any rake task will try to load them due to the way Rake::TestTask works.
 
   sudo gem install thoughtbot-shoulda --source http://gems.github.com
   sudo gem install mocha
 
-An attempt is made to require 2 more optional gems: redgreen and ruby-debug
+An attempt is made to require 2 more optional gems: redgreen and ruby-debug. If they're not present, only a whiny message will be displayed.
 
 === Supported platforms
 
-git_remote_branch has been tested with the following configurations.
+git_remote_branch has been tested with the following configurations:
 
 - OS X Leopard / Ruby 1.8.6 / Git 1.5.4.3 and 1.6.0.2
 - OS X Leopard / Ruby 1.9.1 / Git 1.5.4.3 and 1.6.0.2
