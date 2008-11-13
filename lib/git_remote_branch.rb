@@ -20,6 +20,7 @@ $LOAD_PATH.unshift( grb_app_root + '/vendor' )
 require 'capture_fu'
 
 $LOAD_PATH.unshift( grb_app_root + '/lib' )
+require 'constants'
 require 'string_ext'
 require 'state'
 require 'param_reader'

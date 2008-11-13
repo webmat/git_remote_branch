@@ -1,9 +1,6 @@
 module GitRemoteBranch
   include ::CaptureFu
   
-  private
-    LOCAL_BRANCH_LISTING_COMMAND = 'git branch -l'.freeze
-  
   public
     def get_current_branch
       local_branch_information[0]
