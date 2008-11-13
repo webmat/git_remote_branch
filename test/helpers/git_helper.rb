@@ -8,6 +8,7 @@ require File.dirname(__FILE__) + '/temp_dir_helper'
 # remote, local1 and local2.
 class GitHelper < TempDirHelper
   include InDir
+  GIT = GitRemoteBranch::GIT
   
   attr_reader :remote, :local1, :local2
   
@@ -24,7 +25,7 @@ class GitHelper < TempDirHelper
       mkdir_p repo_dir
       
       in_dir repo_dir do
-        `git init && echo "foo" > file.txt && git add . && git commit -a -m "dummy file"`
+        `#{GIT} init && echo "foo" > file.txt && #{GIT} add . && #{GIT} commit -a -m "dummy file"`
       end
       raise "Error setting up repository #{name}" unless $?.exitstatus == 0
       repo_dir
@@ -32,7 +33,7 @@ class GitHelper < TempDirHelper
     
     def clone_repo(origin_path, clone_path, name)
       in_dir clone_path do
-        `git clone #{File.join(origin_path, '.git').path_for_os} #{name}`
+        `#{GIT} clone #{File.join(origin_path, '.git').path_for_os} #{name}`
       end
       return File.join(clone_path, name)
     end

@@ -2,6 +2,8 @@ module ShouldaFunctionalHelpers
   include CaptureFu
   include InDir
   
+  GIT = GitRemoteBranch::GIT
+  
   def self.ruby_prefix
     if ENV['RUBY']
       warn "  Forcing execution of grb with ruby interpreter #{ENV['RUBY']}"
@@ -44,7 +46,7 @@ module ShouldaFunctionalHelpers
     end
     
     def in_branch(branch)
-      execute "git checkout #{branch}"
+      execute "#{GIT} checkout #{branch}"
     end
     
     
@@ -81,7 +83,7 @@ module ShouldaFunctionalHelpers
       wheres.flatten.each do |where|
         should "have the branch '#{what_branch}' #{where == :local ? 'locally' : 'remotely'}" do
           args = get_branch_location(where)
-          assert_match(/#{what_branch}/, execute("git branch #{args}"))
+          assert_match(/#{what_branch}/, execute("#{GIT} branch #{args}"))
         end
       end
     end
@@ -90,7 +92,7 @@ module ShouldaFunctionalHelpers
       wheres.flatten.each do |where|
         should "not have the branch '#{what_branch}' #{where == :local ? 'locally' : 'remotely'}" do
           args = get_branch_location(where)
-          assert_no_match(/#{what_branch}/, execute("git branch #{args}"))
+          assert_no_match(/#{what_branch}/, execute("#{GIT} branch #{args}"))
         end
       end
     end

@@ -35,10 +35,10 @@ module GitRemoteBranch
       :description => 'create a new remote branch and track it locally',
       :aliases  => %w{create new},
       :commands => [
-        '"git push #{origin} #{current_branch}:refs/heads/#{branch_name}"',
-        '"git fetch #{origin}"',
-        '"git branch --track #{branch_name} #{origin}/#{branch_name}"',
-        '"git checkout #{branch_name}"'
+        '"#{GIT} push #{origin} #{current_branch}:refs/heads/#{branch_name}"',
+        '"#{GIT} fetch #{origin}"',
+        '"#{GIT} branch --track #{branch_name} #{origin}/#{branch_name}"',
+        '"#{GIT} checkout #{branch_name}"'
       ]
     },
 
@@ -46,11 +46,11 @@ module GitRemoteBranch
       :description => 'publish an exiting local branch',
       :aliases  => %w{publish remotize share},
       :commands => [
-        '"git push #{origin} #{branch_name}:refs/heads/#{branch_name}"',
-        '"git fetch #{origin}"',
-        '"git config branch.#{branch_name}.remote #{origin}"',
-        '"git config branch.#{branch_name}.merge refs/heads/#{branch_name}"',
-        '"git checkout #{branch_name}"'
+        '"#{GIT} push #{origin} #{branch_name}:refs/heads/#{branch_name}"',
+        '"#{GIT} fetch #{origin}"',
+        '"#{GIT} config branch.#{branch_name}.remote #{origin}"',
+        '"#{GIT} config branch.#{branch_name}.merge refs/heads/#{branch_name}"',
+        '"#{GIT} checkout #{branch_name}"'
       ]
     },
 
@@ -58,12 +58,12 @@ module GitRemoteBranch
       :description => 'rename a remote branch and its local tracking branch',
       :aliases  => %w{rename rn mv move},
       :commands => [
-        '"git push #{origin} #{current_branch}:refs/heads/#{branch_name}"',
-        '"git fetch #{origin}"',
-        '"git branch --track #{branch_name} #{origin}/#{branch_name}"',
-        '"git checkout #{branch_name}"',
-        '"git push #{origin} :refs/heads/#{current_branch}"',
-        '"git branch -d #{current_branch}"',
+        '"#{GIT} push #{origin} #{current_branch}:refs/heads/#{branch_name}"',
+        '"#{GIT} fetch #{origin}"',
+        '"#{GIT} branch --track #{branch_name} #{origin}/#{branch_name}"',
+        '"#{GIT} checkout #{branch_name}"',
+        '"#{GIT} push #{origin} :refs/heads/#{current_branch}"',
+        '"#{GIT} branch -d #{current_branch}"',
       ]
     },
 
@@ -71,9 +71,9 @@ module GitRemoteBranch
       :description => 'delete a local and a remote branch',
       :aliases  => %w{delete destroy kill remove rm},
       :commands => [
-        '"git push #{origin} :refs/heads/#{branch_name}"',
-        '"git checkout master" if current_branch == branch_name',
-        '"git branch -d #{branch_name}"'
+        '"#{GIT} push #{origin} :refs/heads/#{branch_name}"',
+        '"#{GIT} checkout master" if current_branch == branch_name',
+        '"#{GIT} branch -d #{branch_name}"'
       ]
     },
 
@@ -82,12 +82,12 @@ module GitRemoteBranch
       :aliases  => %w{track follow grab fetch},
       :commands => [
         # This string programming thing is getting old. Not flexible enough anymore.
-        '"git fetch #{origin}"',
+        '"#{GIT} fetch #{origin}"',
         'if local_branches.include?(branch_name) 
-          "git config branch.#{branch_name}.remote #{origin}\n" +
-          "git config branch.#{branch_name}.merge refs/heads/#{branch_name}"
+          "#{GIT} config branch.#{branch_name}.remote #{origin}\n" +
+          "#{GIT} config branch.#{branch_name}.merge refs/heads/#{branch_name}"
         else
-          "git branch --track #{branch_name} #{origin}/#{branch_name}"
+          "#{GIT} branch --track #{branch_name} #{origin}/#{branch_name}"
         end'
       ]
     }
