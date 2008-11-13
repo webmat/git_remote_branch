@@ -1,7 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: git_remote_branch
 version: !ruby/object:Gem::Version 
-  version: 0.2.7
+  version: 0.3.0
 platform: ruby
 authors: 
 - Mathieu Martin
@@ -10,7 +10,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2008-11-12 00:00:00 -05:00
+date: 2008-11-13 00:00:00 -05:00
 default_executable: 
 dependencies: 
 - !ruby/object:Gem::Dependency 
@@ -35,13 +35,14 @@ files:
 - bin
 - bin/grb
 - CHANGELOG
-- COPYING
 - lib
+- lib/constants.rb
 - lib/git_remote_branch.rb
 - lib/param_reader.rb
 - lib/state.rb
 - lib/string_ext.rb
 - lib/version.rb
+- LICENSE
 - Rakefile
 - README.rdoc
 - tasks
