@@ -3,11 +3,12 @@
   Housekeeping
   - Support for a bunch of platforms has been added (Windows, Ubuntu, Ruby 1.9)
   - git_remote_branch now has actual online documentation: grb.rubyforge.org
+  - give useful error message if grb can't find the git executable
   
   Features
   - track now works even if you already have a local branch of the same name
     - it uses git config instead of branch --track in that case
-    - if you're not sure of what I mean, compare your results when running
+    - the difference can be seen by running
       - grb explain track master
       - grb explain track non_existent_branch
 
