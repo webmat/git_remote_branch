@@ -48,11 +48,15 @@ module ShouldaFunctionalHelpers
     end
     
     
-    def run_grb_with(params='')
-      execute "#{GRB_COMMAND} #{params}"
+    def run_grb_with(params='', env={})
+      execute "#{GRB_COMMAND} #{params}", env
     end
 
-    def execute(command)
+    def execute(command, env={})
+      #This is getting cleverer by the second. Belongs in CaptureFu?
+      env.each_pair do |k,v|
+        command = (WINDOWS ? 'set' : 'export') + " #{k}=#{v}\n" + command
+      end
       in_dir current_dir do
         errno, returned_string = capture_process_output(command)
         returned_string
