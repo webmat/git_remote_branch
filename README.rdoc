@@ -165,8 +165,8 @@ An attempt is made to require 2 more optional gems: redgreen and ruby-debug
 
 git_remote_branch has been tested with the following configurations.
 
-- OS X Leopard / Ruby 1.8.6 / Git 1.5.4.3
-- OS X Leopard / Ruby 1.9.1 / Git 1.5.4.3
+- OS X Leopard / Ruby 1.8.6 / Git 1.5.4.3 and 1.6.0.2
+- OS X Leopard / Ruby 1.9.1 / Git 1.5.4.3 and 1.6.0.2
 - Ubuntu Intrepid Ibex / Ruby 1.8.7 / Git 1.5.6.3
 - Windows XP / Ruby 1.8.6 / Git 1.6.0.2 (the msys version)
 
@@ -175,3 +175,8 @@ Let me know if you have problems running git_remote_branch with your platform.
 To run the test suite using Ruby 1.9, simply set the RUBY environment variable to point to your 1.9 interpreter and then run the 1.9 version of Rake. In my case, everything 1.9 is suffixed with 1.9:
 
   $ RUBY=ruby1.9 rake1.9 test
+
+Or on Windows (Ruby 1.9 not tested on Windows)
+
+  > set RUBY=ruby1.9
+  > rake1.9 test
