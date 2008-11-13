@@ -10,6 +10,11 @@ module GitRemoteBranch
       local_branch_information[1]
     end
     
+    def git_found?
+      ret, msg = capture_process_output "#{GIT} --version"
+      ret == 0
+    end
+    
   private
     # Returns an array of 2 elements: [current_branch, [all local branches]]
     def local_branch_information
