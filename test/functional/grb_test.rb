@@ -2,7 +2,7 @@ require File.join( File.dirname(__FILE__), '..', 'test_helper')
 
 class GRBTest < Test::Unit::TestCase
   include ShouldaFunctionalHelpers
-
+  
   on_a_repository do
     context "creating a branch in a local clone" do
       setup do
@@ -128,6 +128,16 @@ class GRBTest < Test::Unit::TestCase
   end
 
   in_a_non_git_directory do
+    context "when git is not in the path" do
+      setup do
+        @text = run_grb_with '', :GRB_GIT => 'unknown_git_executable_name'
+      end
+      should "complain about git not being in the path" do
+        assert_match %r{unknown_git_executable_name}, @text
+        assert_match %r{PATH}, @text
+      end
+    end
+    
     context "displaying help" do
       setup do
         @text = run_grb_with 'help'
