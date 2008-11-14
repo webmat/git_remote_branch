@@ -46,6 +46,7 @@ task :tag_warn do
 end
 task :tag do
   sh TAG_COMMAND
+  puts "Upload tags to repo with 'git push --tags'"
 end
 task :gem => :tag_warn
 
