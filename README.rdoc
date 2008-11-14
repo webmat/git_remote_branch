@@ -3,7 +3,7 @@
 git_remote_branch is a simple command-line tool that makes it very easy to manipulate
 branches published in shared repositories.
 
-git_remote_branch achieves this goal by sticking to a few principles:
+It achieves this goal by sticking to a few principles:
 - keep grb's commands extremely regular (they all look alike)
 - support aliases for commands
 - print all commands it runs on your behalf in red, so you eventually learn them
@@ -148,7 +148,7 @@ git_remote_branch is licensed under the MIT License. See the file LICENSE for de
 Installing from GitHub
   sudo gem install webmat-git_remote_branch --source=http://gems.github.com
 
-Note that the only stable version of the gem you should trust is the one from Rubyforge. The GitHub gem is a development gem. The GitHub gem WILL be rebuilt with the same version number, and other horrible things like that. If you use the github version of the gem, children will die! You've been warned.
+Note that the only stable version of the gem you should trust is the one from Rubyforge. The GitHub gem is a development gem. The GitHub gem WILL be rebuilt with the same version number, and other horrible things like that. If you use the GitHub version of the gem, children will die! You've been warned.
 
 Cloning the repo and installing from your copy
   git clone git://github.com/webmat/git_remote_branch.git
