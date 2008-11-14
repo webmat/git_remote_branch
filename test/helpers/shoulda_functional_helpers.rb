@@ -107,7 +107,9 @@ module ShouldaFunctionalHelpers
           @gh.cleanup
         end
 
-        yield
+        context '' do
+          yield
+        end
       end
     end
     
@@ -122,7 +124,9 @@ module ShouldaFunctionalHelpers
           @temp_dir.cleanup
         end
         
-        yield
+        context '' do
+          yield
+        end
       end
     end
   end
