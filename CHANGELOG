@@ -11,6 +11,7 @@
     - the difference can be seen by running
       - grb explain track master
       - grb explain track non_existent_branch
+  - Let you force the usage of a specific git executable by setting the environment variable GRB_GIT to point to it. It's pretty much undocumented for now, except for this mention :-) The tests for the useful error message use this feature. So it works.
 
 * Release 0.2.6 *
   Three new actual features
