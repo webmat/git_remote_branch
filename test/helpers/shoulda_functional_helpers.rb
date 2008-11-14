@@ -51,7 +51,7 @@ module ShouldaFunctionalHelpers
     
     
     def run_grb_with(params='')
-      execute "#{GRB_COMMAND} #{params}", env
+      execute "#{GRB_COMMAND} #{params}"
     end
 
     def execute(command)
