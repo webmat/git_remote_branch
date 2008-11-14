@@ -128,13 +128,15 @@ class GRBTest < Test::Unit::TestCase
   end
 
   in_a_non_git_directory do
-    context "when git is not in the path" do
-      setup do
-        @text = run_grb_with '', :GRB_GIT => 'unknown_git_executable_name'
-      end
-      should "complain about git not being in the path" do
-        assert_match %r{unknown_git_executable_name}, @text
-        assert_match %r{PATH}, @text
+    with_env_var :GRB_GIT, 'unknown_git_executable_name' do
+      context "when git is not in the path" do
+        setup do
+          @text = run_grb_with ''
+        end
+        should "complain about git not being in the path" do
+          assert_match %r{unknown_git_executable_name}, @text
+          assert_match %r{PATH}, @text
+        end
       end
     end
     
