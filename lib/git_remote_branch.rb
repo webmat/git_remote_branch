@@ -10,7 +10,7 @@ else
 end
 
 begin
-  WINDOWS = (RUBY_PLATFORM =~ /win32|cygwin/)
+  WINDOWS = !!(RUBY_PLATFORM =~ /win32|cygwin/)
 rescue Exception
 end
 
