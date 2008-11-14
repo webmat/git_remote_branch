@@ -50,15 +50,11 @@ module ShouldaFunctionalHelpers
     end
     
     
-    def run_grb_with(params='', env={})
+    def run_grb_with(params='')
       execute "#{GRB_COMMAND} #{params}", env
     end
 
-    def execute(command, env={})
-      #This is getting cleverer by the second. Belongs in CaptureFu?
-      env.each_pair do |k,v|
-        command = (WINDOWS ? 'set' : 'export') + " #{k}=#{v}\n" + command
-      end
+    def execute(command)
       in_dir current_dir do
         errno, returned_string = capture_process_output(command)
         returned_string
@@ -122,6 +118,29 @@ module ShouldaFunctionalHelpers
         
         teardown do
           @temp_dir.cleanup
+        end
+        
+        context '' do
+          yield
+        end
+      end
+    end
+    
+    def with_env_var(name, value)
+      name = name.to_s
+      
+      context "with environment variable '#{name}' set to '#{value}'" do
+        setup do
+          @env_previous_value = ENV[name] if ENV.keys.include?(name)
+          ENV[name]           = value
+        end
+        
+        teardown do
+          if @env_previous_value
+            ENV[name] = @env_previous_value
+          else
+            ENV.delete(name)
+          end
         end
         
         context '' do
