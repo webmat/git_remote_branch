@@ -12,6 +12,15 @@ require 'shoulda'
 gem 'mocha', '~> 0.5'
 require 'mocha'
 
+# Just load redgreen if not running tests from TextMate
+IN_TM = !ENV['TM_DIRECTORY'].nil? unless defined?(IN_TM)
+begin
+  require 'redgreen' unless IN_TM
+  require 'ruby-debug'
+rescue LoadError => ex
+  puts "Couldn't load optional test dependencies: #{ex.inspect}"
+end
+
 require File.join( [TEST_DIR] + %w{ .. lib git_remote_branch} )
 
 require "#{TEST_DIR}/helpers/in_dir"
