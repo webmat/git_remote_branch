@@ -8,7 +8,7 @@ It achieves this goal by sticking to a few principles:
 - support aliases for commands
 - print all commands it runs on your behalf in red, so you eventually learn them
 
-Another nice thing about git_remote_branch: it can simply explain a command 
+Another nice thing about git_remote_branch is that it can simply explain a command 
 (print out all the corresponding git commands) instead of running them on your behalf.
 
 Note: git_remote_branch assumes that the local and remote branches have the
@@ -148,7 +148,7 @@ git_remote_branch is licensed under the MIT License. See the file LICENSE for de
 Installing from GitHub
   sudo gem install webmat-git_remote_branch --source=http://gems.github.com
 
-Note that the only stable version of the gem you should trust is the one from Rubyforge. The GitHub gem is a development gem. The GitHub gem WILL be rebuilt with the same version number, and other horrible things like that. If you use the GitHub version of the gem, children will die! You've been warned.
+Note that the only stable version of the gem you should trust is the one from Rubyforge. The GitHub gem is a development gem. The GitHub gem WILL be rebuilt with the same version number, and other horrible things like that. If you use the GitHub version of git_remote_branch, children will die! You've been warned.
 
 Cloning the repo and installing from your copy
   git clone git://github.com/webmat/git_remote_branch.git
