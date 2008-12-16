@@ -20,12 +20,9 @@ $LOAD_PATH.unshift( grb_app_root + '/vendor' )
 require 'capture_fu'
 
 $LOAD_PATH.unshift( grb_app_root + '/lib' )
-require 'monkey_patches'
-require 'constants'
-require 'string_ext'
-require 'state'
-require 'param_reader'
-require 'version'
+%w(monkey_patches constants runner state param_reader version).each do |f|
+  require f
+end
 
 module GitRemoteBranch
   class InvalidBranchError < RuntimeError; end
