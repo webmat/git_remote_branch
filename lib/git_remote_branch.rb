@@ -20,7 +20,7 @@ $LOAD_PATH.unshift( grb_app_root + '/vendor' )
 require 'capture_fu'
 
 $LOAD_PATH.unshift( grb_app_root + '/lib' )
-%w(monkey_patches constants runner state param_reader version).each do |f|
+%w(monkey_patches constants  state param_reader version).each do |f|
   require f
 end
 
