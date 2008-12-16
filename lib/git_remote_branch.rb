@@ -20,6 +20,7 @@ $LOAD_PATH.unshift( grb_app_root + '/vendor' )
 require 'capture_fu'
 
 $LOAD_PATH.unshift( grb_app_root + '/lib' )
+require 'monkey_patches'
 require 'constants'
 require 'string_ext'
 require 'state'
@@ -150,7 +151,7 @@ module GitRemoteBranch
   end
 
   def execute_cmds(*cmds)
-    silencer = $SILENT ? ' 2>&1' : ''
+    silencer = $WHISPER ? ' 2>&1' : ''
     cmds.flatten.each do |c|
       puts_cmd c
       `#{c}#{silencer}`
@@ -161,12 +162,6 @@ module GitRemoteBranch
   def puts_cmd(*cmds)
     cmds.flatten.each do |c|
       whisper "#{c}".red
-    end
-  end
-  
-  def whisper(*msgs)
-    unless $SILENT
-      msgs.flatten ?  msgs.flatten.each{|m| puts m} : puts
     end
   end
 end

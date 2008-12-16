@@ -27,7 +27,7 @@ rescue InvalidBranchError => ex
   crap_out ex.message
 end
 
-$SILENT = p[:silent]
+$WHISPER = p[:silent]
 
 whisper get_welcome
 
