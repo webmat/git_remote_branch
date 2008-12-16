@@ -16,7 +16,6 @@ require 'mocha'
 IN_TM = !ENV['TM_DIRECTORY'].nil? unless defined?(IN_TM)
 begin
   require 'redgreen' unless IN_TM
-  require 'ruby-debug'
 rescue LoadError => ex
   puts "Couldn't load optional test dependencies: #{ex.inspect}"
 end
