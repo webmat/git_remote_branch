@@ -4,11 +4,11 @@ module GitRemoteBranch
     MINOR    = 3
     TINY     = 0
     
-    STRING   = [MAJOR, MINOR, TINY].join('.').freeze
+    STRING   = [MAJOR, MINOR, TINY].join('.')
   end
   
-  NAME          = 'git_remote_branch'.freeze
-  COMPLETE_NAME = "#{NAME} #{VERSION::STRING}".freeze  
-  COMMAND_NAME  = 'grb'.freeze
+  NAME          = 'git_remote_branch'
+  COMPLETE_NAME = "#{NAME} #{VERSION::STRING}"
+  COMMAND_NAME  = 'grb'
   SHORT_NAME    = COMMAND_NAME
 end

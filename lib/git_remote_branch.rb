@@ -1,11 +1,11 @@
 require 'rubygems'
 
 if RUBY_VERSION =~ /1\.8/
-  gem 'colored', '>= 1.1'
-  require 'colored'
+  gem 'rainbow', '>= 1.0.1'
+  require 'rainbow'
 else
   class String
-    def red; self; end
+    def foreground; self; end
   end
 end
 
@@ -158,7 +158,7 @@ module GitRemoteBranch
 
   def puts_cmd(*cmds)
     cmds.flatten.each do |c|
-      whisper "#{c}".red
+      whisper "#{c}".foreground(:red)
     end
   end
 end

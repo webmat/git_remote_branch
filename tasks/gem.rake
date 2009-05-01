@@ -25,7 +25,7 @@ spec = Gem::Specification.new do |s|
   s.bindir                = "bin"
   s.require_path          = "lib"
   
-  s.add_dependency( 'colored', '>= 1.1' )
+  s.add_dependency( 'rainbow', '>= 1.0.1' )
 end
 
 #Creates clobber_package, gem, package and repackage tasks
