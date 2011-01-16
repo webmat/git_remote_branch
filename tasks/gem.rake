@@ -3,8 +3,8 @@ require 'yaml'
 require 'rake/gempackagetask'
 
 spec = Gem::Specification.new do |s|
-  s.name                  = GitRemoteBranch::NAME
-  s.version               = GitRemoteBranch::VERSION::STRING
+  s.name                  = GitRemoteBranch::NAME.dup
+  s.version               = GitRemoteBranch::VERSION::STRING.dup
   s.summary               = "git_remote_branch eases the interaction with remote branches"
   s.description           = "git_remote_branch is a learning tool to ease the interaction with " +
                             "remote branches in simple situations."
