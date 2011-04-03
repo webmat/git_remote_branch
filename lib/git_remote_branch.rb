@@ -1,13 +1,7 @@
 require 'rubygems'
 
-if RUBY_VERSION =~ /1\.8/
-  gem 'rainbow', '>= 1.0.1'
-  require 'rainbow'
-else
-  class String
-    def foreground; self; end
-  end
-end
+gem 'rainbow', '~> 1.1.1'
+require 'rainbow'
 
 begin
   WINDOWS = !!(RUBY_PLATFORM =~ /win32|cygwin/)
