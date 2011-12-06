@@ -7,13 +7,8 @@ require "#{File.dirname(THIS_FILE)}/../lib/git_remote_branch"
 
 include GitRemoteBranch
 
-def crap_out(message)
-  puts message
-  exit 1
-end
-
 unless git_found?
-  crap_out <<-MSG
+  abort <<-MSG
 The git executable (#{GIT}) could not be found by git_remote_branch.
 Make sure your PATH variable contains the path for git's binary.
 Your PATH:
@@ -24,7 +19,7 @@ end
 begin
   p = read_params(ARGV)
 rescue InvalidBranchError => ex
-  crap_out ex.message
+  abort ex.message
 end
 
 $WHISPER = p[:silent]
