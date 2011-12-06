@@ -1,6 +1,6 @@
 require 'yaml'
 
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 
 spec = Gem::Specification.new do |s|
   s.name                  = GitRemoteBranch::NAME.dup
@@ -30,7 +30,7 @@ end
 
 #Creates clobber_package, gem, package and repackage tasks
 #Note on clobber_package: fortunately, this will clobber the CODE package
-Rake::GemPackageTask.new(spec) do |p|
+Gem::PackageTask.new(spec) do |p|
   p.gem_spec = spec
 end
 
