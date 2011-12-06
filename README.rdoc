@@ -17,7 +17,7 @@ same name. Multiple remote repositories (or origins) are supported.
 
 = Installation
 
-  sudo gem install git_remote_branch --include-dependencies
+  sudo gem install git_remote_branch
 
 If you have an old version of Rubygems, you may have to manually install the "colored" gem.
   sudo gem install colored
