@@ -1,6 +1,13 @@
 require 'rubygems'
 
-gem 'rainbow', '~> 1.1.1'
+begin
+  require 'bundler/setup'
+rescue Bundler::GemNotFound => e
+  STDERR.puts e.message
+  STDERR.puts "Try running `bundle install`."
+  exit!
+end
+
 require 'rainbow'
 
 begin
