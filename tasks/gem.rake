@@ -17,14 +17,14 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc              = true
   s.extra_rdoc_files     << 'README.rdoc'
   s.rdoc_options         << '--main' << 'README.rdoc' << '--exclude' << 'lib'
-  
+
   s.test_files            = Dir['test/**/*'].reject{|f| f =~ /test_runs/}
   s.files                 = Dir['**/*'].reject{|f| f =~ /\Apkg|\Acoverage|\Ardoc|test_runs|\.gemspec\Z/}
-  
+
   s.executable            = 'grb'
   s.bindir                = "bin"
   s.require_path          = "lib"
-  
+
   s.add_dependency( 'rainbow', '>= 1.0.1' )
 end
 
@@ -56,29 +56,29 @@ namespace :gem do
     File.open("#{GitRemoteBranch::NAME}.gemspec", 'w'){|f| f.puts YAML::dump(spec) }
     puts "gemspec generated here: #{GitRemoteBranch::NAME}.gemspec"
   end
-  
+
   desc 'Upload gem to rubyforge.org'
   task :rubyforge => :gem do
     sh 'rubyforge login'
     sh "rubyforge add_release grb grb '#{GitRemoteBranch::VERSION::STRING}' pkg/#{spec.full_name}.gem"
     sh "rubyforge add_file grb grb #{GitRemoteBranch::VERSION::STRING} pkg/#{spec.full_name}.gem"
   end
-  
+
   desc 'Install the gem built locally'
   task :install => [:clean, :gem] do
     sh "#{SUDO} gem install pkg/#{spec.full_name}.gem"
   end
-  
+
   desc "Uninstall version #{GitRemoteBranch::VERSION::STRING} of the gem"
   task :uninstall do
     sh "#{SUDO} gem uninstall -v #{GitRemoteBranch::VERSION::STRING} -x #{GitRemoteBranch::NAME}"
   end
-  
+
   if WINDOWS
     win_spec = spec.dup
     win_spec.platform = Gem::Platform::CURRENT
     win_spec.add_dependency( 'win32console', '~> 1.1' ) # Missing dependency in the 'colored' gem
-    
+
     desc "Generate the Windows version of the gem"
     namespace :windows do
       Rake::GemPackageTask.new(win_spec) do |p|

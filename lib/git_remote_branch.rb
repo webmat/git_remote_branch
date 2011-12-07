@@ -84,7 +84,7 @@ module GitRemoteBranch
       ]
     }
   } unless defined?(COMMANDS)
-  
+
   def self.get_reverse_map(commands)
     h={}
     commands.each_pair do |cmd, params|
@@ -99,7 +99,7 @@ module GitRemoteBranch
     h
   end
   ALIAS_REVERSE_MAP = get_reverse_map(COMMANDS) unless defined?(ALIAS_REVERSE_MAP)
-  
+
   def get_welcome
     "git_remote_branch version #{VERSION::STRING}\n\n"
   end
@@ -112,16 +112,16 @@ module GitRemoteBranch
       "  grb #{action} branch_name [origin_server]"
     } * "\n"
   }
-  
+
   Notes:
   - If origin_server is not specified, the name 'origin' is assumed (git's default)
   - The rename functionality renames the current branch
-  
+
   The explain meta-command: you can also prepend any command with the keyword 'explain'. Instead of executing the command, git_remote_branch will simply output the list of commands you need to run to accomplish that goal.
-  Example: 
+  Example:
     grb explain create
     grb explain create my_branch github
-  
+
   All commands also have aliases:
   #{ COMMANDS.keys.map{|k| k.to_s}.sort.map {|cmd| 
     "#{cmd}: #{COMMANDS[cmd.to_sym][:aliases].join(', ')}" }.join("\n  ") }
