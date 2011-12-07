@@ -47,8 +47,7 @@ module GitRemoteBranch
       :commands => [
         '"#{GIT} push #{origin} #{branch_name}:refs/heads/#{branch_name}"',
         '"#{GIT} fetch #{origin}"',
-        '"#{GIT} config branch.#{branch_name}.remote #{origin}"',
-        '"#{GIT} config branch.#{branch_name}.merge refs/heads/#{branch_name}"',
+        '"#{GIT} branch --set-upstream #{branch_name} #{origin}/#{branch_name}"',
         '"#{GIT} checkout #{branch_name}"'
       ]
     },
@@ -80,14 +79,8 @@ module GitRemoteBranch
       :description => 'track an existing remote branch',
       :aliases  => %w{track follow grab fetch},
       :commands => [
-        # This string programming thing is getting old. Not flexible enough anymore.
         '"#{GIT} fetch #{origin}"',
-        'if local_branches.include?(branch_name) 
-          "#{GIT} config branch.#{branch_name}.remote #{origin}\n" +
-          "#{GIT} config branch.#{branch_name}.merge refs/heads/#{branch_name}"
-        else
-          "#{GIT} branch --track #{branch_name} #{origin}/#{branch_name}"
-        end'
+        '"#{GIT} branch --set-upstream #{branch_name} #{origin}/#{branch_name}"'
       ]
     }
   } unless defined?(COMMANDS)
