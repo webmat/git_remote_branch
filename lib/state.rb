@@ -13,7 +13,7 @@ module GitRemoteBranch
     def git_found?
       ret, msg = capture_process_output "#{GIT} --version"
       user_version = msg.chomp.split[2]
-      warn "Some grb commands will not work with git version < 1.7 (you have #{user_version})" unless user_version >= '1.8'
+      warn "Some grb commands will not work with git version < 1.7 (you have #{user_version})" unless user_version >= '1.7'
       ret == 0
     end
 
