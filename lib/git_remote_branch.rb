@@ -109,8 +109,8 @@ module GitRemoteBranch
   Usage:
 
 #{[:create, :publish, :rename, :delete, :track].map{|action|
-      "  grb #{action} branch_name [origin_server] \n\n"
-    }  
+      "  grb #{action} branch_name [origin_server]"
+    } * "\n"
   }
   
   Notes:
