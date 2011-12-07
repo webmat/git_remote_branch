@@ -35,6 +35,7 @@ Gem::PackageTask.new(spec) do |p|
 end
 
 TAG_COMMAND = "git tag -m 'Tagging version #{GitRemoteBranch::VERSION::STRING}' -a v#{GitRemoteBranch::VERSION::STRING}"
+push_tags_command = 'git push --tags'
 task :tag_warn do
   puts  "*" * 40,
         "Don't forget to tag the release:",
@@ -46,32 +47,29 @@ task :tag_warn do
 end
 task :tag do
   sh TAG_COMMAND
-  puts "Upload tags to repo with 'git push --tags'"
+  puts "Upload tags to repo with '#{push_tags_command}'"
 end
 task :gem => :tag_warn
 
 namespace :gem do
-  desc "Update the gemspec for GitHub's gem server"
-  task :github do
-    File.open("#{GitRemoteBranch::NAME}.gemspec", 'w'){|f| f.puts YAML::dump(spec) }
-    puts "gemspec generated here: #{GitRemoteBranch::NAME}.gemspec"
-  end
-
-  desc 'Upload gem to rubyforge.org'
-  task :rubyforge => :gem do
-    sh 'rubyforge login'
-    sh "rubyforge add_release grb grb '#{GitRemoteBranch::VERSION::STRING}' pkg/#{spec.full_name}.gem"
-    sh "rubyforge add_file grb grb #{GitRemoteBranch::VERSION::STRING} pkg/#{spec.full_name}.gem"
+  desc 'Upload gem to rubygems.org'
+  task :publish => :gem do
+    sh "gem push pkg/#{spec.full_name}.gem"
   end
 
   desc 'Install the gem built locally'
   task :install => [:clean, :gem] do
-    sh "#{SUDO} gem install pkg/#{spec.full_name}.gem"
+    sh "gem install pkg/#{spec.full_name}.gem"
   end
 
   desc "Uninstall version #{GitRemoteBranch::VERSION::STRING} of the gem"
   task :uninstall do
-    sh "#{SUDO} gem uninstall -v #{GitRemoteBranch::VERSION::STRING} -x #{GitRemoteBranch::NAME}"
+    sh "gem uninstall -v #{GitRemoteBranch::VERSION::STRING} -x #{GitRemoteBranch::NAME}"
+  end
+
+  desc "Build and publish the gem, tag the commit and push the tags in one command"
+  task :feeling_lucky => [:gem, :publish, :tag] do
+    sh push_tags_command
   end
 
   if WINDOWS
