@@ -17,20 +17,17 @@ same name. Multiple remote repositories (or origins) are supported.
 
 = Installation
 
-  sudo gem install git_remote_branch
+  gem install git_remote_branch
 
-If you have an old version of Rubygems, you may have to manually install the "colored" gem.
-  sudo gem install colored
+If you're on Windows, you can optionally install the following gems, to get
+color output:
 
-If you're on Windows, you must also install "win32console" manually (before or after installing git_remote_branch doesn't matter).
-  gem install win32console colored
+  gem install windows-pr win32console
 
-
-See the "Bleeding edge and development" section the end of this document for more details about fiddling with the source of git_remote_branch or running it with Ruby 1.9 (yes, it works).
 
 = Usage
 
-Notes: 
+Notes:
 - parts between brackets are optional
 - When 'origin_server' is not specified, the name 'origin' is assumed.
 
@@ -87,13 +84,13 @@ The branch you want to rename must be checked out.
 All commands can be prepended by the word 'explain'.  Instead of executing the
 command, git_remote_branch will simply output the list of commands you need to
 run to accomplish that goal.
-Examples: 
+Examples:
 
   $ grb explain create
   git_remote_branch version 0.3.0
-  
+
   List of operations to do to create a new remote branch and track it locally:
-  
+
   git push origin master:refs/heads/branch_to_create
   git fetch origin
   git branch --track branch_to_create origin/branch_to_create
@@ -103,9 +100,9 @@ Explain your specific case:
 
   $ grb explain create my_branch github
   git_remote_branch version 0.3.0
-  
+
   List of operations to do to create a new remote branch and track it locally:
-  
+
   git push github master:refs/heads/my_branch
   git fetch github
   git branch --track my_branch github/my_branch
@@ -115,11 +112,10 @@ This, of course, works for each of the grb commands.
 
 = More on git_remote_branch
 
-- Documentation: http://grb.rubyforge.org
-- News:          http://programblings.com/category/git/git_remote_branch/
-- Bug tracker:   http://git-remote-branch.lighthouseapp.com/projects/19198-git_remote_branch/overview
-- Code:          http://github.com/webmat/git_remote_branch
-- Mailing list:  http://groups.google.com/group/git_remote_branch
+- Documentation:  https://github.com/webmat/git_remote_branch#readme
+- Code:           http://github.com/webmat/git_remote_branch
+- Bugs:           https://github.com/webmat/git_remote_branch/issues
+- News:           http://programblings.com/category/git/git_remote_branch/
 
 
 == History
@@ -139,46 +135,13 @@ git_remote_branch in its current form was inspired by a script created by Carl M
 
 git_remote_branch is licensed under the MIT License. See the file LICENSE for details.
 
-== Bleeding edge and development
-
-(Notice the keyword "bleeding")
-
-=== Getting the bleeding edge
-
-Installing from GitHub
-  sudo gem install webmat-git_remote_branch --source=http://gems.github.com
-
-Note that the only stable version of the gem you should trust is the one from Rubyforge. The GitHub gem is a development gem. The GitHub gem WILL be rebuilt with the same version number, and other horrible things like that. If you use the GitHub version of git_remote_branch, children will die! You've been warned.
-
-Cloning the repo and installing from your copy
-  git clone git://github.com/webmat/git_remote_branch.git
-  rake install
-
-=== Testing dependencies
-
-Note that git_remote_branch uses a few more gems for tests. Running any rake task will try to load them due to the way Rake::TestTask works.
-
-  sudo gem install thoughtbot-shoulda --source http://gems.github.com
-  sudo gem install mocha
-
-An attempt is made to require 2 more optional gems: redgreen and ruby-debug. If they're not present, only a whiny message will be displayed.
-
 === Supported platforms
 
-git_remote_branch has been tested with the following configurations:
+This version of git_remote_branch has been tested with
 
-- OS X Leopard / Ruby 1.8.6 / Git 1.5.4.3 and 1.6.0.2
-- OS X Leopard / Ruby 1.9.1 / Git 1.5.4.3 and 1.6.0.2
-- Ubuntu Intrepid Ibex / Ruby 1.8.7 / Git 1.5.6.3
-- Windows XP / Ruby 1.8.6 / Git 1.6.0.2 (the msys version)
+- OS X Lion
+- past versions were known to work on Linux and Windows
+- Ruby 1.8.7, 1.9.2, 1.9.3
+- git 1.7+
 
-Let me know if you have problems running git_remote_branch with your platform.
-
-To run the test suite using Ruby 1.9, simply set the RUBY environment variable to point to your 1.9 interpreter and then run the 1.9 version of Rake. In my case, everything 1.9 is suffixed with 1.9:
-
-  $ RUBY=ruby1.9 rake1.9 test
-
-Or on Windows (Ruby 1.9 not tested on Windows)
-
-  > set RUBY=ruby1.9
-  > rake1.9 test
+Let me know if you encounter problems running git_remote_branch with your platform.
