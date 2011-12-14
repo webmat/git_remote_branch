@@ -4,3 +4,5 @@ coverage
 test_runs
 test_runs/**/*
 rdoc
+Gemfile.lock
+*~
