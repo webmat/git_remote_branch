@@ -1,120 +1,26 @@
---- !ruby/object:Gem::Specification 
-name: git_remote_branch
-version: !ruby/object:Gem::Version 
-  version: 0.3.0
-platform: ruby
-authors: 
-- Mathieu Martin
-- Carl Mercier
-autorequire: 
-bindir: bin
-cert_chain: []
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
 
-date: 2008-11-14 00:00:00 -05:00
-default_executable: 
-dependencies: 
-- !ruby/object:Gem::Dependency 
-  name: colored
-  type: :runtime
-  version_requirement: 
-  version_requirements: !ruby/object:Gem::Requirement 
-    requirements: 
-    - - ">="
-      - !ruby/object:Gem::Version 
-        version: "1.1"
-    version: 
-description: git_remote_branch is a learning tool to ease the interaction with remote branches in simple situations.
-email: webmat@gmail.com
-executables: 
-- grb
-extensions: []
+Gem::Specification.new do |s|
+  s.name        = "git_remote_branch"
+  s.version     = '0.3.0'
+  s.platform    = Gem::Platform::RUBY
+  s.authors     = ["Mathieu Martin", "Carl Mercier"]
+  s.email       = "webmat@gmail.com"
+  s.homepage    = "http://github.com/webmat/git_remote_branch"
+  s.summary     = %Q{git_remote_branch eases the interaction with remote branches}
+  s.description = %Q{git_remote_branch is a learning tool to ease the interaction with remote branches in simple situations.}
 
-extra_rdoc_files: 
-- README.rdoc
-files: 
-- bin
-- bin/grb
-- CHANGELOG
-- lib
-- lib/constants.rb
-- lib/git_remote_branch.rb
-- lib/param_reader.rb
-- lib/state.rb
-- lib/string_ext.rb
-- lib/version.rb
-- LICENSE
-- Rakefile
-- README.rdoc
-- tasks
-- tasks/gem.rake
-- tasks/rdoc.rake
-- tasks/test.rake
-- test
-- test/functional
-- test/functional/grb_test.rb
-- test/helpers
-- test/helpers/array_extensions.rb
-- test/helpers/constants.rb
-- test/helpers/extractable.rb
-- test/helpers/git_helper.rb
-- test/helpers/in_dir.rb
-- test/helpers/more_assertions.rb
-- test/helpers/shoulda_functional_helpers.rb
-- test/helpers/shoulda_unit_helpers.rb
-- test/helpers/temp_dir_helper.rb
-- test/test_helper.rb
-- test/unit
-- test/unit/git_helper_test.rb
-- test/unit/git_remote_branch_test.rb
-- test/unit/param_reader_test.rb
-- test/unit/state_test.rb
-- vendor
-- vendor/capture_fu.rb
-has_rdoc: true
-homepage: http://github.com/webmat/git_remote_branch
-post_install_message: 
-rdoc_options: 
-- --main
-- README.rdoc
-- --exclude
-- lib
-require_paths: 
-- lib
-required_ruby_version: !ruby/object:Gem::Requirement 
-  requirements: 
-  - - ">="
-    - !ruby/object:Gem::Version 
-      version: "0"
-  version: 
-required_rubygems_version: !ruby/object:Gem::Requirement 
-  requirements: 
-  - - ">="
-    - !ruby/object:Gem::Version 
-      version: "0"
-  version: 
-requirements: []
-
-rubyforge_project: grb
-rubygems_version: 1.3.0
-signing_key: 
-specification_version: 2
-summary: git_remote_branch eases the interaction with remote branches
-test_files: 
-- test/functional
-- test/functional/grb_test.rb
-- test/helpers
-- test/helpers/array_extensions.rb
-- test/helpers/constants.rb
-- test/helpers/extractable.rb
-- test/helpers/git_helper.rb
-- test/helpers/in_dir.rb
-- test/helpers/more_assertions.rb
-- test/helpers/shoulda_functional_helpers.rb
-- test/helpers/shoulda_unit_helpers.rb
-- test/helpers/temp_dir_helper.rb
-- test/test_helper.rb
-- test/unit
-- test/unit/git_helper_test.rb
-- test/unit/git_remote_branch_test.rb
-- test/unit/param_reader_test.rb
-- test/unit/state_test.rb
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- test/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+  
+  s.add_development_dependency "rake"
+  s.add_development_dependency "rdoc"
+  s.add_development_dependency 'test-unit'
+  s.add_development_dependency 'shoulda'
+  s.add_development_dependency 'mocha'
+  s.add_dependency 'rainbow'
+  s.add_dependency 'colored'
+end
