@@ -113,7 +113,7 @@ module GitRemoteBranch
     grb explain create my_branch github
 
   All commands also have aliases:
-  #{ COMMANDS.keys.map{|k| k.to_s}.sort.map {|cmd| 
+  #{ COMMANDS.keys.map{|k| k.to_s}.sort.map {|cmd|
     "#{cmd}: #{COMMANDS[cmd.to_sym][:aliases].join(', ')}" }.join("\n  ") }
   HELP
   end
