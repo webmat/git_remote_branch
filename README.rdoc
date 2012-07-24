@@ -115,7 +115,7 @@ This, of course, works for each of the grb commands.
 - Documentation:  https://github.com/webmat/git_remote_branch#readme
 - Code:           http://github.com/webmat/git_remote_branch
 - Bugs:           https://github.com/webmat/git_remote_branch/issues
-- News:           http://programblings.com/category/git/git_remote_branch/
+- News:           http://programblings.com
 
 
 == History
