@@ -87,7 +87,7 @@ run to accomplish that goal.
 Examples:
 
   $ grb explain create
-  git_remote_branch version 0.3.0
+  git_remote_branch version 0.3.3
 
   List of operations to do to create a new remote branch and track it locally:
 
@@ -99,7 +99,7 @@ Examples:
 Explain your specific case:
 
   $ grb explain create my_branch github
-  git_remote_branch version 0.3.0
+  git_remote_branch version 0.3.3
 
   List of operations to do to create a new remote branch and track it locally:
 
@@ -112,10 +112,10 @@ This, of course, works for each of the grb commands.
 
 = More on git_remote_branch
 
-- Documentation:  https://github.com/webmat/git_remote_branch#readme
-- Code:           http://github.com/webmat/git_remote_branch
-- Bugs:           https://github.com/webmat/git_remote_branch/issues
-- News:           http://programblings.com
+- {Documentation}[http://rubydoc.info/gems/git_remote_branch/0.3.3/frames]
+- {Code}[https://github.com/webmat/git_remote_branch]
+- {Bugs}[https://github.com/webmat/git_remote_branch/issues]
+- News at {Mathieu Martin's blog}[http://programblings.com]
 
 
 == History
@@ -125,10 +125,10 @@ git_remote_branch in its current form was inspired by a script created by Carl M
 
 == Contributors
 
-- Mathieu Martin  webmat@gmail.com
-- Caio Chassot    dev@caiochassot.com
-- Axelson         github.com/axelson
-- Carl Mercier    github.com/cmer
+- {Mathieu Martin}[http://www.programblings.com]
+- {Caio Chassot}[http://caiochassot.com]
+- {Axelson}[https://github.com/axelson]
+- {Carl Mercier}[https://github.com/cmer]
 
 
 == Legalese
