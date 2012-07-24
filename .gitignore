@@ -1,3 +1,5 @@
+.rvmrc
+.rbenv-version
 .DS_Store
 pkg
 coverage
