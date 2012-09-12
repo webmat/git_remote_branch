@@ -126,6 +126,7 @@ git_remote_branch in its current form was inspired by a script created by Carl M
 == Contributors
 
 - {Mathieu Martin}[http://www.programblings.com]
+- {Ivan}[https://github.com/toy]
 - {Caio Chassot}[http://caiochassot.com]
 - {Axelson}[https://github.com/axelson]
 - {Carl Mercier}[https://github.com/cmer]
@@ -139,7 +140,7 @@ git_remote_branch is licensed under the MIT License. See the file LICENSE for de
 
 This version of git_remote_branch has been tested with
 
-- OS X Lion
+- OS X Mountain Lion
 - past versions were known to work on Linux and Windows
 - Ruby 1.8.7, 1.9.2, 1.9.3
 - git 1.7+
