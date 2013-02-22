@@ -1,89 +1,58 @@
 require 'yaml'
 
-require 'rake/gempackagetask'
+gem_name  = GitRemoteBranch::NAME
+version   = GitRemoteBranch::VERSION::STRING
+gem_file  = "#{gem_name}-#{version}.gem"
 
-spec = Gem::Specification.new do |s|
-  s.name                  = GitRemoteBranch::NAME
-  s.version               = GitRemoteBranch::VERSION::STRING
-  s.summary               = "git_remote_branch eases the interaction with remote branches"
-  s.description           = "git_remote_branch is a learning tool to ease the interaction with " +
-                            "remote branches in simple situations."
+tag_command = "git tag -m 'Tagging version #{version}' -a v#{version}"
+push_tags_command = 'git push --tags'
 
-  s.authors               = ['Mathieu Martin', 'Carl Mercier']
-  s.email                 = "webmat@gmail.com"
-  s.homepage              = "http://github.com/webmat/git_remote_branch"
-  s.rubyforge_project     = 'grb'
-
-  s.has_rdoc              = true
-  s.extra_rdoc_files     << 'README.rdoc'
-  s.rdoc_options         << '--main' << 'README.rdoc' << '--exclude' << 'lib'
-  
-  s.test_files            = Dir['test/**/*'].reject{|f| f =~ /test_runs/}
-  s.files                 = Dir['**/*'].reject{|f| f =~ /\Apkg|\Acoverage|\Ardoc|test_runs|\.gemspec\Z/}
-  
-  s.executable            = 'grb'
-  s.bindir                = "bin"
-  s.require_path          = "lib"
-  
-  s.add_dependency( 'colored', '>= 1.1' )
-end
-
-#Creates clobber_package, gem, package and repackage tasks
-#Note on clobber_package: fortunately, this will clobber the CODE package
-Rake::GemPackageTask.new(spec) do |p|
-  p.gem_spec = spec
-end
-
-TAG_COMMAND = "git tag -m 'Tagging version #{GitRemoteBranch::VERSION::STRING}' -a v#{GitRemoteBranch::VERSION::STRING}"
 task :tag_warn do
-  puts  "*" * 40,
-        "Don't forget to tag the release:",
-        '',
-        "  " + TAG_COMMAND,
-        '',
-        "or run rake tag",
-        "*" * 40
+  puts <<-TAG
+#{"*" * 40}
+Don't forget to tag the release:
+
+  #{tag_command}
+  #{push_tags_command}
+or
+  run rake tag tag:push
+
+#{"*" * 40}
+TAG
 end
+
 task :tag do
-  sh TAG_COMMAND
-  puts "Upload tags to repo with 'git push --tags'"
+  sh tag_command
+  puts "Upload tags to repo with '#{push_tags_command}'"
 end
-task :gem => :tag_warn
+
+namespace :tag do
+  task :push do
+    sh push_tags_command
+  end
+end
+
+desc "Build gem and put it in pkg/"
+task :gem => [:test, :tag_warn] do
+  sh "gem build #{gem_name}.gemspec && mv #{gem_file} pkg/"
+end
 
 namespace :gem do
-  desc "Update the gemspec for GitHub's gem server"
-  task :github do
-    File.open("#{GitRemoteBranch::NAME}.gemspec", 'w'){|f| f.puts YAML::dump(spec) }
-    puts "gemspec generated here: #{GitRemoteBranch::NAME}.gemspec"
+  desc 'Upload gem to rubygems.org'
+  task :publish => :gem do
+    sh "gem push pkg/#{gem_file}"
   end
-  
-  desc 'Upload gem to rubyforge.org'
-  task :rubyforge => :gem do
-    sh 'rubyforge login'
-    sh "rubyforge add_release grb grb '#{GitRemoteBranch::VERSION::STRING}' pkg/#{spec.full_name}.gem"
-    sh "rubyforge add_file grb grb #{GitRemoteBranch::VERSION::STRING} pkg/#{spec.full_name}.gem"
+
+  desc 'Install the last gem built locally'
+  task :install do
+    sh "gem install pkg/#{gem_file}"
   end
-  
-  desc 'Install the gem built locally'
-  task :install => [:clean, :gem] do
-    sh "#{SUDO} gem install pkg/#{spec.full_name}.gem"
-  end
-  
-  desc "Uninstall version #{GitRemoteBranch::VERSION::STRING} of the gem"
+
+  desc "Uninstall version #{version} of the gem"
   task :uninstall do
-    sh "#{SUDO} gem uninstall -v #{GitRemoteBranch::VERSION::STRING} -x #{GitRemoteBranch::NAME}"
+    sh "gem uninstall -v #{version} -x #{gem_name}"
   end
-  
-  if WINDOWS
-    win_spec = spec.dup
-    win_spec.platform = Gem::Platform::CURRENT
-    win_spec.add_dependency( 'win32console', '~> 1.1' ) # Missing dependency in the 'colored' gem
-    
-    desc "Generate the Windows version of the gem"
-    namespace :windows do
-      Rake::GemPackageTask.new(win_spec) do |p|
-        p.gem_spec = win_spec
-      end
-    end
-  end
+
+  desc "Build and publish the gem, tag the commit and push the tags in one command"
+  task :feeling_lucky => [:gem, :publish, :tag, 'tag:push']
 end

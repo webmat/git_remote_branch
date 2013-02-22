@@ -1,13 +1,4 @@
-require 'rubygems'
-
-if RUBY_VERSION =~ /1\.8/
-  gem 'colored', '>= 1.1'
-  require 'colored'
-else
-  class String
-    def red; self; end
-  end
-end
+require 'rainbow'
 
 begin
   WINDOWS = !!(RUBY_PLATFORM =~ /win32|cygwin/)
@@ -41,13 +32,12 @@ module GitRemoteBranch
     },
 
     :publish     => {
-      :description => 'publish an exiting local branch',
+      :description => 'publish an existing local branch',
       :aliases  => %w{publish remotize share},
       :commands => [
         '"#{GIT} push #{origin} #{branch_name}:refs/heads/#{branch_name}"',
         '"#{GIT} fetch #{origin}"',
-        '"#{GIT} config branch.#{branch_name}.remote #{origin}"',
-        '"#{GIT} config branch.#{branch_name}.merge refs/heads/#{branch_name}"',
+        '"#{GIT} branch --set-upstream #{branch_name} #{origin}/#{branch_name}"',
         '"#{GIT} checkout #{branch_name}"'
       ]
     },
@@ -79,18 +69,12 @@ module GitRemoteBranch
       :description => 'track an existing remote branch',
       :aliases  => %w{track follow grab fetch},
       :commands => [
-        # This string programming thing is getting old. Not flexible enough anymore.
         '"#{GIT} fetch #{origin}"',
-        'if local_branches.include?(branch_name) 
-          "#{GIT} config branch.#{branch_name}.remote #{origin}\n" +
-          "#{GIT} config branch.#{branch_name}.merge refs/heads/#{branch_name}"
-        else
-          "#{GIT} branch --track #{branch_name} #{origin}/#{branch_name}"
-        end'
+        '"#{GIT} branch --set-upstream #{branch_name} #{origin}/#{branch_name}"'
       ]
     }
   } unless defined?(COMMANDS)
-  
+
   def self.get_reverse_map(commands)
     h={}
     commands.each_pair do |cmd, params|
@@ -105,7 +89,7 @@ module GitRemoteBranch
     h
   end
   ALIAS_REVERSE_MAP = get_reverse_map(COMMANDS) unless defined?(ALIAS_REVERSE_MAP)
-  
+
   def get_welcome
     "git_remote_branch version #{VERSION::STRING}\n\n"
   end
@@ -115,21 +99,21 @@ module GitRemoteBranch
   Usage:
 
 #{[:create, :publish, :rename, :delete, :track].map{|action|
-      "  grb #{action} branch_name [origin_server] \n\n"
-    }  
+      "  grb #{action} branch_name [origin_server]"
+    } * "\n"
   }
-  
+
   Notes:
   - If origin_server is not specified, the name 'origin' is assumed (git's default)
   - The rename functionality renames the current branch
-  
+
   The explain meta-command: you can also prepend any command with the keyword 'explain'. Instead of executing the command, git_remote_branch will simply output the list of commands you need to run to accomplish that goal.
-  Example: 
+  Example:
     grb explain create
     grb explain create my_branch github
-  
+
   All commands also have aliases:
-  #{ COMMANDS.keys.map{|k| k.to_s}.sort.map {|cmd| 
+  #{ COMMANDS.keys.map{|k| k.to_s}.sort.map {|cmd|
     "#{cmd}: #{COMMANDS[cmd.to_sym][:aliases].join(', ')}" }.join("\n  ") }
   HELP
   end
@@ -158,7 +142,7 @@ module GitRemoteBranch
 
   def puts_cmd(*cmds)
     cmds.flatten.each do |c|
-      whisper "#{c}".red
+      whisper "#{c}".foreground(:red)
     end
   end
 end

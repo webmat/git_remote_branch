@@ -1,6 +1,10 @@
+.rvmrc
+.rbenv-version
 .DS_Store
 pkg
 coverage
 test_runs
 test_runs/**/*
 rdoc
+Gemfile.lock
+*~

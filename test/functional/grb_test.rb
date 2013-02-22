@@ -1,4 +1,4 @@
-require File.join( File.dirname(__FILE__), '..', 'test_helper')
+require File.expand_path('../../test_helper', __FILE__)
 
 class GRBTest < Test::Unit::TestCase
   include ShouldaFunctionalHelpers
@@ -32,8 +32,8 @@ class GRBTest < Test::Unit::TestCase
           
           should_have_branch 'new_branch', :local, :remote
           
-          should "use the branch --track command" do
-            assert_match %r{branch --track}, @output
+          should "use the branch --set-upstream command" do
+            assert_match %r{branch --set-upstream}, @output
           end
         end
         
@@ -45,8 +45,8 @@ class GRBTest < Test::Unit::TestCase
           
           should_have_branch 'new_branch', :local, :remote
           
-          should "use git config to connect the branches" do
-            assert_match %r{git\sconfig}, @output
+          should "use the branch --set-upstream command" do
+            assert_match %r{branch --set-upstream}, @output
           end
         end
       end

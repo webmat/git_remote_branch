@@ -1,4 +1,11 @@
 require 'rubygems'
+begin
+  require 'bundler/setup'
+rescue Bundler::GemNotFound => e
+  STDERR.puts e.message
+  STDERR.puts "Try running `bundle install`."
+  exit!
+end
 
 require 'rake'
 

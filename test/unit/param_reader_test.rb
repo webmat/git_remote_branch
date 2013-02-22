@@ -1,4 +1,4 @@
-require File.join( File.dirname(__FILE__), '..', 'test_helper')
+require File.expand_path('../../test_helper', __FILE__)
 require "#{TEST_DIR}/helpers/constants"
 
 class ParamReaderTest < Test::Unit::TestCase
@@ -194,7 +194,7 @@ class ParamReaderTest < Test::Unit::TestCase
     GitRemoteBranch::COMMANDS.each_pair do |cmd, params|
       should "recognize all #{cmd} aliases" do
         params[:aliases].each do |alias_|
-          assert cmd, grb.get_action(alias_) 
+          assert cmd, grb.get_action(alias_).to_s
         end
       end
     end

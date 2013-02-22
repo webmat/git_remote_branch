@@ -1,4 +1,4 @@
-require 'rake/rdoctask'
+require 'rdoc/task'
 
 desc 'Generate rdoc documentation'
 Rake::RDocTask.new(:rdoc) do |rdoc|
