@@ -37,7 +37,7 @@ module GitRemoteBranch
       :commands => [
         '"#{GIT} push #{origin} #{branch_name}:refs/heads/#{branch_name}"',
         '"#{GIT} fetch #{origin}"',
-        '"#{GIT} branch --set-upstream #{branch_name} #{origin}/#{branch_name}"',
+        '"#{GIT} branch --set-upstream-to=#{origin}/#{branch_name} #{branch_name}"',
         '"#{GIT} checkout #{branch_name}"'
       ]
     },
@@ -70,7 +70,7 @@ module GitRemoteBranch
       :aliases  => %w{track follow grab fetch},
       :commands => [
         '"#{GIT} fetch #{origin}"',
-        '"#{GIT} branch --set-upstream #{branch_name} #{origin}/#{branch_name}"'
+        '"#{GIT} branch --set-upstream-to=#{origin}/#{branch_name} #{branch_name}"'
       ]
     }
   } unless defined?(COMMANDS)
