@@ -10,6 +10,7 @@ require 'test/unit'
 
 require 'shoulda'
 require 'mocha'
+require 'pry-nav'
 
 TEST_DIR = File.dirname(__FILE__)
 
