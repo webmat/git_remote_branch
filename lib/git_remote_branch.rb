@@ -37,7 +37,7 @@ module GitRemoteBranch
       :commands => [
         '"#{GIT} push #{origin} #{branch_name}:refs/heads/#{branch_name}"',
         '"#{GIT} fetch #{origin}"',
-        '"#{GIT} branch --set-upstream-to=#{origin}/#{branch_name} #{branch_name}"',
+        '"#{GIT} branch -u #{origin}/#{branch_name} #{branch_name}"',
         '"#{GIT} checkout #{branch_name}"'
       ]
     },
