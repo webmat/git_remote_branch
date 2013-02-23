@@ -1,3 +1,9 @@
+# Reminder when shipping a version
+# - Bump the version in lib/version.rb
+# - Commit & push everything
+# - rake gem gem:install # then sanity check that it works
+# - rake gem:feeling_lucky # uploads the gem, then tags the commit
+
 require 'yaml'
 
 gem_name  = GitRemoteBranch::NAME
