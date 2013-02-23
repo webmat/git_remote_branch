@@ -32,8 +32,8 @@ class GRBTest < Test::Unit::TestCase
           
           should_have_branch 'new_branch', :local, :remote
           
-          should "use the branch --set-upstream command" do
-            assert_match %r{branch --set-upstream}, @output
+          should "use the branch --track command" do
+            assert_match %r{branch --track}, @output
           end
         end
         
@@ -45,8 +45,8 @@ class GRBTest < Test::Unit::TestCase
           
           should_have_branch 'new_branch', :local, :remote
           
-          should "use the branch --set-upstream command" do
-            assert_match %r{branch --set-upstream}, @output
+          should "use the branch --track command" do
+            assert_match %r{branch --track}, @output
           end
         end
       end
