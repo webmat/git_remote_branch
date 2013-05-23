@@ -1,4 +1,4 @@
-= Why git_remote_branch?
+== Why git_remote_branch?
 
 git_remote_branch is a simple command-line tool that makes it very easy to manipulate
 branches published in shared repositories.
@@ -15,7 +15,7 @@ Note: git_remote_branch assumes that the local and remote branches have the
 same name. Multiple remote repositories (or origins) are supported.
 
 
-= Installation
+== Installation
 
   gem install git_remote_branch
 
@@ -25,7 +25,7 @@ color output:
   gem install windows-pr win32console
 
 
-= Usage
+== Usage
 
 Notes:
 - parts between brackets are optional
@@ -38,7 +38,7 @@ Available commands (with aliases):
 
   $ grb [-h|help]    #=> Displays help
 
-=== create (alias: new)
+==== create (alias: new)
 
 Create a new local branch as well as a corresponding remote branch based on the
 branch you currently have checked out. 
@@ -47,7 +47,7 @@ Track the new remote branch. Checkout the new branch.
   $ grb create branch_name [origin_server]
 
 
-=== publish (aliases: remotize, share)
+==== publish (aliases: remotize, share)
 
 Publish an existing local branch to the remote server.
 Set up the local branch to track the new remote branch.
@@ -55,7 +55,7 @@ Set up the local branch to track the new remote branch.
   $ grb publish branch_name [origin_server]
 
 
-=== delete (aliases: destroy, kill, remove, rm)
+==== delete (aliases: destroy, kill, remove, rm)
 
 Delete the remote branch then delete the local branch.
 The local branch is not deleted if there are pending changes.
@@ -63,14 +63,14 @@ The local branch is not deleted if there are pending changes.
   $ grb delete branch_name [origin_server]
 
 
-=== track (aliases: follow grab fetch)
+==== track (aliases: follow grab fetch)
 
 Track an existing remote branch locally and checkout the branch.
 
   $ grb track branch_name [origin_server]
 
 
-=== rename (aliases: rn mv move)
+==== rename (aliases: rn mv move)
 
 Rename a remote branch and its local tracking branch.
 The branch you want to rename must be checked out.
@@ -79,7 +79,7 @@ The branch you want to rename must be checked out.
   $ grb rename new_branch_name [origin_server]
 
 
-=== explain
+==== explain
 
 All commands can be prepended by the word 'explain'.  Instead of executing the
 command, git_remote_branch will simply output the list of commands you need to
@@ -110,7 +110,7 @@ Explain your specific case:
 
 This, of course, works for each of the grb commands.
 
-= More on git_remote_branch
+== More on git_remote_branch
 
 - {Documentation}[http://rubydoc.info/gems/git_remote_branch/0.3.3/frames]
 - {Code}[https://github.com/webmat/git_remote_branch]
@@ -118,12 +118,12 @@ This, of course, works for each of the grb commands.
 - News at {Mathieu Martin's blog}[http://programblings.com]
 
 
-== History
+=== History
 
 git_remote_branch in its current form was inspired by a script created by Carl Mercier and made public on his blog: {No nonsense GIT, part 1: git-remote-branch}[http://blog.carlmercier.com/2008/01/25/no-nonsense-git-part-1-git-remote-branch/]
 
 
-== Contributors
+=== Contributors
 
 - {Mathieu Martin}[http://www.programblings.com]
 - {Ivan}[https://github.com/toy]
@@ -132,17 +132,17 @@ git_remote_branch in its current form was inspired by a script created by Carl M
 - {Carl Mercier}[https://github.com/cmer]
 
 
-== Legalese
+=== Legalese
 
 git_remote_branch is licensed under the MIT License. See the file LICENSE for details.
 
-=== Supported platforms
+==== Supported platforms
 
 This version of git_remote_branch has been tested with
 
 - OS X Mountain Lion
 - past versions were known to work on Linux and Windows
-- Ruby 1.8.7, 1.9.2, 1.9.3
+- Ruby 1.9.3
 - git 1.7+
 
 Let me know if you encounter problems running git_remote_branch with your platform.
