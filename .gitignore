@@ -1,5 +1,4 @@
-.rvmrc
-.rbenv-version
+.ruby-*
 .DS_Store
 pkg
 coverage
