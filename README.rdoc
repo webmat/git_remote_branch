@@ -24,6 +24,13 @@ color output:
 
   gem install windows-pr win32console
 
+=== Auto-completion
+
+If you use zsh with {oh-my-zsh}[https://github.com/robbyrussell/oh-my-zsh],
+you can have grb auto-completion by using the {git-remote-branch plugin}[https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/git-remote-branch].
+
+  # ~/.zshrc
+  plugins=(git git-remote-branch ...)
 
 == Usage
 
