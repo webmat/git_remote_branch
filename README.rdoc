@@ -19,6 +19,11 @@ same name. Multiple remote repositories (or origins) are supported.
 
   gem install git_remote_branch
 
+If you use RVM, you may want to automatically install it on all rubies
+you'll install in the future:
+
+  echo git_remote_branch >> ~/.rvm/gemsets/global.gems
+
 If you're on Windows, you can optionally install the following gems, to get
 color output:
 
