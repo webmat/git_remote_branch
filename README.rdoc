@@ -35,7 +35,8 @@ you can have grb auto-completion by using the {git-remote-branch plugin}[https:/
 If you use bash, you can have grb auto-completion by souring `etc/grb-completion.bash`
 
   # ~/.bash_profile
-  source `gem contents git_remote_branch | grep grb-completion.bash`
+
+  [[ -s grb ]] && source `gem contents git_remote_branch | grep grb-completion.bash`
 
 or copy it to your desired destination and source it.
 
