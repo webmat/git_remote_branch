@@ -32,6 +32,14 @@ you can have grb auto-completion by using the {git-remote-branch plugin}[https:/
   # ~/.zshrc
   plugins=(git git-remote-branch ...)
 
+If you use bash, you can have grb auto-completion by souring `etc/grb-completion.bash`
+
+  # ~/.bash_profile
+
+  [[ -s grb ]] && source `gem contents git_remote_branch | grep grb-completion.bash`
+
+or copy it to your desired destination and source it.
+
 == Usage
 
 Notes:
