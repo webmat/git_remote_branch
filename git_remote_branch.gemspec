@@ -5,6 +5,7 @@ require 'version'
 Gem::Specification.new do |s|
   s.name        = GitRemoteBranch::NAME
   s.version     = GitRemoteBranch::VERSION::STRING
+  s.license     = 'MIT'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Mathieu Martin", "Carl Mercier"]
   s.email       = "webmat@gmail.com"
