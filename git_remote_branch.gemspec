@@ -25,5 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mocha'
   s.add_development_dependency 'pry'
   s.add_development_dependency 'pry-nav'
-  s.add_dependency 'rainbow'
+  s.add_dependency 'rainbow', '~> 2.0.0'
 end

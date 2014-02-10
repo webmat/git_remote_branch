@@ -142,7 +142,7 @@ module GitRemoteBranch
 
   def puts_cmd(*cmds)
     cmds.flatten.each do |c|
-      whisper "#{c}".foreground(:red)
+      whisper Rainbow("#{c}").foreground(:red)
     end
   end
 end
