@@ -1,0 +1,54 @@
+PATH
+  remote: .
+  specs:
+    git_remote_branch (0.3.7)
+      rainbow
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activesupport (3.2.12)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    bourne (1.1.2)
+      mocha (= 0.10.5)
+    coderay (1.0.9)
+    i18n (0.6.1)
+    json (1.7.7)
+    metaclass (0.0.1)
+    method_source (0.8.1)
+    mocha (0.10.5)
+      metaclass (~> 0.0.1)
+    multi_json (1.6.1)
+    pry (0.9.12)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+    pry-nav (0.2.3)
+      pry (~> 0.9.10)
+    rainbow (1.1.4)
+    rake (10.0.3)
+    rdoc (3.12.1)
+      json (~> 1.4)
+    shoulda (3.3.2)
+      shoulda-context (~> 1.0.1)
+      shoulda-matchers (~> 1.4.1)
+    shoulda-context (1.0.2)
+    shoulda-matchers (1.4.2)
+      activesupport (>= 3.0.0)
+      bourne (~> 1.1.2)
+    slop (3.4.3)
+    test-unit (2.5.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  git_remote_branch!
+  mocha
+  pry
+  pry-nav
+  rake
+  rdoc
+  shoulda
+  test-unit
