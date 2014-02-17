@@ -27,8 +27,7 @@ module GitRemoteBranch
       raise(NotOnGitRepositoryError, listing.chomp) if listing =~ /Not a git repository/i
       if listing =~ /\(no branch\)/
         raise InvalidBranchError, ["Couldn't identify the current local branch. The branch listing was:",
-          LOCAL_BRANCH_LISTING_COMMAND.foreground(:red),
-          listing].join("\n")
+          LOCAL_BRANCH_LISTING_COMMAND.red, listing].join("\n")
       end
 
       current_branch = nil

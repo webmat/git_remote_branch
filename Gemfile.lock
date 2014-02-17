@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     git_remote_branch (0.3.7)
-      rainbow
 
 GEM
   remote: https://rubygems.org/
@@ -26,7 +25,6 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
-    rainbow (1.1.4)
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)

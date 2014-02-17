@@ -10,8 +10,12 @@ module Kernel
 end
 
 class String
+  def red
+    return self if WINDOWS
+    "\e[31m#{self}\e[0m"
+  end
+
   def path_for_os
     WINDOWS ? self.gsub('/', '\\') : self
   end
 end
-

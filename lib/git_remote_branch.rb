@@ -1,5 +1,3 @@
-require 'rainbow'
-
 begin
   WINDOWS = !!(RUBY_PLATFORM =~ /win32|cygwin/)
 rescue Exception
@@ -142,7 +140,7 @@ module GitRemoteBranch
 
   def puts_cmd(*cmds)
     cmds.flatten.each do |c|
-      whisper "#{c}".foreground(:red)
+      whisper "#{c}".red
     end
   end
 end
