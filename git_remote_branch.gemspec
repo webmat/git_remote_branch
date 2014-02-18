@@ -18,11 +18,11 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_development_dependency "rake"
-  s.add_development_dependency "rdoc"
-  s.add_development_dependency 'test-unit'
-  s.add_development_dependency 'shoulda'
-  s.add_development_dependency 'mocha'
-  s.add_development_dependency 'pry'
-  s.add_development_dependency 'pry-nav'
+  s.add_development_dependency "rake", "~> 10.0.3"
+  s.add_development_dependency "rdoc", "~> 3.12.1"
+  s.add_development_dependency 'test-unit', "~> 2.5.4"
+  s.add_development_dependency 'shoulda', "~> 3.3.2"
+  s.add_development_dependency 'mocha', "~> 0.10.5"
+  s.add_development_dependency 'pry', "~> 0.9.12"
+  s.add_development_dependency 'pry-nav', "~> 0.2.3"
 end

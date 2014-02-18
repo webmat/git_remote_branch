@@ -43,10 +43,10 @@ PLATFORMS
 
 DEPENDENCIES
   git_remote_branch!
-  mocha
-  pry
-  pry-nav
-  rake
-  rdoc
-  shoulda
-  test-unit
+  mocha (~> 0.10.5)
+  pry (~> 0.9.12)
+  pry-nav (~> 0.2.3)
+  rake (~> 10.0.3)
+  rdoc (~> 3.12.1)
+  shoulda (~> 3.3.2)
+  test-unit (~> 2.5.4)
