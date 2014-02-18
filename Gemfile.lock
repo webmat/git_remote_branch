@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    git_remote_branch (0.3.7)
+    git_remote_branch (0.3.8)
 
 GEM
   remote: https://rubygems.org/
