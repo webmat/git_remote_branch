@@ -1,3 +1,10 @@
+== Why not git_remote_branch?
+
+Because this gem is barely being maintained anymore.
+Also, the code is so old that I want to cry every time I look at it :-(
+
+But it still works, I guess...
+
 == Why git_remote_branch?
 
 git_remote_branch is a simple command-line tool that makes it very easy to manipulate
