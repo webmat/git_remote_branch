@@ -1,3 +1,7 @@
+= Archived
+
+This repository is not maintained and this tool is no longer really necessary. It has therefore been archived.
+
 == Why not git_remote_branch?
 
 Because this gem is barely being maintained anymore.
